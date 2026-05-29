@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Safaricom Services - Sile Communications</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-top">
+        <div class="container">
+          <div class="logo">
+            <a href="index.html">
+              <img
+                src="images/logo.png"
+                alt="Sile Communications"
+                class="logo-img"
+              />
+              <div>
+                <div class="logo-text">
+                  Sile <span class="logo-accent">Communications</span>
+                </div>
+                <div class="logo-sub">PREMIUM ELECTRONICS · KITALE</div>
+              </div>
+            </a>
+          </div>
+          <div class="search-bar">
+            <form action="category.html" method="get">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search phones, laptops, solar panels..."
+              />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+          <div class="header-actions">
+            <div class="action-btn cart" onclick="toggleCart()">
+              <div class="action-icon-wrap">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cart-count">0</span>
+              </div>
+              <span class="action-label">Cart</span>
+            </div>
+            <div class="action-btn account" id="accountButton">
+              <a href="login.html" id="accountLink">
+                <i class="fas fa-user"></i>
+                <span class="action-label" id="userNameLabel">Login</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-bottom">
+        <div class="container">
+          <nav class="main-nav">
+            <ul class="nav-links" id="nav-links">
+              <li><a href="index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="category.html?cat=smartphones"
+                  >Smartphones <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=smartphones&brand=samsung"
+                    >Samsung</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=apple">Apple</a>
+                  <a href="category.html?cat=smartphones&brand=huawei"
+                    >Huawei</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=xiaomi"
+                    >Xiaomi</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=tecno">Tecno</a>
+                  <a href="category.html?cat=smartphones&brand=infinix"
+                    >Infinix</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=oppo">Oppo</a>
+                  <a href="category.html?cat=smartphones&brand=honor">Honor</a>
+                  <a href="category.html?cat=smartphones&brand=nokia"
+                    >Nokia/HMD</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=kabambe"
+                  >Kabambe <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=kabambe&brand=itel">Itel</a>
+                  <a href="category.html?cat=kabambe&brand=tecno">Tecno</a>
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=laptops"
+                  >Laptops <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=laptops&brand=dell">Dell</a>
+                  <a href="category.html?cat=laptops&brand=hp">HP</a>
+                  <a href="category.html?cat=laptops&brand=lenovo">Lenovo</a>
+                  <a href="category.html?cat=laptops&brand=asus">Asus</a>
+                  <a href="category.html?cat=laptops&brand=apple-mac"
+                    >Apple Mac</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=accessories"
+                  >Accessories <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=accessories&brand=smartwatches"
+                    >Smartwatches</a
+                  >
+                  <a href="category.html?cat=accessories&brand=powerbanks"
+                    >Power Banks</a
+                  >
+                  <a href="category.html?cat=accessories&brand=earbuds"
+                    >Earbuds</a
+                  >
+                  <a href="category.html?cat=accessories&brand=cases"
+                    >Phone Cases</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=content-creator"
+                  >Content Creator <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=content-creator&brand=gimbals"
+                    >Gimbals</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=mics"
+                    >Wireless Mics</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=tripods"
+                    >Tripods</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=ringlights"
+                    >Ring Lights</a
+                  >
+                </div>
+              </li>
+              <li><a href="solar-solutions.html">Solar Solutions</a></li>
+              <li><a href="safaricom-services.html">Safaricom Services</a></li>
+              <li><a href="lipa-polepole.html">Lipa Mdogo Mdogo</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+              <i class="fas fa-bars"></i>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Hero Section with Image -->
+      <div class="services-hero">
+        <div class="services-hero-content">
+          <h1>Safaricom Services</h1>
+          <p>
+            Authorized Safaricom Agent - Your one-stop shop for all Safaricom
+            services in Kitale
+          </p>
+        </div>
+        <div class="services-hero-image">
+          <img src="images/safaricom-hero.jpg" alt="Safaricom Services" />
+        </div>
+      </div>
+
+      <!-- Services Grid with Images -->
+      <div class="services-grid">
+        <div class="service-card">
+          <img src="images/service-mpesa.jpg" alt="M-PESA Registration" />
+          <div class="service-info">
+            <h3>M-PESA Registration</h3>
+            <p>New M-PESA account setup with full KYC verification</p>
+            <span class="free-badge">Free Service</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <img src="images/service-agent.jpg" alt="M-PESA Agent Registration" />
+          <div class="service-info">
+            <h3>M-PESA Agent Registration</h3>
+            <p>
+              Become an authorized M-PESA agent - complete training included
+            </p>
+            <span class="free-badge">Free Service</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <img src="images/service-sim.jpg" alt="SIM Card Replacement" />
+          <div class="service-info">
+            <h3>SIM Card Replacement</h3>
+            <p>Replace lost or damaged SIM card - instant service</p>
+            <span class="price-badge">KSh 100</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <img src="images/service-id.jpg" alt="ID Number Change" />
+          <div class="service-info">
+            <h3>ID Number Change</h3>
+            <p>Update your M-PESA ID number after ID change</p>
+            <span class="free-badge">Free Service</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <img src="images/service-fiber.jpg" alt="Home Fiber Installation" />
+          <div class="service-info">
+            <h3>Home Fiber Installation</h3>
+            <p>
+              Safaricom Home Fiber installation and setup - same day service
+            </p>
+            <span class="price-badge">KSh 3,000</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <img src="images/service-bundles.jpg" alt="Bundles Purchase" />
+          <div class="service-info">
+            <h3>Bundles Purchase</h3>
+            <p>Data, voice, and SMS bundles at discounted rates</p>
+            <span class="free-badge">Free Service</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visit Our Shop Section -->
+      <div class="visit-shop">
+        <div class="visit-shop-image">
+          <img src="images/safaricom-shop.jpg" alt="Visit Our Shop" />
+        </div>
+        <div class="visit-shop-content">
+          <h3>Visit Our Shop for Instant Service</h3>
+          <p>
+            No appointments needed. Walk in during business hours for any
+            Safaricom service.
+          </p>
+          <div class="shop-details">
+            <p>
+              <i class="fas fa-map-marker-alt"></i> Sky Plaza Building, 1st
+              Floor, Kenyatta Street, Kitale
+            </p>
+            <p>
+              <i class="fas fa-clock"></i> Monday - Friday: 8:00 AM - 6:00 PM |
+              Saturday: 9:00 AM - 4:00 PM
+            </p>
+            <p><i class="fas fa-phone"></i> Call us: 0710 102424</p>
+          </div>
+          <a href="tel:0710102424" class="btn-primary">Call for Assistance</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>Sile Communications</h4>
+            <p>Sky Plaza Building, 1st Floor<br />Kenyatta Street, Kitale</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="service-center.html">Service Center</a>
+            <a href="lipa-polepole.html">Lipa Mdogo Mdogo</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
+          </div>
+          <div class="footer-col">
+            <h4>Categories</h4>
+            <a href="category.html?cat=smartphones">Smartphones</a>
+            <a href="category.html?cat=kabambe">Kabambe</a>
+            <a href="category.html?cat=laptops">Laptops</a>
+            <a href="category.html?cat=accessories">Accessories</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>Phone: 0710 102424</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+                        <div class="social-links">
+              <a href="https://www.facebook.com/Silecommunications.ltd" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/silecommunicationsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://x.com/SileCommsLtd" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+              <a href="https://www.tiktok.com/@silecommunications" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="https://wa.me/254710102424" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Sile Communications Ltd. Authorized Safaricom Dealer.
+            All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h2>Your Cart</h2>
+          <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-footer" id="cart-footer" style="display: none">
+          <div class="cart-total">
+            <span>Total:</span
+            ><strong>KSh <span id="cart-total-modal">0</span></strong>
+          </div>
+          <a href="checkout.html" class="btn-cart-checkout"
+            >Proceed to Checkout</a
+          >
+          <a href="cart.html" class="btn-cart-view">View Cart</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+      }
+    </script>
+
+    <style>
+      /* Services Hero Section */
+      .services-hero {
+        background: linear-gradient(135deg, #059669, #10b981);
+        border-radius: 24px;
+        margin: 40px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .services-hero-content {
+        padding: 50px 40px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .services-hero-content h1 {
+        font-size: 42px;
+        margin-bottom: 15px;
+        font-weight: 800;
+      }
+
+      .services-hero-content p {
+        font-size: 16px;
+        opacity: 0.95;
+        line-height: 1.6;
+      }
+
+      .services-hero-image {
+        overflow: hidden;
+      }
+
+      .services-hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+      }
+
+      .services-hero-image:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Services Grid */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        margin-bottom: 50px;
+      }
+
+      .service-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 25px;
+        display: flex;
+        gap: 20px;
+        transition: all 0.3s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary-light);
+      }
+
+      .service-card img {
+        width: 70px;
+        height: 70px;
+        border-radius: 16px;
+        object-fit: cover;
+      }
+
+      .service-info {
+        flex: 1;
+      }
+
+      .service-info h3 {
+        margin-bottom: 8px;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--dark);
+      }
+
+      .service-info p {
+        color: var(--text-light);
+        margin-bottom: 12px;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .free-badge,
+      .price-badge {
+        display: inline-block;
+        padding: 4px 14px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .free-badge {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .price-badge {
+        background: #fef3c7;
+        color: #d97706;
+      }
+
+      /* Visit Shop Section */
+      .visit-shop {
+        background: var(--bg-light);
+        border-radius: 24px;
+        margin-bottom: 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+
+      .visit-shop-image {
+        overflow: hidden;
+      }
+
+      .visit-shop-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+      }
+
+      .visit-shop-image:hover img {
+        transform: scale(1.05);
+      }
+
+      .visit-shop-content {
+        padding: 45px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .visit-shop-content h3 {
+        font-size: 28px;
+        margin-bottom: 15px;
+        color: var(--dark);
+      }
+
+      .shop-details {
+        margin: 20px 0;
+      }
+
+      .shop-details p {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--text-light);
+        font-size: 14px;
+      }
+
+      .shop-details i {
+        width: 22px;
+        color: var(--primary);
+        font-size: 16px;
+      }
+
+      .visit-shop-content .btn-primary {
+        align-self: flex-start;
+        margin-top: 10px;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .services-hero {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .services-hero-content {
+          padding: 40px 30px;
+          order: 2;
+        }
+        .services-hero-image {
+          order: 1;
+          max-height: 200px;
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .visit-shop {
+          grid-template-columns: 1fr;
+        }
+        .visit-shop-content {
+          padding: 35px 25px;
+          text-align: center;
+        }
+        .visit-shop-content .btn-primary {
+          align-self: center;
+        }
+        .shop-details p {
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .services-hero-content h1 {
+          font-size: 32px;
+        }
+        .services-hero-content p {
+          font-size: 14px;
+        }
+        .service-card {
+          flex-direction: column;
+          text-align: center;
+          align-items: center;
+        }
+        .service-card img {
+          width: 80px;
+          height: 80px;
+        }
+        .visit-shop-content h3 {
+          font-size: 24px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .services-hero-content {
+          padding: 30px 20px;
+        }
+        .services-hero-content h1 {
+          font-size: 28px;
+        }
+        .visit-shop-content {
+          padding: 25px 20px;
+        }
+        .visit-shop-content h3 {
+          font-size: 22px;
+        }
+        .shop-details p {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </body>
+</html>

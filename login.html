@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login / Register - Sile Communications</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --primary: #10b981;
+        --primary-dark: #059669;
+        --primary-light: #34d399;
+        --dark: #0f172a;
+        --text: #374151;
+        --text-light: #6b7280;
+        --border: #e5e7eb;
+        --bg-light: #f8fafc;
+        --white: #ffffff;
+        --danger: #ef4444;
+      }
+      body {
+        font-family: "Outfit", sans-serif;
+        background: linear-gradient(135deg, #0f2b44, #1e3a5f);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .auth-container {
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      .auth-card {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        background: white;
+        border-radius: 32px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+      .auth-hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+      }
+      .auth-hero h1 {
+        font-size: 32px;
+        margin-bottom: 16px;
+      }
+      .auth-hero p {
+        font-size: 15px;
+        line-height: 1.5;
+        opacity: 0.9;
+      }
+      .auth-form {
+        padding: 48px;
+      }
+      .tabs {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 32px;
+        border-bottom: 2px solid var(--border);
+      }
+      .tab-btn {
+        background: none;
+        border: none;
+        padding: 12px 0;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        color: var(--text-light);
+        position: relative;
+      }
+      .tab-btn.active {
+        color: var(--primary);
+      }
+      .tab-btn.active::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--primary);
+      }
+      .form-panel {
+        display: none;
+      }
+      .form-panel.active {
+        display: block;
+      }
+      .input-group {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        margin-bottom: 20px;
+        padding: 0 16px;
+        transition: all 0.2s;
+      }
+      .input-group:focus-within {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+      }
+      .input-group i {
+        color: var(--text-light);
+        font-size: 18px;
+      }
+      .input-group input {
+        flex: 1;
+        padding: 16px 12px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        background: transparent;
+        font-family: inherit;
+      }
+      .row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 20px 0;
+        font-size: 13px;
+      }
+      .btn-primary {
+        width: 100%;
+        padding: 14px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: background 0.2s;
+      }
+      .btn-primary:hover {
+        background: var(--primary-dark);
+      }
+      .btn-primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid white;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        display: none;
+      }
+      .btn-primary.loading .spinner {
+        display: inline-block;
+      }
+      .btn-primary.loading .btn-text {
+        display: none;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .divider {
+        text-align: center;
+        margin: 24px 0;
+        position: relative;
+      }
+      .divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--border);
+      }
+      .divider span {
+        background: white;
+        padding: 0 15px;
+        position: relative;
+        color: var(--text-light);
+        font-size: 13px;
+      }
+      .social-buttons {
+        display: flex;
+        gap: 12px;
+      }
+      .social-btn {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: white;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s;
+      }
+      .social-btn.google {
+        color: #ea4335;
+      }
+      .social-btn.facebook {
+        color: #1877f2;
+      }
+      .social-btn:hover {
+        background: var(--bg-light);
+        transform: translateY(-2px);
+      }
+      .message {
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 12px;
+        font-size: 13px;
+        text-align: center;
+        display: none;
+      }
+      .message.error {
+        background: #fee2e2;
+        color: #dc2626;
+        display: block;
+      }
+      .message.success {
+        background: #dcfce7;
+        color: #166534;
+        display: block;
+      }
+      @media (max-width: 900px) {
+        .auth-card {
+          grid-template-columns: 1fr;
+        }
+        .auth-hero {
+          display: none;
+        }
+        .auth-form {
+          padding: 32px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-hero">
+          <h1>Welcome to Sile Communications</h1>
+          <p>
+            Sign in to access your account, track orders, manage Safaricom
+            services, and enjoy exclusive deals on premium electronics in
+            Kitale.
+          </p>
+        </div>
+        <div class="auth-form">
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="login">Sign In</button>
+            <button class="tab-btn" data-tab="register">Create Account</button>
+          </div>
+
+          <!-- Login Panel -->
+          <div id="loginPanel" class="form-panel active">
+            <form id="loginForm">
+              <div class="input-group">
+                <i class="fas fa-envelope"></i
+                ><input
+                  type="email"
+                  id="loginEmail"
+                  placeholder="Email Address"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <i class="fas fa-lock"></i
+                ><input
+                  type="password"
+                  id="loginPassword"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div class="checkbox">
+                <input type="checkbox" id="rememberMe" /><label
+                  >Remember me</label
+                >
+              </div>
+              <button type="submit" class="btn-primary" id="loginBtn">
+                <span class="btn-text">Sign In</span
+                ><span class="spinner"></span>
+              </button>
+              <div id="loginMessage" class="message"></div>
+            </form>
+            <div class="divider"><span>Or continue with</span></div>
+            <div class="social-buttons">
+              <button
+                class="social-btn google"
+                onclick="alert('Google login coming soon')"
+              >
+                <i class="fab fa-google"></i> Google
+              </button>
+              <button
+                class="social-btn facebook"
+                onclick="alert('Facebook login coming soon')"
+              >
+                <i class="fab fa-facebook-f"></i> Facebook
+              </button>
+            </div>
+          </div>
+
+          <!-- Register Panel -->
+          <div id="registerPanel" class="form-panel">
+            <form id="registerForm">
+              <div class="row-2">
+                <div class="input-group">
+                  <i class="fas fa-user"></i
+                  ><input
+                    type="text"
+                    id="regFirstName"
+                    placeholder="First Name"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <i class="fas fa-user"></i
+                  ><input
+                    type="text"
+                    id="regLastName"
+                    placeholder="Last Name"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="input-group">
+                <i class="fas fa-phone"></i
+                ><input
+                  type="tel"
+                  id="regPhone"
+                  placeholder="Phone Number"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <i class="fas fa-envelope"></i
+                ><input
+                  type="email"
+                  id="regEmail"
+                  placeholder="Email Address"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <i class="fas fa-lock"></i
+                ><input
+                  type="password"
+                  id="regPassword"
+                  placeholder="Password (min. 6 chars)"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <i class="fas fa-lock"></i
+                ><input
+                  type="password"
+                  id="regConfirm"
+                  placeholder="Confirm Password"
+                  required
+                />
+              </div>
+              <div id="otpSection" style="display: none">
+                <div class="input-group">
+                  <i class="fas fa-key"></i
+                  ><input
+                    type="text"
+                    id="regOtp"
+                    placeholder="Enter OTP Code"
+                    maxlength="6"
+                  />
+                </div>
+                <p style="text-align: center; margin: 5px 0">
+                  <a href="#" id="resendOtpBtn" style="color: var(--primary)"
+                    >Resend OTP</a
+                  >
+                </p>
+              </div>
+              <div class="checkbox">
+                <input type="checkbox" id="termsCheckbox" required /><label
+                  >I agree to the
+                  <a href="terms.html">Terms and Conditions</a></label
+                >
+              </div>
+              <button type="submit" class="btn-primary" id="registerBtn">
+                <span class="btn-text">Create Account</span
+                ><span class="spinner"></span>
+              </button>
+              <div id="registerMessage" class="message"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script>
+      // Use the global API_BASE from config.js
+      const API_BASE_URL = window.API_BASE + "/auth";
+      let otpSentFlag = false;
+      let pendingEmail = "";
+
+      function showMessage(elId, text, isError = true) {
+        const el = document.getElementById(elId);
+        el.textContent = text;
+        el.className = `message ${isError ? "error" : "success"}`;
+        setTimeout(() => {
+          if (el.textContent === text) el.className = "message";
+        }, 5000);
+      }
+
+      function setButtonLoading(btnId, loading) {
+        const btn = document.getElementById(btnId);
+        if (loading) {
+          btn.classList.add("loading");
+          btn.disabled = true;
+        } else {
+          btn.classList.remove("loading");
+          btn.disabled = false;
+        }
+      }
+
+      // Tab switching
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          document
+            .getElementById("loginPanel")
+            .classList.toggle("active", btn.dataset.tab === "login");
+          document
+            .getElementById("registerPanel")
+            .classList.toggle("active", btn.dataset.tab === "register");
+          otpSentFlag = false;
+          document.getElementById("otpSection").style.display = "none";
+          document.getElementById("regOtp").value = "";
+        });
+      });
+
+      // Login handler
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          setButtonLoading("loginBtn", true);
+          const email = document.getElementById("loginEmail").value.trim();
+          const password = document.getElementById("loginPassword").value;
+          try {
+            const res = await fetch(`${API_BASE_URL}/login`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, password }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+              localStorage.setItem("authToken", data.token);
+              localStorage.setItem("user", JSON.stringify(data.user));
+              window.location.href = "account.html";
+            } else {
+              showMessage("loginMessage", data.error || "Login failed", true);
+            }
+          } catch (err) {
+            showMessage("loginMessage", "Server error. Try again.", true);
+          } finally {
+            setButtonLoading("loginBtn", false);
+          }
+        });
+
+      // Send OTP
+      async function sendOtp(email) {
+        setButtonLoading("registerBtn", true);
+        try {
+          const res = await fetch(`${API_BASE_URL}/send-otp`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+          const data = await res.json();
+          if (res.ok) {
+            showMessage(
+              "registerMessage",
+              "OTP sent! Check your email.",
+              false,
+            );
+            document.getElementById("otpSection").style.display = "block";
+            otpSentFlag = true;
+            pendingEmail = email;
+          } else {
+            showMessage(
+              "registerMessage",
+              data.error || "Failed to send OTP",
+              true,
+            );
+          }
+        } catch (err) {
+          showMessage("registerMessage", "Failed to send OTP", true);
+        } finally {
+          setButtonLoading("registerBtn", false);
+        }
+      }
+
+      // Register with OTP
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const firstName = document
+            .getElementById("regFirstName")
+            .value.trim();
+          const lastName = document.getElementById("regLastName").value.trim();
+          const phone = document.getElementById("regPhone").value.trim();
+          const email = document.getElementById("regEmail").value.trim();
+          const password = document.getElementById("regPassword").value;
+          const confirm = document.getElementById("regConfirm").value;
+          const otp = document.getElementById("regOtp").value.trim();
+          const terms = document.getElementById("termsCheckbox").checked;
+
+          if (password !== confirm) {
+            showMessage("registerMessage", "Passwords do not match", true);
+            return;
+          }
+          if (!terms) {
+            showMessage("registerMessage", "You must agree to the terms", true);
+            return;
+          }
+          if (!otpSentFlag) {
+            await sendOtp(email);
+            return;
+          }
+          if (!otp) {
+            showMessage("registerMessage", "Please enter the OTP code", true);
+            return;
+          }
+
+          setButtonLoading("registerBtn", true);
+          try {
+            const res = await fetch(`${API_BASE_URL}/verify-otp-register`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email,
+                otp,
+                firstName,
+                lastName,
+                phone,
+                password,
+              }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+              localStorage.setItem("authToken", data.token);
+              localStorage.setItem("user", JSON.stringify(data.user));
+              window.location.href = "account.html";
+            } else {
+              showMessage(
+                "registerMessage",
+                data.error || "Registration failed",
+                true,
+              );
+            }
+          } catch (err) {
+            showMessage("registerMessage", "Registration failed", true);
+          } finally {
+            setButtonLoading("registerBtn", false);
+          }
+        });
+
+      // Resend OTP
+      document
+        .getElementById("resendOtpBtn")
+        .addEventListener("click", async (e) => {
+          e.preventDefault();
+          const email = document.getElementById("regEmail").value.trim();
+          if (!email) {
+            showMessage("registerMessage", "Enter email first", true);
+            return;
+          }
+          await sendOtp(email);
+        });
+    </script>
+  </body>
+</html>

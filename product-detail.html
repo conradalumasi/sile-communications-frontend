@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="pageTitle">Product Details - Sile Communications</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-top">
+        <div class="container">
+          <div class="logo">
+            <a href="index.html">
+              <img
+                src="images/logo.png"
+                alt="Sile Communications"
+                class="logo-img"
+              />
+              <div>
+                <div class="logo-text">
+                  Sile <span class="logo-accent">Communications</span>
+                </div>
+                <div class="logo-sub">Premium Electronics · Kitale</div>
+              </div>
+            </a>
+          </div>
+          <div class="search-bar">
+            <form action="category.html" method="get">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search phones, laptops, solar panels..."
+              />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+          <div class="header-actions">
+            <div class="action-btn cart" onclick="toggleCart()">
+              <div class="action-icon-wrap">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cart-count">0</span>
+              </div>
+              <span class="action-label">Cart</span>
+            </div>
+            <div class="action-btn account" id="accountButton">
+              <a href="login.html" id="accountLink">
+                <i class="fas fa-user"></i>
+                <span class="action-label" id="userNameLabel">Login</span>
+              </a>
+            </div>
+                <span class="action-label">Login</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-bottom">
+        <div class="container">
+          <nav class="main-nav">
+            <ul class="nav-links" id="nav-links">
+              <li><a href="index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="category.html?cat=smartphones"
+                  >Smartphones <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=smartphones&brand=samsung"
+                    >Samsung</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=apple">Apple</a>
+                  <a href="category.html?cat=smartphones&brand=huawei"
+                    >Huawei</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=xiaomi"
+                    >Xiaomi</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=tecno">Tecno</a>
+                  <a href="category.html?cat=smartphones&brand=infinix"
+                    >Infinix</a
+                  >
+                </div>
+              </li>
+              <li><a href="solar-solutions.html">Solar Solutions</a></li>
+              <li><a href="safaricom-services.html">Safaricom Services</a></li>
+              <li><a href="lipa-polepole.html">Lipa Mdogo Mdogo</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+              <i class="fas fa-bars"></i>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="product-detail-wrapper" id="product-detail-container"></div>
+    </div>
+
+    <section class="related-products">
+      <div class="container">
+        <div class="section-header">
+          <h2>You May Also Like</h2>
+        </div>
+        <div class="products-grid" id="related-products"></div>
+      </div>
+    </section>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>Sile Communications</h4>
+            <p>Sky Plaza Building, ground Floor<br />Kenyatta Street, Kitale</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="service-center.html">Service Center</a>
+            <a href="lipa-polepole.html">Lipa Mdogo Mdogo</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
+          </div>
+          <div class="footer-col">
+            <h4>Categories</h4>
+            <a href="category.html?cat=smartphones">Smartphones</a>
+            <a href="category.html?cat=laptops">Laptops</a>
+            <a href="category.html?cat=accessories">Accessories</a>
+            <a href="category.html?cat=content-creator">Content Creator Kits</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>Phone: 0710 102424</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+                        <div class="social-links">
+              <a href="https://www.facebook.com/Silecommunications.ltd" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/silecommunicationsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://x.com/SileCommsLtd" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+              <a href="https://www.tiktok.com/@silecommunications" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="https://wa.me/254710102424" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Sile Communications Ltd. Authorized Safaricom Dealer.
+            All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h2>Your Cart</h2>
+          <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-footer" id="cart-footer" style="display: none">
+          <div class="cart-total">
+            <span>Total:</span
+            ><strong>KSh <span id="cart-total-modal">0</span></strong>
+          </div>
+          <a href="checkout.html" class="btn-cart-checkout"
+            >Proceed to Checkout</a
+          >
+          <a href="cart.html" class="btn-cart-view">View Cart</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      let currentProduct = null;
+      let currentQty = 1;
+
+      function loadProductDetails() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get("id"));
+
+        if (!productId) {
+          window.location.href = "category.html";
+          return;
+        }
+
+        const product = PRODUCTS.find((p) => p.id === productId);
+        if (!product) {
+          window.location.href = "category.html";
+          return;
+        }
+
+        currentProduct = product;
+        document.title = `${product.name} - Sile Communications`;
+
+        const container = document.getElementById("product-detail-container");
+        if (!container) return;
+
+        let badges = "";
+        if (product.is_hot)
+          badges += '<span class="badge-hot-detail">HOT</span>';
+        if (product.is_offer)
+          badges += '<span class="badge-offer-detail">OFFER</span>';
+
+        container.innerHTML = `
+      <div class="product-detail-layout">
+        <div class="product-detail-images">
+          <div class="main-product-image">
+            <img src="${product.image}" alt="${product.name}" id="mainProductImage" onerror="this.src='https://via.placeholder.com/500x500'">
+          </div>
+          <div class="product-thumbnails">
+            <img src="${product.image}" alt="Thumb 1" class="thumbnail active" onclick="changeImage('${product.image}')">
+            <img src="${product.image2 || product.image}" alt="Thumb 2" class="thumbnail" onerror="this.style.display='none'" onclick="changeImage('${product.image2 || product.image}')">
+            <img src="${product.image3 || product.image}" alt="Thumb 3" class="thumbnail" onerror="this.style.display='none'" onclick="changeImage('${product.image3 || product.image}')">
+          </div>
+        </div>
+        <div class="product-detail-info">
+          <div class="product-badges">${badges}</div>
+          <h1 class="product-detail-title">${product.name}</h1>
+          <div class="product-brand-row">
+            <span class="product-brand-tag">${product.brand}</span>
+            <div class="product-rating">
+              <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+              <span>(24 customer reviews)</span>
+              <span class="stock-status in-stock">In Stock</span>
+            </div>
+          </div>
+          <div class="product-price-section">
+            <span class="product-detail-price">KSh ${product.price.toLocaleString()}</span>
+            ${product.old_price ? `<span class="product-old-price">KSh ${product.old_price.toLocaleString()}</span>` : ""}
+          </div>
+          <div class="product-description-section">
+            <h3>Product Description</h3>
+            <p>${product.description || product.desc || "No description available."}</p>
+            <div class="specs-section">
+              <h4>Key Specifications:</h4>
+              <ul>
+                ${
+                  product.specs
+                    ? product.specs
+                        .split(",")
+                        .map(
+                          (s) =>
+                            `<li><i class="fas fa-check-circle"></i> ${s.trim()}</li>`,
+                        )
+                        .join("")
+                    : '<li><i class="fas fa-check-circle"></i> Premium quality device</li>'
+                }
+              </ul>
+            </div>
+          </div>
+          <div class="product-meta-info">
+            <p><strong>SKU:</strong> SILE-${product.id}</p>
+            <p><strong>Category:</strong> ${product.category}</p>
+            <p><strong>Brand:</strong> ${product.brand}</p>
+          </div>
+          <div class="quantity-section">
+            <label>Quantity:</label>
+            <div class="quantity-control">
+              <button class="qty-btn" onclick="updateQty(-1)">-</button>
+              <input type="number" id="quantity" value="1" min="1" max="10">
+              <button class="qty-btn" onclick="updateQty(1)">+</button>
+            </div>
+          </div>
+          <div class="action-buttons">
+            <button class="btn-add-cart-large" onclick="addToCartAndNotify()"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+            <button class="btn-buy-now" onclick="buyNow()"><i class="fas fa-bolt"></i> Buy Now</button>
+          </div>
+          <button class="btn-wishlist-detail" id="detailWishlistBtn" data-wishlist-id="${product.id}" onclick="toggleWishlist(${product.id})">
+            <i class="far fa-heart"></i> Save to Wishlist
+          </button>
+          <a href="https://wa.me/254710102424?text=Hi, I'd like to order: ${encodeURIComponent(product.name)} – KSh ${product.price.toLocaleString()}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-order">
+            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+          </a>
+          <div class="delivery-info-box">
+            <h4>Delivery Information:</h4>
+            <ul>
+              <li><i class="fas fa-truck"></i> Within Kitale CBD - KSh 100</li>
+              <li><i class="fas fa-truck"></i> Outside Kitale - KSh 400</li>
+              <li><i class="fas fa-store"></i> Shop Pickup - Free</li>
+              <li><i class="fas fa-clock"></i> Same day delivery for orders before 2PM</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    `;
+
+        loadRelatedProducts(product.category, product.id);
+        
+        // Sticky Mobile CTA
+        document.body.classList.add('has-sticky-cta');
+        let stickyCta = document.getElementById('sticky-mobile-cta');
+        if (!stickyCta) {
+          stickyCta = document.createElement('div');
+          stickyCta.id = 'sticky-mobile-cta';
+          stickyCta.className = 'sticky-mobile-cta';
+          document.body.appendChild(stickyCta);
+        }
+        stickyCta.innerHTML = `
+          <div class="sticky-product-name">${product.name}</div>
+          <div class="sticky-btns">
+            <button class="sticky-add-cart" onclick="addToCartAndNotify()"><i class="fas fa-shopping-cart"></i> Cart</button>
+            <button class="sticky-buy-now" onclick="buyNow()"><i class="fas fa-bolt"></i> Buy Now</button>
+          </div>
+        `;
+
+        // Refresh wishlist buttons to correct state
+        if (typeof refreshAllWishlistButtons === 'function') refreshAllWishlistButtons();
+      }
+
+      function updateQty(change) {
+        const qtyInput = document.getElementById("quantity");
+        let newValue = parseInt(qtyInput.value) + change;
+        if (newValue >= 1 && newValue <= 10) {
+          qtyInput.value = newValue;
+          currentQty = newValue;
+        }
+      }
+
+      function changeImage(src) {
+        const mainImage = document.getElementById("mainProductImage");
+        if (mainImage && src) mainImage.src = src;
+        document.querySelectorAll(".thumbnail").forEach((thumb) => {
+          thumb.classList.remove("active");
+          if (
+            thumb.src === src ||
+            (thumb.src && src && thumb.src.includes(src.split("/").pop()))
+          ) {
+            thumb.classList.add("active");
+          }
+        });
+      }
+
+      function addToCartAndNotify() {
+        if (currentProduct) {
+          const qty = parseInt(document.getElementById("quantity").value) || 1;
+          addToCart(currentProduct.id, qty);
+        }
+      }
+
+      function buyNow() {
+        if (currentProduct) {
+          const qty = parseInt(document.getElementById("quantity").value) || 1;
+          addToCart(currentProduct.id, qty);
+          setTimeout(() => (window.location.href = "checkout.html"), 500);
+        }
+      }
+
+      function loadRelatedProducts(category, currentId) {
+        const related = PRODUCTS.filter(
+          (p) => p.category === category && p.id !== currentId,
+        ).slice(0, 4);
+        const container = document.getElementById("related-products");
+        if (!container) return;
+        if (related.length === 0) {
+          container.innerHTML =
+            '<p style="text-align:center; padding:40px;">No related products found.</p>';
+          return;
+        }
+        container.innerHTML = related
+          .map((product) => createProductCard(product))
+          .join("");
+      }
+
+      // Wait for products to load
+      if (window.PRODUCTS && window.PRODUCTS.length > 0) {
+        loadProductDetails();
+      } else {
+        window.addEventListener("productsLoaded", loadProductDetails);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        updateCartUI();
+      });
+    </script>
+
+    <style>
+      .product-detail-wrapper {
+        margin: 40px 0;
+      }
+      .product-detail-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        background: white;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        padding: 30px;
+      }
+      .product-detail-images {
+        background: var(--bg-light);
+        border-radius: 16px;
+        padding: 20px;
+      }
+      .main-product-image {
+        text-align: center;
+        margin-bottom: 20px;
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .main-product-image img {
+        max-width: 100%;
+        max-height: 400px;
+        object-fit: contain;
+      }
+      .product-thumbnails {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+      .thumbnail {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        background: white;
+      }
+      .thumbnail.active {
+        border-color: var(--primary);
+      }
+      .product-detail-info {
+        padding: 10px;
+      }
+      .badge-hot-detail,
+      .badge-offer-detail {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-right: 8px;
+        margin-bottom: 15px;
+      }
+      .badge-hot-detail {
+        background: var(--warning);
+        color: white;
+      }
+      .badge-offer-detail {
+        background: var(--danger);
+        color: white;
+      }
+      .product-detail-title {
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: var(--dark);
+      }
+      .product-brand-tag {
+        display: inline-block;
+        background: var(--bg-light);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+      .product-rating {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+      }
+      .stars {
+        color: var(--warning);
+      }
+      .stock-status {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+      }
+      .in-stock {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .product-price-section {
+        margin-bottom: 25px;
+      }
+      .product-detail-price {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--danger);
+      }
+      .product-old-price {
+        font-size: 18px;
+        text-decoration: line-through;
+        color: var(--text-light);
+        margin-left: 10px;
+      }
+      .product-description-section {
+        margin-bottom: 25px;
+      }
+      .product-description-section h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+      .product-description-section p {
+        color: var(--text-light);
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+      .specs-section h4 {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      .specs-section ul {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .specs-section li {
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .specs-section li i {
+        color: var(--primary);
+      }
+      .product-meta-info {
+        background: var(--bg-light);
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+      }
+      .product-meta-info p {
+        margin-bottom: 5px;
+        font-size: 13px;
+      }
+      .quantity-section {
+        margin-bottom: 25px;
+      }
+      .quantity-section label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+      .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .qty-btn {
+        width: 35px;
+        height: 35px;
+        border: 1px solid var(--border);
+        background: white;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 8px;
+      }
+      .quantity-control input {
+        width: 60px;
+        height: 35px;
+        text-align: center;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+      }
+      .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      .btn-add-cart-large,
+      .btn-buy-now {
+        flex: 1;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .btn-add-cart-large {
+        background: var(--secondary);
+        color: white;
+      }
+      .btn-add-cart-large:hover {
+        background: var(--primary);
+      }
+      .btn-buy-now {
+        background: var(--primary);
+        color: white;
+      }
+      .delivery-info-box {
+        background: var(--bg-light);
+        padding: 15px;
+        border-radius: 12px;
+      }
+      .delivery-info-box h4 {
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+      .delivery-info-box ul {
+        list-style: none;
+      }
+      .delivery-info-box li {
+        margin-bottom: 6px;
+        font-size: 13px;
+      }
+      .delivery-info-box i {
+        width: 25px;
+        color: var(--primary);
+      }
+
+      @media (max-width: 768px) {
+        .product-detail-layout {
+          grid-template-columns: 1fr;
+          padding: 20px;
+        }
+        .product-detail-title {
+          font-size: 22px;
+        }
+        .product-detail-price {
+          font-size: 24px;
+        }
+        .action-buttons {
+          flex-direction: column;
+        }
+        .specs-section ul {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </body>
+</html>

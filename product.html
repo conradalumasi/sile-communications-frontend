@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="pageTitle">Product Detail - Sile Communications</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Same header -->
+    <div class="top-bar">
+      <div class="container">
+        <div class="contact-info">
+          <span><i class="fas fa-phone-alt"></i> 0710 102424</span>
+          <span><i class="fas fa-map-marker-alt"></i> Sky Plaza, Kitale</span>
+        </div>
+        <div class="user-actions">
+          <a href="account.html"><i class="fas fa-user"></i> My Account</a>
+          <a href="cart.html"
+            ><i class="fas fa-shopping-cart"></i> Cart (<span id="cartCountTop"
+              >0</span
+            >)</a
+          >
+          <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="main-header">
+      <div class="container">
+        <div class="header-wrapper">
+          <div class="logo">
+            <a href="index.html">
+              <img
+                src="images/logo.png"
+                alt="Sile Communications"
+                class="logo-img"
+                onerror="this.src = 'https://via.placeholder.com/150x50'"
+              />
+            </a>
+          </div>
+          <div class="search-bar">
+            <form action="category.html">
+              <input type="text" name="search" placeholder="Search..." />
+              <button type="submit">
+                <i class="fas fa-search"></i> SEARCH
+              </button>
+            </form>
+          </div>
+          <div class="cart" onclick="toggleCart()">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cart-count">0</span>
+          </div>
+          <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="product-detail-grid" id="productDetail"></div>
+    </main>
+
+    <!-- Related Products -->
+    <section class="related-products">
+      <div class="container">
+        <div class="section-header">
+          <h2>You May Also Like</h2>
+        </div>
+        <div class="products-grid" id="related-products"></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Sile Communications Ltd</h3>
+            <p>Sky Plaza Building, ground Floor<br />Kenyatta Street, Kitale</p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <a href="index.html">Home</a> | <a href="category.html">Shop</a> |
+            <a href="contact.html">Contact</a>
+          </div>
+          <div class="footer-section">
+            <h3>Contact</h3>
+            <p>0710 102424</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Sile Communications Kenya</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h2>Cart</h2>
+          <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cart-items"><p class="empty-cart">Your cart is empty</p></div>
+        <div class="cart-footer" id="cart-footer" style="display: none">
+          <div class="cart-total">
+            <span>Total:</span
+            ><strong>KSh <span id="cart-total-modal">0</span></strong>
+          </div>
+          <a href="checkout.html" class="btn btn-block">Checkout</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+      let currentProduct = null;
+      let currentQty = 1;
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadProductDetails();
+      });
+
+      function loadProductDetails() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const slug = urlParams.get("slug");
+
+        if (!slug) {
+          window.location.href = "category.html";
+          return;
+        }
+
+        const product = PRODUCTS.find((p) => p.slug === slug);
+        if (!product) {
+          window.location.href = "category.html";
+          return;
+        }
+
+        currentProduct = product;
+        const category = CATEGORIES.find((c) => c.id === product.categoryId);
+
+        document.title = `${product.name} - Sile Communications`;
+
+        const container = document.getElementById("productDetail");
+        container.innerHTML = `
+            <div class="product-gallery">
+                <div class="main-image">
+                    <img src="${product.image1}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x400'">
+                </div>
+                <div class="thumbnail-images">
+                    <img src="${product.image1}" alt="Image 1" class="thumb active" onclick="changeImage(this, '${product.image1}')">
+                    <img src="${product.image2}" alt="Image 2" class="thumb" onclick="changeImage(this, '${product.image2}')">
+                </div>
+            </div>
+            <div class="product-info-detail">
+                <div class="product-badges">
+                    ${product.isOffer ? '<span class="badge offer">OFFER</span>' : ""}
+                    ${product.isHot ? '<span class="badge hot">HOT</span>' : ""}
+                </div>
+                <h1>${product.name}</h1>
+                <div class="product-rating">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                    <span>(4 Reviews)</span>
+                    <span class="stock-status in-stock">IN STOCK</span>
+                </div>
+                <div class="product-price-detail">
+                    <div class="current">KSh ${product.price.toLocaleString()}</div>
+                </div>
+                <div class="product-description"><p>${product.description}</p></div>
+                <div class="product-meta-info">
+                    <p><strong>SKU:</strong> SKU-${product.id}</p>
+                    <p><strong>Category:</strong> <a href="category.html?cat=${category?.slug}">${category?.name}</a></p>
+                    <p><strong>Availability:</strong> ${product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}</p>
+                </div>
+                <div class="quantity-selector">
+                    <label>Quantity:</label>
+                    <div class="qty-box">
+                        <button class="qty-minus" onclick="updateQty(-1)">-</button>
+                        <input type="number" id="qty" value="1" min="1" max="${product.stock}">
+                        <button class="qty-plus" onclick="updateQty(1)">+</button>
+                    </div>
+                </div>
+                <div class="product-actions-detail">
+                    <button class="btn-buy-now" onclick="buyNow()"><i class="fas fa-shopping-cart"></i> BUY NOW</button>
+                </div>
+                <div class="delivery-info">
+                    <h4>Delivery Information:</h4>
+                    <ul>
+                        <li><i class="fas fa-truck"></i> Within Kitale CBD: KSh 100</li>
+                        <li><i class="fas fa-truck"></i> Outside Kitale: KSh 400</li>
+                        <li><i class="fas fa-store"></i> Shop Pickup: Free</li>
+                    </ul>
+                </div>
+            </div>
+        `;
+
+        // Load related products
+        loadRelatedProducts(product.categoryId, product.id);
+      }
+
+      function updateQty(change) {
+        const qtyInput = document.getElementById("qty");
+        let newValue = parseInt(qtyInput.value) + change;
+        if (
+          newValue >= 1 &&
+          newValue <= (currentProduct ? currentProduct.stock : 10)
+        ) {
+          qtyInput.value = newValue;
+          currentQty = newValue;
+        }
+      }
+
+      function buyNow() {
+        if (currentProduct) {
+          addToCart(currentProduct.id, currentQty);
+          setTimeout(() => {
+            window.location.href = "checkout.html";
+          }, 500);
+        }
+      }
+
+      function changeImage(thumb, src) {
+        document.querySelector(".main-image img").src = src;
+        document
+          .querySelectorAll(".thumb")
+          .forEach((t) => t.classList.remove("active"));
+        thumb.classList.add("active");
+      }
+
+      function loadRelatedProducts(categoryId, currentId) {
+        const related = PRODUCTS.filter(
+          (p) => p.categoryId === categoryId && p.id !== currentId,
+        ).slice(0, 4);
+        const container = document.getElementById("related-products");
+
+        if (related.length === 0) {
+          container.innerHTML = "<p>No related products found</p>";
+          return;
+        }
+
+        container.innerHTML = related
+          .map((product) => createProductCard(product))
+          .join("");
+      }
+    </script>
+  </body>
+</html>

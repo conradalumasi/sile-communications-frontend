@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Checkout - Sile Communications</title>
+    <link rel="icon" href="images/favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      /* Additional checkout styles */
+      .checkout-page {
+        margin: 30px 0 60px;
+      }
+      .breadcrumb {
+        margin: 20px 0;
+        color: var(--text-light);
+        font-size: 13px;
+      }
+      .checkout-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 30px;
+      }
+      .billing-section,
+      .order-summary {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 25px;
+      }
+      .billing-section h3,
+      .order-summary h3 {
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border);
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 14px;
+      }
+      .order-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 12px 0;
+      }
+      .summary-row.total {
+        font-size: 18px;
+        font-weight: bold;
+        border-top: 1px solid var(--border);
+        padding-top: 12px;
+        margin-top: 12px;
+      }
+      .btn-place-order {
+        width: 100%;
+        padding: 14px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .btn-place-order:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .spinner {
+        width: 18px;
+        height: 18px;
+        border: 2px solid white;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        display: inline-block;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .secure-checkout {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 12px;
+        color: var(--text-light);
+      }
+      .message {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 13px;
+        display: none;
+      }
+      .message.error {
+        background: #fee2e2;
+        color: #dc2626;
+        display: block;
+      }
+      .message.success {
+        background: #dcfce7;
+        color: #166534;
+        display: block;
+      }
+      @media (max-width: 768px) {
+        .checkout-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ========== HEADER (simplified – same as main site) ========== -->
+    <header class="main-header">
+      <div class="header-top">
+        <div class="container">
+          <div class="logo">
+            <a href="index.html"
+              ><img
+                src="images/logo.png"
+                alt="Sile Communications"
+                class="logo-img"
+              />
+              <div>
+                <div class="logo-text">
+                  Sile <span class="logo-accent">Communications</span>
+                </div>
+                <div class="logo-sub">PREMIUM ELECTRONICS · KITALE</div>
+              </div></a
+            >
+          </div>
+          <div class="search-bar">
+            <form action="category.html" method="get">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search phones, laptops, solar panels..."
+              /><button type="submit">Search</button>
+            </form>
+          </div>
+          <div class="header-actions">
+            <div class="action-btn cart" onclick="toggleCart()">
+              <div class="action-icon-wrap">
+                <i class="fas fa-shopping-bag"></i
+                ><span class="cart-badge" id="cart-count">0</span>
+              </div>
+              <span class="action-label">Cart</span>
+            </div>
+            <div class="action-btn account" id="accountButton">
+              <a href="login.html" id="accountLink">
+                <i class="fas fa-user"></i>
+                <span class="action-label" id="userNameLabel">Login</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-bottom">
+        <div class="container">
+          <nav class="main-nav">
+            <ul class="nav-links" id="nav-links">
+              <!-- same nav as index.html -->
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+              <i class="fas fa-bars"></i>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========== CHECKOUT CONTENT ========== -->
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> / <a href="cart.html">Cart</a> / Checkout
+      </div>
+      <div class="checkout-page">
+        <h1>Checkout</h1>
+        <div class="checkout-grid">
+          <!-- Billing & Shipping -->
+          <div class="billing-section">
+            <h3>Billing & Shipping Information</h3>
+            <form id="checkoutForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>First Name *</label
+                  ><input type="text" id="firstName" required />
+                </div>
+                <div class="form-group">
+                  <label>Last Name *</label
+                  ><input type="text" id="lastName" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Phone Number *</label
+                ><input
+                  type="tel"
+                  id="phone"
+                  placeholder="07XX XXX XXX"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label
+                ><input type="email" id="email" required />
+              </div>
+              <div class="form-group">
+                <label>Town / City *</label
+                ><input type="text" id="town" required />
+              </div>
+              <div class="form-group">
+                <label>Delivery Option *</label
+                ><select id="deliveryOption" required>
+                  <option value="100">Within Kitale CBD - KSh 100</option>
+                  <option value="400">Outside Kitale - KSh 400</option>
+                  <option value="0">Shop Pickup - Free</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Payment Method *</label
+                ><select id="paymentMethod" required>
+                  <option value="mpesa">M-PESA</option>
+                  <option value="cod">Cash on Delivery</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Order Notes (Optional)</label
+                ><textarea
+                  id="notes"
+                  rows="3"
+                  placeholder="Special delivery instructions..."
+                ></textarea>
+              </div>
+            </form>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="order-summary">
+            <h3>Your Order</h3>
+            <div id="orderItemsList"></div>
+            <div class="summary-row">
+              <span>Subtotal:</span><span id="checkoutSubtotal">KSh 0</span>
+            </div>
+            <div class="summary-row">
+              <span>Delivery:</span><span id="checkoutDelivery">KSh 0</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total:</span><span id="checkoutTotal">KSh 0</span>
+            </div>
+            <div class="form-check" style="margin: 20px 0">
+              <input type="checkbox" id="termsCheckbox" required />
+              <label
+                >I agree to the
+                <a href="terms.html">terms and conditions</a></label
+              >
+            </div>
+            <button class="btn-place-order" id="placeOrderBtn">
+              <span>PLACE ORDER</span
+              ><span class="spinner" style="display: none"></span>
+            </button>
+            <div class="secure-checkout">
+              <i class="fas fa-shield-alt"></i> Your information is secure
+            </div>
+            <div id="checkoutMessage" class="message"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-grid"><!-- same as index.html --></div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Sile Communications Ltd. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Cart Modal (for completeness) -->
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h2>Your Cart</h2>
+          <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-footer" id="cart-footer" style="display: none">
+          <div class="cart-total">
+            <span>Total:</span
+            ><strong>KSh <span id="cart-total-modal">0</span></strong>
+          </div>
+          <a href="checkout.html" class="btn-cart-checkout"
+            >Proceed to Checkout</a
+          ><a href="cart.html" class="btn-cart-view">View Cart</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ========== CONFIGURATION ==========
+      // Dynamically choose backend URL: localhost for development, Render URL for production
+      const API_BASE =
+        window.location.hostname === "localhost"
+          ? "http://localhost:5000/api"
+          : "https://sile-backend.onrender.com/api";
+      let authToken = localStorage.getItem("authToken");
+      let cartItems = [];
+
+      // ========== HEADER USER UPDATE ==========
+      function updateHeaderUser() {
+        const user = JSON.parse(localStorage.getItem("user") || "null");
+        const accountLink = document.getElementById("accountLink");
+        const userNameLabel = document.getElementById("userNameLabel");
+        if (authToken && user) {
+          accountLink.href = "account.html";
+          userNameLabel.innerHTML = `<i class="fas fa-user-circle"></i> ${user.firstName || (user.name ? user.name.split(" ")[0] : "Account")}`;
+        } else {
+          accountLink.href = "login.html";
+          userNameLabel.innerHTML = "Login";
+        }
+      }
+
+      // ========== CART FUNCTIONS ==========
+      function loadCart() {
+        cartItems = JSON.parse(localStorage.getItem("sileCart")) || [];
+        if (cartItems.length === 0) {
+          window.location.href = "cart.html";
+          return;
+        }
+        renderOrderSummary();
+        updateCartBadge();
+      }
+
+      function renderOrderSummary() {
+        const container = document.getElementById("orderItemsList");
+        let subtotal = 0;
+        let html = "";
+        cartItems.forEach((item) => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+          html += `<div class="order-item"><div><strong>${item.name}</strong> <span class="order-item-qty">x${item.quantity}</span></div><div>KSh ${itemTotal.toLocaleString()}</div></div>`;
+        });
+        container.innerHTML = html;
+        document.getElementById("checkoutSubtotal").innerText =
+          `KSh ${subtotal.toLocaleString()}`;
+        updateTotal(subtotal);
+      }
+
+      function updateTotal(subtotal) {
+        const deliverySelect = document.getElementById("deliveryOption");
+        const deliveryFee = parseInt(deliverySelect.value);
+        document.getElementById("checkoutDelivery").innerText =
+          `KSh ${deliveryFee.toLocaleString()}`;
+        document.getElementById("checkoutTotal").innerText =
+          `KSh ${(subtotal + deliveryFee).toLocaleString()}`;
+      }
+
+      function updateCartBadge() {
+        const count = cartItems.reduce((sum, i) => sum + i.quantity, 0);
+        const badge = document.getElementById("cart-count");
+        if (badge) badge.innerText = count;
+      }
+
+      // ========== PLACE ORDER ==========
+      async function placeOrder(event) {
+        event.preventDefault();
+        const msgDiv = document.getElementById("checkoutMessage");
+        msgDiv.className = "message";
+        msgDiv.style.display = "none";
+
+        // Check authentication
+        if (!authToken) {
+          msgDiv.innerText = "Please log in to place an order. Redirecting...";
+          msgDiv.className = "message error";
+          msgDiv.style.display = "block";
+          setTimeout(() => (window.location.href = "login.html"), 2000);
+          return;
+        }
+
+        // Validate fields
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const town = document.getElementById("town").value.trim();
+        const deliverySelect = document.getElementById("deliveryOption");
+        const deliveryOptionText =
+          deliverySelect.options[deliverySelect.selectedIndex]?.text;
+        const deliveryFee = parseInt(deliverySelect.value);
+        const paymentMethod = document.getElementById("paymentMethod").value;
+        const notes = document.getElementById("notes").value;
+        const termsChecked = document.getElementById("termsCheckbox").checked;
+
+        if (!firstName || !lastName || !phone || !email || !town) {
+          msgDiv.innerText = "Please fill all required fields.";
+          msgDiv.className = "message error";
+          msgDiv.style.display = "block";
+          return;
+        }
+        if (!termsChecked) {
+          msgDiv.innerText = "You must agree to the terms and conditions.";
+          msgDiv.className = "message error";
+          msgDiv.style.display = "block";
+          return;
+        }
+
+        // Calculate totals
+        const subtotal = cartItems.reduce(
+          (sum, i) => sum + i.price * i.quantity,
+          0,
+        );
+        const total = subtotal + deliveryFee;
+
+        const orderData = {
+          customer: { firstName, lastName, phone, email, town },
+          delivery: { option: deliveryOptionText, fee: deliveryFee },
+          paymentMethod,
+          notes,
+          items: cartItems.map((i) => ({
+            productId: i.id,
+            name: i.name,
+            price: i.price,
+            quantity: i.quantity,
+            subtotal: i.price * i.quantity,
+          })),
+          total,
+        };
+
+        const btn = document.getElementById("placeOrderBtn");
+        const originalHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML =
+          '<span class="spinner" style="display:inline-block;"></span> Processing...';
+
+        try {
+          const response = await fetch(`${API_BASE}/orders`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authToken}`,
+            },
+            body: JSON.stringify(orderData),
+          });
+          const data = await response.json();
+          if (response.ok) {
+            // Clear cart
+            localStorage.removeItem("sileCart");
+            // Redirect to success page
+            window.location.href = `order-success.html?order=${data.orderNumber}`;
+          } else {
+            msgDiv.innerText = data.error || "Order failed. Please try again.";
+            msgDiv.className = "message error";
+            msgDiv.style.display = "block";
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+          }
+        } catch (err) {
+          console.error(err);
+          msgDiv.innerText =
+            "Server error. Please make sure the backend is running.";
+          msgDiv.className = "message error";
+          msgDiv.style.display = "block";
+          btn.disabled = false;
+          btn.innerHTML = originalHtml;
+        }
+      }
+
+      // ========== EVENT LISTENERS ==========
+      document
+        .getElementById("deliveryOption")
+        .addEventListener("change", () => {
+          const subtotal = cartItems.reduce(
+            (sum, i) => sum + i.price * i.quantity,
+            0,
+          );
+          updateTotal(subtotal);
+        });
+      document
+        .getElementById("placeOrderBtn")
+        .addEventListener("click", placeOrder);
+
+      // ========== SIMPLE HEADER & CART UI (no external JS) ==========
+      window.toggleCart = () => {
+        const modal = document.getElementById("cart-modal");
+        modal.classList.toggle("active");
+        if (modal.classList.contains("active")) {
+          const cart = JSON.parse(localStorage.getItem("sileCart")) || [];
+          const container = document.getElementById("cart-items");
+          if (cart.length === 0) {
+            container.innerHTML =
+              '<div style="text-align:center; padding:50px;">Your cart is empty</div>';
+            document.getElementById("cart-footer").style.display = "none";
+          } else {
+            container.innerHTML = cart
+              .map(
+                (item) => `
+          <div class="cart-item">
+            <img src="${item.image}" onerror="this.src='https://via.placeholder.com/60x60'">
+            <div><h4>${item.name}</h4><p>KSh ${item.price.toLocaleString()}</p><div><button onclick="updateCartQuantity(${item.id}, -1)">-</button><span>${item.quantity}</span><button onclick="updateCartQuantity(${item.id}, 1)">+</button></div></div>
+            <div><strong>KSh ${(item.price * item.quantity).toLocaleString()}</strong><br><button onclick="removeFromCart(${item.id})">Remove</button></div>
+          </div>
+        `,
+              )
+              .join("");
+            document.getElementById("cart-footer").style.display = "block";
+            const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+            document.getElementById("cart-total-modal").innerText =
+              total.toLocaleString();
+          }
+        }
+      };
+      window.updateCartQuantity = (id, change) => {
+        let cart = JSON.parse(localStorage.getItem("sileCart")) || [];
+        const idx = cart.findIndex((i) => i.id === id);
+        if (idx !== -1) {
+          cart[idx].quantity += change;
+          if (cart[idx].quantity <= 0) cart.splice(idx, 1);
+          localStorage.setItem("sileCart", JSON.stringify(cart));
+          location.reload(); // simple reload to refresh page
+        }
+      };
+      window.removeFromCart = (id) => {
+        let cart = JSON.parse(localStorage.getItem("sileCart")) || [];
+        cart = cart.filter((i) => i.id !== id);
+        localStorage.setItem("sileCart", JSON.stringify(cart));
+        location.reload();
+      };
+      window.toggleMobileMenu = () =>
+        document.getElementById("nav-links").classList.toggle("active");
+
+      // ========== INIT ==========
+      document.addEventListener("DOMContentLoaded", () => {
+        updateHeaderUser();
+        loadCart();
+        // Pre-fill user info if logged in
+        const user = JSON.parse(localStorage.getItem("user") || "null");
+        if (user) {
+          if (user.firstName)
+            document.getElementById("firstName").value = user.firstName || "";
+          if (user.lastName)
+            document.getElementById("lastName").value = user.lastName || "";
+          if (user.phone)
+            document.getElementById("phone").value = user.phone || "";
+          if (user.email)
+            document.getElementById("email").value = user.email || "";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lipa Mdogo Mdogo - Sile Communications</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-top">
+        <div class="container">
+          <div class="logo">
+            <a href="index.html"
+              ><img
+                src="images/logo.png"
+                alt="Sile Communications"
+                class="logo-img"
+              />
+              <div>
+                <div class="logo-text">
+                  Sile <span class="logo-accent">Communications</span>
+                </div>
+                <div class="logo-sub">PREMIUM ELECTRONICS · KITALE</div>
+              </div></a
+            >
+          </div>
+          <div class="search-bar">
+            <form action="category.html">
+              <input
+                type="text"
+                placeholder="Search phones, laptops, solar panels..."
+              /><button>Search</button>
+            </form>
+          </div>
+          <div class="header-actions">
+            <div class="action-btn cart" onclick="toggleCart()">
+              <div class="action-icon-wrap">
+                <i class="fas fa-shopping-bag"></i
+                ><span class="cart-badge" id="cart-count">0</span>
+              </div>
+              <span class="action-label">Cart</span>
+            </div>
+            <div class="action-btn account" id="accountButton">
+              <a href="login.html" id="accountLink">
+                <i class="fas fa-user"></i>
+                <span class="action-label" id="userNameLabel">Login</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-bottom">
+        <div class="container">
+          <nav class="main-nav">
+            <ul class="nav-links" id="nav-links">
+              <li><a href="index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="category.html?cat=smartphones"
+                  >Smartphones <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=smartphones&brand=samsung"
+                    >Samsung</a
+                  ><a href="category.html?cat=smartphones&brand=apple">Apple</a
+                  ><a href="category.html?cat=smartphones&brand=huawei"
+                    >Huawei</a
+                  ><a href="category.html?cat=smartphones&brand=xiaomi"
+                    >Xiaomi</a
+                  ><a href="category.html?cat=smartphones&brand=tecno">Tecno</a
+                  ><a href="category.html?cat=smartphones&brand=infinix"
+                    >Infinix</a
+                  ><a href="category.html?cat=smartphones&brand=oppo">Oppo</a
+                  ><a href="category.html?cat=smartphones&brand=honor">Honor</a
+                  ><a href="category.html?cat=smartphones&brand=nokia"
+                    >Nokia/HMD</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=kabambe"
+                  >Kabambe <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=kabambe&brand=itel">Itel</a
+                  ><a href="category.html?cat=kabambe&brand=tecno">Tecno</a>
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=laptops"
+                  >Laptops <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=laptops&brand=dell">Dell</a
+                  ><a href="category.html?cat=laptops&brand=hp">HP</a
+                  ><a href="category.html?cat=laptops&brand=lenovo">Lenovo</a
+                  ><a href="category.html?cat=laptops&brand=asus">Asus</a
+                  ><a href="category.html?cat=laptops&brand=apple-mac"
+                    >Apple Mac</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=accessories"
+                  >Accessories <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=accessories&brand=smartwatches"
+                    >Smartwatches</a
+                  ><a href="category.html?cat=accessories&brand=powerbanks"
+                    >Power Banks</a
+                  ><a href="category.html?cat=accessories&brand=earbuds"
+                    >Earbuds</a
+                  ><a href="category.html?cat=accessories&brand=cases"
+                    >Phone Cases</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=content-creator"
+                  >Content Creator <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=content-creator&brand=gimbals"
+                    >Gimbals</a
+                  ><a href="category.html?cat=content-creator&brand=mics"
+                    >Wireless Mics</a
+                  ><a href="category.html?cat=content-creator&brand=tripods"
+                    >Tripods</a
+                  ><a href="category.html?cat=content-creator&brand=ringlights"
+                    >Ring Lights</a
+                  >
+                </div>
+              </li>
+              <li><a href="solar-solutions.html">Solar Solutions</a></li>
+              <li><a href="safaricom-services.html">Safaricom Services</a></li>
+              <li><a href="lipa-polepole.html">Lipa Mdogo Mdogo</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+              <i class="fas fa-bars"></i>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="lipa-hero">
+        <h1>Lipa Mdogo Mdogo</h1>
+        <p>
+          Own your dream device today with our flexible payment plans. Low
+          deposit, affordable daily or weekly payments.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <i class="fas fa-mobile-alt"></i>
+          <h3>Choose Your Device</h3>
+          <p>Select any eligible product from our Lipa Mdogo Mdogo catalog</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <i class="fas fa-file-signature"></i>
+          <h3>Apply for Financing</h3>
+          <p>Fill out our simple application form with your details</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <i class="fas fa-clock"></i>
+          <h3>Approval</h3>
+          <p>Get approved within 10 minutes (ID and passport required)</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <i class="fas fa-hand-holding-usd"></i>
+          <h3>Pay & Take Device</h3>
+          <p>Pay the deposit and take your device home the same day</p>
+        </div>
+      </div>
+
+      <div class="requirements-grid">
+        <img
+          src="images/requirements.jpg"
+          alt="Requirements"
+          class="requirements-image"
+        />
+        <div class="requirements-content">
+          <h2>Requirements to Apply</h2>
+          <div class="requirements-list">
+            <div>
+              <i class="fas fa-id-card"></i> Valid National ID or Passport
+            </div>
+            <div>
+              <i class="fas fa-file-invoice"></i> Proof of income (3 months
+              payslip or mpesa statement)
+            </div>
+            <div>
+              <i class="fas fa-map-marker-alt"></i> Proof of residence (Utility
+              bill or M-PESA statement)
+            </div>
+            <div>
+              <i class="fas fa-users"></i> One guarantor (for amounts above KSh
+              50,000)
+            </div>
+          </div>
+          <a href="contact.html" class="btn-primary">Start Your Application</a>
+        </div>
+      </div>
+
+      <div class="products-grid" id="lipa-products"></div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>Sile Communications</h4>
+            <p>Sky Plaza Building, ground Floor<br />Kenyatta Street, Kitale</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="about.html">About</a><a href="contact.html">Contact</a
+            ><a href="service-center.html">Service Center</a>
+          </div>
+          <div class="footer-col">
+            <h4>Categories</h4>
+            <a href="category.html?cat=smartphones">Smartphones</a
+            ><a href="category.html?cat=kabambe">Kabambe</a
+            ><a href="category.html?cat=laptops">Laptops</a
+            ><a href="category.html?cat=accessories">Accessories</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>0710 102424</p>
+            <p>silecommunications.ltd@gmail.com</p>
+                        <div class="social-links">
+              <a href="https://www.facebook.com/Silecommunications.ltd" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/silecommunicationsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://x.com/SileCommsLtd" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+              <a href="https://www.tiktok.com/@silecommunications" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="https://wa.me/254710102424" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Sile Communications Ltd. Authorized Safaricom Dealer.
+            All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h2>Your Cart</h2>
+          <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-footer" id="cart-footer" style="display: none">
+          <div class="cart-total">
+            <span>Total:</span
+            ><strong>KSh <span id="cart-total-modal">0</span></strong>
+          </div>
+          <a href="checkout.html" class="btn-cart-checkout"
+            >Proceed to Checkout</a
+          >
+          <a href="cart.html" class="btn-cart-view">View Cart</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        const lipaProducts = LIPA_POLE_POLE_PRODUCTS.slice(0, 12);
+        document.getElementById("lipa-products").innerHTML = lipaProducts
+          .map(
+            (p) => `
+            <div class="product-card" onclick="location.href='product-detail.html?id=${p.id}'">
+                ${p.isHot ? '<span class="product-badge badge-hot">HOT</span>' : ""}
+                ${p.isOffer ? '<span class="product-badge badge-offer">OFFER</span>' : ""}
+                <div class="product-image"><img src="${p.image}" alt="${p.name}"></div>
+                <div class="product-details">
+                    <div class="product-category">${p.brand}</div>
+                    <div class="product-name">${p.name}</div>
+                    <div class="product-price">KSh ${p.price.toLocaleString()}</div>
+                    ${p.lipaPolePole ? `<div class="lipa-payment-info">Deposit KSh ${p.lipaPolePole.deposit} | Daily KSh ${p.lipaPolePole.daily}</div>` : ""}
+                    <div class="product-actions">
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${p.id})">Add to Cart</button>
+                        <button class="btn-view" onclick="event.stopPropagation(); location.href='product-detail.html?id=${p.id}'">View</button>
+                    </div>
+                </div>
+            </div>
+        `,
+          )
+          .join("");
+        updateCartUI();
+      });
+    </script>
+
+    <style>
+      .lipa-hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        padding: 60px;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+        margin: 40px 0;
+      }
+      .lipa-hero h1 {
+        font-size: 38px;
+        margin-bottom: 15px;
+      }
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+        margin-bottom: 50px;
+      }
+      .step-card {
+        text-align: center;
+        background: white;
+        padding: 30px 20px;
+        border-radius: 16px;
+        position: relative;
+        border: 1px solid var(--border);
+        transition: all 0.3s;
+      }
+      .step-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+      .step-number {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary);
+        color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+      .step-card i {
+        font-size: 40px;
+        color: var(--primary);
+        margin: 20px 0;
+      }
+      .step-card h3 {
+        margin-bottom: 8px;
+        font-size: 16px;
+      }
+      .step-card p {
+        color: var(--text-light);
+        font-size: 12px;
+      }
+      .requirements-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        background: var(--bg-light);
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 50px;
+      }
+      .requirements-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .requirements-content {
+        padding: 40px;
+      }
+      .requirements-content h2 {
+        margin-bottom: 20px;
+        font-size: 26px;
+      }
+      .requirements-list {
+        margin: 25px 0;
+      }
+      .requirements-list div {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .requirements-list i {
+        color: var(--primary);
+        width: 22px;
+      }
+      @media (max-width: 900px) {
+        .steps-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .requirements-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 768px) {
+        .steps-grid {
+          grid-template-columns: 1fr;
+        }
+        .lipa-hero {
+          padding: 40px 20px;
+        }
+        .lipa-hero h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </body>
+</html>

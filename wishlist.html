@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop - Sile Communications</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-top">
+        <div class="container">
+          <div class="logo">
+            <a href="index.html">
+              <img
+                src="images/logo.png"
+                alt="Sile Communications"
+                class="logo-img"
+              />
+              <div>
+                <div class="logo-text">
+                  Sile <span class="logo-accent">Communications</span>
+                </div>
+                <div class="logo-sub">PREMIUM ELECTRONICS · KITALE</div>
+              </div>
+            </a>
+          </div>
+          <div class="search-bar">
+            <form action="category.html" method="get">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search phones, laptops, solar panels..."
+              />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+          <div class="header-actions">
+            <div class="action-btn cart" onclick="toggleCart()">
+              <div class="action-icon-wrap">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cart-count">0</span>
+              </div>
+              <span class="action-label">Cart</span>
+            </div>
+            <div class="action-btn account" id="accountButton">
+              <a href="login.html" id="accountLink">
+                <i class="fas fa-user"></i>
+                <span class="action-label" id="userNameLabel">Login</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-bottom">
+        <div class="container">
+          <nav class="main-nav">
+            <ul class="nav-links" id="nav-links">
+              <li><a href="index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="category.html?cat=smartphones"
+                  >Smartphones <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=smartphones&brand=samsung"
+                    >Samsung</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=apple">Apple</a>
+                  <a href="category.html?cat=smartphones&brand=huawei"
+                    >Huawei</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=xiaomi"
+                    >Xiaomi</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=tecno">Tecno</a>
+                  <a href="category.html?cat=smartphones&brand=infinix"
+                    >Infinix</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=oppo">Oppo</a>
+                  <a href="category.html?cat=smartphones&brand=honor">Honor</a>
+                  <a href="category.html?cat=smartphones&brand=nokia"
+                    >Nokia/HMD</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=kabambe"
+                  >Kabambe <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=kabambe&brand=itel">Itel</a>
+                  <a href="category.html?cat=kabambe&brand=tecno">Tecno</a>
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=laptops"
+                  >Laptops <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=laptops&brand=dell">Dell</a>
+                  <a href="category.html?cat=laptops&brand=hp">HP</a>
+                  <a href="category.html?cat=laptops&brand=lenovo">Lenovo</a>
+                  <a href="category.html?cat=laptops&brand=asus">Asus</a>
+                  <a href="category.html?cat=laptops&brand=apple-mac"
+                    >Apple Mac</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=accessories"
+                  >Accessories <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=accessories&brand=smartwatches"
+                    >Smartwatches</a
+                  >
+                  <a href="category.html?cat=accessories&brand=powerbanks"
+                    >Power Banks</a
+                  >
+                  <a href="category.html?cat=accessories&brand=earbuds"
+                    >Earbuds</a
+                  >
+                  <a href="category.html?cat=accessories&brand=cases"
+                    >Phone Cases</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=content-creator"
+                  >Content Creator <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=content-creator&brand=gimbals"
+                    >Gimbals</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=mics"
+                    >Wireless Mics</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=tripods"
+                    >Tripods</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=ringlights"
+                    >Ring Lights</a
+                  >
+                </div>
+              </li>
+              <li><a href="solar-solutions.html">Solar Solutions</a></li>
+              <li><a href="safaricom-services.html">Safaricom Services</a></li>
+              <li><a href="lipa-polepole.html">Lipa Mdogo Mdogo</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+              <i class="fas fa-bars"></i>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="category-header">
+        <h1 id="category-title">All Products</h1>
+      </div>
+      <div class="products-grid" id="category-products"></div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>Sile Communications</h4>
+            <p>Sky Plaza Building, ground Floor<br />Kenyatta Street, Kitale</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="service-center.html">Service Center</a>
+            <a href="lipa-polepole.html">Lipa Mdogo Mdogo</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
+          </div>
+          <div class="footer-col">
+            <h4>Categories</h4>
+            <a href="category.html?cat=smartphones">Smartphones</a>
+            <a href="category.html?cat=kabambe">Kabambe</a>
+            <a href="category.html?cat=laptops">Laptops</a>
+            <a href="category.html?cat=accessories">Accessories</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>Phone: 0710 102424</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+                        <div class="social-links">
+              <a href="https://www.facebook.com/Silecommunications.ltd" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/silecommunicationsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://x.com/SileCommsLtd" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+              <a href="https://www.tiktok.com/@silecommunications" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="https://wa.me/254710102424" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Sile Communications Ltd. Authorized Safaricom Dealer.
+            All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h2>Your Cart</h2>
+          <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-footer" id="cart-footer" style="display: none">
+          <div class="cart-total">
+            <span>Total:</span
+            ><strong>KSh <span id="cart-total-modal">0</span></strong>
+          </div>
+          <a href="checkout.html" class="btn-cart-checkout"
+            >Proceed to Checkout</a
+          >
+          <a href="cart.html" class="btn-cart-view">View Cart</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      }
+
+      function loadCategoryPage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const categorySlug = urlParams.get("cat");
+        const brandParam = urlParams.get("brand");
+        const searchQuery = urlParams.get("search");
+
+        let filtered = [...PRODUCTS];
+
+        if (categorySlug && categorySlug !== "all") {
+          filtered = PRODUCTS.filter((p) => p.category === categorySlug);
+          const categoryNames = {
+            smartphones: "Smartphones",
+            laptops: "Laptops",
+            accessories: "Accessories",
+            "content-creator": "Content Creator Kits",
+            solar: "Solar Solutions",
+            kabambe: "Kabambe (Feature Phones)",
+            audio: "Audio",
+          };
+          const titleEl = document.getElementById("category-title");
+          if (titleEl)
+            titleEl.textContent = categoryNames[categorySlug] || "Products";
+        }
+
+        if (brandParam) {
+          filtered = filtered.filter((p) => p.brand_cat === brandParam);
+          const brandDisplay = brandParam
+            .split("-")
+            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(" ");
+          const titleEl = document.getElementById("category-title");
+          if (titleEl) titleEl.textContent = brandDisplay;
+        }
+
+        if (searchQuery) {
+          filtered = filtered.filter((p) =>
+            p.name.toLowerCase().includes(searchQuery.toLowerCase()),
+          );
+          const titleEl = document.getElementById("category-title");
+          if (titleEl) titleEl.textContent = `Search: "${searchQuery}"`;
+        }
+
+        renderProducts(filtered);
+      }
+
+      function renderProducts(productsArray) {
+        const container = document.getElementById("category-products");
+        if (!container) return;
+        if (productsArray.length === 0) {
+          container.innerHTML =
+            '<p style="text-align:center; padding:50px;">No products found.</p>';
+          return;
+        }
+        container.innerHTML = productsArray
+          .map((product) => createProductCard(product))
+          .join("");
+      }
+
+      // Wait for products to load
+      if (window.PRODUCTS && window.PRODUCTS.length > 0) {
+        loadCategoryPage();
+      } else {
+        window.addEventListener("productsLoaded", loadCategoryPage);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        updateCartUI();
+      });
+    </script>
+    <style>
+      .category-header {
+        margin: 30px 0 20px;
+      }
+      .category-header h1 {
+        font-size: 28px;
+        color: var(--dark);
+      }
+    </style>
+  </body>
+</html>

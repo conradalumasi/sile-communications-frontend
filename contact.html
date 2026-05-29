@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - Sile Communications</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-top">
+        <div class="container">
+          <div class="logo">
+            <a href="index.html">
+              <img
+                src="images/logo.png"
+                alt="Sile Communications"
+                class="logo-img"
+              />
+              <div>
+                <div class="logo-text">
+                  Sile <span class="logo-accent">Communications</span>
+                </div>
+                <div class="logo-sub">PREMIUM ELECTRONICS · KITALE</div>
+              </div>
+            </a>
+          </div>
+          <div class="search-bar">
+            <form action="category.html" method="get">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search phones, laptops, solar panels..."
+              />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+          <div class="header-actions">
+            <div class="action-btn cart" onclick="toggleCart()">
+              <div class="action-icon-wrap">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cart-count">0</span>
+              </div>
+              <span class="action-label">Cart</span>
+            </div>
+            <div class="action-btn account" id="accountButton">
+              <a href="login.html" id="accountLink">
+                <i class="fas fa-user"></i>
+                <span class="action-label" id="userNameLabel">Login</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-bottom">
+        <div class="container">
+          <nav class="main-nav">
+            <ul class="nav-links" id="nav-links">
+              <li><a href="index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="category.html?cat=smartphones"
+                  >Smartphones <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=smartphones&brand=samsung"
+                    >Samsung</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=apple">Apple</a>
+                  <a href="category.html?cat=smartphones&brand=huawei"
+                    >Huawei</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=xiaomi"
+                    >Xiaomi</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=tecno">Tecno</a>
+                  <a href="category.html?cat=smartphones&brand=infinix"
+                    >Infinix</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=oppo">Oppo</a>
+                  <a href="category.html?cat=smartphones&brand=honor">Honor</a>
+                  <a href="category.html?cat=smartphones&brand=nokia"
+                    >Nokia/HMD</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=kabambe"
+                  >Kabambe <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=kabambe&brand=itel">Itel</a
+                  ><a href="category.html?cat=kabambe&brand=tecno">Tecno</a>
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=laptops"
+                  >Laptops <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=laptops&brand=dell">Dell</a
+                  ><a href="category.html?cat=laptops&brand=hp">HP</a
+                  ><a href="category.html?cat=laptops&brand=lenovo">Lenovo</a
+                  ><a href="category.html?cat=laptops&brand=asus">Asus</a
+                  ><a href="category.html?cat=laptops&brand=apple-mac"
+                    >Apple Mac</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=accessories"
+                  >Accessories <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=accessories&brand=smartwatches"
+                    >Smartwatches</a
+                  ><a href="category.html?cat=accessories&brand=powerbanks"
+                    >Power Banks</a
+                  ><a href="category.html?cat=accessories&brand=earbuds"
+                    >Earbuds</a
+                  ><a href="category.html?cat=accessories&brand=cases"
+                    >Phone Cases</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=content-creator"
+                  >Content Creator <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=content-creator&brand=gimbals"
+                    >Gimbals</a
+                  ><a href="category.html?cat=content-creator&brand=mics"
+                    >Wireless Mics</a
+                  ><a href="category.html?cat=content-creator&brand=tripods"
+                    >Tripods</a
+                  ><a href="category.html?cat=content-creator&brand=ringlights"
+                    >Ring Lights</a
+                  >
+                </div>
+              </li>
+              <li><a href="solar-solutions.html">Solar Solutions</a></li>
+              <li><a href="safaricom-services.html">Safaricom Services</a></li>
+              <li><a href="lipa-polepole.html">Lipa Mdogo Mdogo</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+              <i class="fas fa-bars"></i>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="contact-hero">
+        <h1>Contact Us</h1>
+        <p>Get in touch with us for any inquiries, support, or feedback</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info-card">
+          <h2>Contact Information</h2>
+          <div class="contact-info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <strong>Location</strong>
+              <p>Sky Plaza Building, ground Floor, Kenyatta Street, Kitale</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <strong>Sales & Support</strong>
+              <p>0710 102424</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <strong>Email</strong>
+              <p>silecommunications.ltd@gmail.com</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <i class="fab fa-whatsapp"></i>
+            <div>
+              <strong>WhatsApp</strong>
+              <p>0710 102424</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <strong>Business Hours</strong>
+              <p>
+                Monday - Friday: 8:00 AM - 6:00 PM<br />Saturday: 9:00 AM - 4:00
+                PM<br />Sunday: Closed
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-card">
+          <h2>Send us a Message</h2>
+          <form
+            onsubmit="
+              alert('Thank you! We will respond shortly.');
+              return false;
+            "
+          >
+            <div class="form-group">
+              <label>Your Name</label><input type="text" required />
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label><input type="tel" required />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label><input type="email" required />
+            </div>
+            <div class="form-group">
+              <label>Message</label><textarea rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>Sile Communications</h4>
+            <p>Sky Plaza Building, ground Floor<br />Kenyatta Street, Kitale</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="about.html">About</a><a href="contact.html">Contact</a
+            ><a href="service-center.html">Service Center</a
+            ><a href="lipa-polepole.html">Lipa Mdogo Mdogo</a
+            ><a href="solar-solutions.html">Solar Solutions</a>
+          </div>
+          <div class="footer-col">
+            <h4>Categories</h4>
+            <a href="category.html?cat=smartphones">Smartphones</a
+            ><a href="category.html?cat=kabambe">Kabambe</a
+            ><a href="category.html?cat=laptops">Laptops</a
+            ><a href="category.html?cat=accessories">Accessories</a
+            ><a href="solar-solutions.html">Solar Solutions</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>0710 102424</p>
+            <p>silecommunications.ltd@gmail.com</p>
+                        <div class="social-links">
+              <a href="https://www.facebook.com/Silecommunications.ltd" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/silecommunicationsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://x.com/SileCommsLtd" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+              <a href="https://www.tiktok.com/@silecommunications" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="https://wa.me/254710102424" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Sile Communications Ltd. Authorized Safaricom Dealer.
+            All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div class="cart-modal" id="cart-modal">
+      <div class="cart-content">
+        <div class="cart-header">
+          <h2>Your Cart</h2>
+          <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-footer" id="cart-footer" style="display: none">
+          <div class="cart-total">
+            <span>Total:</span
+            ><strong>KSh <span id="cart-total-modal">0</span></strong>
+          </div>
+          <a href="checkout.html" class="btn-cart-checkout"
+            >Proceed to Checkout</a
+          >
+          <a href="cart.html" class="btn-cart-view">View Cart</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+      }
+    </script>
+
+    <style>
+      .contact-hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        padding: 60px;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+        margin: 40px 0;
+      }
+      .contact-hero h1 {
+        font-size: 38px;
+        margin-bottom: 15px;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+      .contact-info-card,
+      .contact-form-card {
+        background: white;
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--border);
+      }
+      .contact-info-card h2,
+      .contact-form-card h2 {
+        color: var(--primary);
+        margin-bottom: 25px;
+        font-size: 24px;
+      }
+      .contact-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 22px;
+      }
+      .contact-info-item i {
+        font-size: 20px;
+        color: var(--primary);
+        margin-top: 2px;
+      }
+      .contact-info-item strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      .contact-info-item p {
+        color: var(--text-light);
+        font-size: 13px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 14px;
+      }
+      @media (max-width: 900px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 768px) {
+        .contact-hero {
+          padding: 40px 20px;
+        }
+        .contact-hero h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </body>
+</html>

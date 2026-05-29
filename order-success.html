@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Successful - Sile Communications</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .success-page {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .success-card {
+        background: white;
+        border-radius: 20px;
+        padding: 50px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .success-icon i {
+        font-size: 70px;
+        color: #22c55e;
+        margin-bottom: 20px;
+      }
+      .success-card h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+      .success-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="main-header">...</header>
+    <div class="container">
+      <div class="success-page">
+        <div class="success-card">
+          <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+          <h1>Order Successful!</h1>
+          <p>Thank you for shopping with Sile Communications.</p>
+          <div id="orderNumberDisplay" style="margin: 10px 0"></div>
+          <div class="success-actions">
+            <a href="category.html" class="btn-primary">Continue Shopping</a>
+            <a href="account.html" class="btn-outline">View My Orders</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="main-footer">...</footer>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderNumber = urlParams.get("order");
+      if (orderNumber)
+        document.getElementById("orderNumberDisplay").innerHTML =
+          `<p>Your order number: <strong>${orderNumber}</strong></p>`;
+    </script>
+  </body>
+</html>

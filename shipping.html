@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shipping and Return Policy - Sile Communications</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="container">
+        <div class="contact-info">
+          <span><i class="fas fa-phone-alt"></i> 0710 102424</span>
+          <span
+            ><i class="fas fa-map-marker-alt"></i> Sky Plaza Building, Kenyatta
+            Street, Kitale</span
+          >
+        </div>
+        <div class="user-actions">
+          <a href="account.html"><i class="fas fa-user"></i> My Account</a>
+          <a href="cart.html"
+            ><i class="fas fa-shopping-cart"></i> Cart (<span id="cartCountTop"
+              >0</span
+            >)</a
+          >
+          <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="main-header">
+      <div class="container">
+        <div class="header-wrapper">
+          <div class="logo">
+            <a href="index.html">
+              <img
+                src="images/logo.png"
+                alt="Sile Communications"
+                class="logo-img"
+              />
+              <span class="logo-text">Sile Communications</span>
+            </a>
+          </div>
+          <div class="search-bar">
+            <form action="category.html" method="get">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search for products..."
+              />
+              <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+          </div>
+          <div class="header-actions">
+            <div class="cart" onclick="toggleCart()">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count" id="cart-count">0</span>
+              <span class="cart-text">Cart</span>
+            </div>
+            <div class="account">
+              <i class="fas fa-user"></i>
+              <a href="login.html">Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="main-nav">
+      <div class="container">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="category.html?cat=smartphones">Smartphones</a></li>
+          <li><a href="category.html?cat=laptops">Laptops</a></li>
+          <li><a href="category.html?cat=accessories">Accessories</a></li>
+          <li>
+            <a href="category.html?cat=content-creator">Content Creator Kits</a>
+          </li>
+          <li><a href="solar-solutions.html">Solar Solutions</a></li>
+          <li><a href="safaricom-services.html">Safaricom Services</a></li>
+          <li><a href="lipa-polepole.html">Lipa Pole Pole</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="policy-page">
+        <h1>Shipping and Return Policy</h1>
+
+        <div class="policy-section">
+          <h2>Delivery Options and Fees</h2>
+          <ul>
+            <li>
+              <strong>Within Kitale CBD:</strong> KSh 100 - Delivered within 2-4
+              hours
+            </li>
+            <li>
+              <strong>Outside Kitale (Trans Nzoia County):</strong> KSh 400 -
+              Delivered within 24 hours
+            </li>
+            <li>
+              <strong>Other Counties (Nationwide):</strong> KSh 600 - Delivered
+              within 2-5 business days
+            </li>
+            <li>
+              <strong>Shop Pickup:</strong> Free - Ready within 1 hour after
+              order confirmation
+            </li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2>Free Delivery Offer</h2>
+          <p>
+            Free delivery is available for orders over KSh 10,000 within Kitale
+            CBD and surrounding areas. Offer applies automatically at checkout.
+          </p>
+        </div>
+
+        <div class="policy-section">
+          <h2>Order Processing Time</h2>
+          <p>
+            Orders are processed within 1-2 hours during business hours
+            (Monday-Friday, 8AM-6PM; Saturday, 9AM-4PM). Orders placed after 4PM
+            will be processed the next business day.
+          </p>
+        </div>
+
+        <div class="policy-section">
+          <h2>Tracking Your Order</h2>
+          <p>
+            Once your order is shipped, you will receive a confirmation via SMS
+            and email with tracking information. You can also track your order
+            status in your account dashboard.
+          </p>
+        </div>
+
+        <div class="policy-section">
+          <h2>Returns Policy</h2>
+          <p>
+            We want you to be completely satisfied with your purchase. If you
+            need to return an item, here's how it works:
+          </p>
+          <ul>
+            <li>
+              <strong>Return Window:</strong> 7 days from date of delivery
+            </li>
+            <li>
+              <strong>Condition:</strong> Item must be unused, in original
+              packaging, with all accessories and tags attached
+            </li>
+            <li>
+              <strong>Proof of Purchase:</strong> Original receipt or order
+              confirmation required
+            </li>
+            <li>
+              <strong>Return Shipping:</strong> Customer pays for return
+              shipping unless the item is defective
+            </li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2>Non-Returnable Items</h2>
+          <ul>
+            <li>Opened software, games, or digital products</li>
+            <li>
+              Personal care items (earbuds, headphones for hygiene reasons)
+            </li>
+            <li>Customized or personalized products</li>
+            <li>Clearance items (marked as final sale)</li>
+            <li>Screen protectors (once opened)</li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2>Defective Items</h2>
+          <p>
+            If you receive a defective product, please contact us within 48
+            hours of delivery. We will arrange for a replacement or refund at no
+            additional cost. Defective items are eligible for return within 30
+            days of purchase.
+          </p>
+        </div>
+
+        <div class="policy-section">
+          <h2>Refund Process</h2>
+          <p>
+            Once we receive and inspect your return, we will process your refund
+            within 5-7 business days. Refunds will be issued to your original
+            payment method. M-PESA refunds will be sent to the registered phone
+            number.
+          </p>
+        </div>
+
+        <div class="policy-section">
+          <h2>Exchange Policy</h2>
+          <p>
+            Items can be exchanged for a different size, color, or model within
+            7 days of purchase. Any price difference will be charged or refunded
+            accordingly.
+          </p>
+        </div>
+
+        <div class="policy-section">
+          <h2>Contact Us</h2>
+          <p>For shipping or return inquiries, contact us:</p>
+          <p>
+            Phone: 0710 102424 | WhatsApp: 0710 102424 | Email:
+            info@silecommunications.co.ke
+          </p>
+        </div>
+
+        <div class="shipping-table">
+          <h3>Delivery Time Estimates by Region</h3>
+          <table>
+            <tr>
+              <th>Region</th>
+              <th>Estimated Delivery Time</th>
+              <th>Delivery Fee</th>
+            </tr>
+            <tr>
+              <td>Kitale CBD</td>
+              <td>2-4 hours</td>
+              <td>KSh 100</td>
+            </tr>
+            <tr>
+              <td>Trans Nzoia County</td>
+              <td>24 hours</td>
+              <td>KSh 400</td>
+            </tr>
+            <tr>
+              <td>Nairobi, Mombasa, Kisumu</td>
+              <td>2-3 business days</td>
+              <td>KSh 600</td>
+            </tr>
+            <tr>
+              <td>Other Counties</td>
+              <td>3-5 business days</td>
+              <td>KSh 600</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>Sile Communications</h4>
+            <p>Sky Plaza Building, ground Floor<br />Kenyatta Street, Kitale</p>
+            <p>M-PESA Till: 3684322</p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="shipping.html">Shipping Policy</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>0710 102424</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Sile Communications Ltd. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+    </script>
+
+    <style>
+      .shipping-table {
+        margin-top: 30px;
+        overflow-x: auto;
+      }
+
+      .shipping-table table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+      }
+
+      .shipping-table th,
+      .shipping-table td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid var(--border);
+      }
+
+      .shipping-table th {
+        background: var(--bg-light);
+        font-weight: 600;
+      }
+    </style>
+  </body>
+</html>

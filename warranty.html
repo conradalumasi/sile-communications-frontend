@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Extended Warranty - Sile Communications</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="container">
+        <div class="contact-info">
+          <span><i class="fas fa-phone-alt"></i> 0710 102424</span>
+          <span
+            ><i class="fas fa-map-marker-alt"></i> Sky Plaza Building, Kenyatta
+            Street, Kitale</span
+          >
+        </div>
+        <div class="user-actions">
+          <a href="account.html"><i class="fas fa-user"></i> My Account</a>
+          <a href="cart.html"
+            ><i class="fas fa-shopping-cart"></i> Cart (<span id="cartCountTop"
+              >0</span
+            >)</a
+          >
+          <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="main-header">
+      <div class="container">
+        <div class="header-wrapper">
+          <div class="logo">
+            <a href="index.html">
+              <img
+                src="images/logo.png"
+                alt="Sile Communications"
+                class="logo-img"
+              />
+              <span class="logo-text">Sile Communications</span>
+            </a>
+          </div>
+          <div class="search-bar">
+            <form action="category.html" method="get">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search for products..."
+              />
+              <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+          </div>
+          <div class="header-actions">
+            <div class="cart" onclick="toggleCart()">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count" id="cart-count">0</span>
+              <span class="cart-text">Cart</span>
+            </div>
+            <div class="account">
+              <i class="fas fa-user"></i>
+              <a href="login.html">Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="main-nav">
+      <div class="container">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="category.html?cat=smartphones">Smartphones</a></li>
+          <li><a href="category.html?cat=laptops">Laptops</a></li>
+          <li><a href="category.html?cat=accessories">Accessories</a></li>
+          <li>
+            <a href="category.html?cat=content-creator">Content Creator Kits</a>
+          </li>
+          <li><a href="solar-solutions.html">Solar Solutions</a></li>
+          <li><a href="safaricom-services.html">Safaricom Services</a></li>
+          <li><a href="lipa-polepole.html">Lipa Pole Pole</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="policy-page">
+        <h1>Extended Warranty</h1>
+
+        <div class="policy-section">
+          <h2>Protect Your Investment</h2>
+          <p>
+            At Sile Communications, we want you to enjoy peace of mind with your
+            purchase. Our extended warranty plans provide additional coverage
+            beyond the standard manufacturer warranty.
+          </p>
+        </div>
+
+        <div class="warranty-plans">
+          <div class="plan-card">
+            <h3>Standard Warranty</h3>
+            <div class="plan-price">Included</div>
+            <ul>
+              <li>12 months manufacturer warranty</li>
+              <li>Covers manufacturing defects</li>
+              <li>Free diagnosis</li>
+              <li>Original spare parts</li>
+            </ul>
+            <div class="plan-note">Comes standard with all products</div>
+          </div>
+
+          <div class="plan-card featured">
+            <div class="plan-badge">Most Popular</div>
+            <h3>Extended Plus</h3>
+            <div class="plan-price">10% of product price</div>
+            <ul>
+              <li>24 months total coverage</li>
+              <li>Covers manufacturing defects</li>
+              <li>Priority service queue</li>
+              <li>Free diagnosis and labor</li>
+              <li>Original spare parts</li>
+              <li>Loaner device available</li>
+            </ul>
+            <button
+              class="btn-primary"
+              onclick="
+                alert('Contact us to add extended warranty to your purchase')
+              "
+            >
+              Add to Purchase
+            </button>
+          </div>
+
+          <div class="plan-card">
+            <h3>Extended Premium</h3>
+            <div class="plan-price">15% of product price</div>
+            <ul>
+              <li>36 months total coverage</li>
+              <li>Covers manufacturing defects</li>
+              <li>Accidental damage coverage*</li>
+              <li>Priority service queue</li>
+              <li>Free diagnosis and labor</li>
+              <li>Original spare parts</li>
+              <li>Loaner device available</li>
+              <li>Free pickup and delivery</li>
+            </ul>
+            <div class="plan-note">*Terms and conditions apply</div>
+            <button
+              class="btn-outline"
+              onclick="
+                alert('Contact us to add extended warranty to your purchase')
+              "
+            >
+              Add to Purchase
+            </button>
+          </div>
+        </div>
+
+        <div class="policy-section">
+          <h2>What's Covered</h2>
+          <ul>
+            <li>Manufacturing defects in materials and workmanship</li>
+            <li>Hardware failures under normal use</li>
+            <li>Battery defects (not normal degradation)</li>
+            <li>Screen defects (not physical damage)</li>
+            <li>Charging port and button failures</li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2>What's Not Covered</h2>
+          <ul>
+            <li>Physical damage (drops, cracks, liquid damage)</li>
+            <li>Unauthorized repairs or modifications</li>
+            <li>Loss or theft</li>
+            <li>Normal wear and tear</li>
+            <li>Accessories (chargers, cables, cases)</li>
+            <li>Software issues</li>
+          </ul>
+        </div>
+
+        <div class="policy-section">
+          <h2>How to Claim</h2>
+          <ol>
+            <li>Contact our service center at 0745 063030</li>
+            <li>Provide your proof of purchase and warranty certificate</li>
+            <li>Describe the issue with your device</li>
+            <li>Bring or send the device to our service center</li>
+            <li>We will diagnose and repair within 5-7 business days</li>
+          </ol>
+        </div>
+
+        <div class="contact-box">
+          <h3>Questions About Extended Warranty?</h3>
+          <p>
+            Call us at 0710 102424 or visit our store to learn more about
+            protecting your device.
+          </p>
+          <a href="contact.html" class="btn-primary">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>Sile Communications</h4>
+            <p>Sky Plaza Building, Kitale</p>
+            <p>M-PESA Till: 4703484</p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="warranty.html">Warranty</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>0710 102424</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Sile Communications Ltd. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+    </script>
+
+    <style>
+      .warranty-plans {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin: 40px 0;
+      }
+
+      .plan-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 25px;
+        text-align: center;
+        position: relative;
+        transition: all 0.3s;
+      }
+
+      .plan-card.featured {
+        border-color: var(--primary);
+        transform: scale(1.02);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .plan-badge {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary);
+        color: white;
+        padding: 4px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .plan-card h3 {
+        margin-bottom: 15px;
+      }
+
+      .plan-price {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 20px;
+      }
+
+      .plan-card ul {
+        text-align: left;
+        margin-bottom: 20px;
+        padding-left: 20px;
+      }
+
+      .plan-card li {
+        margin-bottom: 8px;
+        font-size: 13px;
+      }
+
+      .plan-note {
+        font-size: 11px;
+        color: var(--text-light);
+        margin-top: 10px;
+      }
+
+      .contact-box {
+        background: var(--bg-light);
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      @media (max-width: 768px) {
+        .warranty-plans {
+          grid-template-columns: 1fr;
+        }
+        .plan-card.featured {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </body>
+</html>

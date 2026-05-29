@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Center - Sile Communications</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-top">
+        <div class="container">
+          <div class="logo">
+            <a href="index.html"
+              ><img
+                src="images/logo.png"
+                alt="Sile Communications"
+                class="logo-img"
+              />
+              <div>
+                <div class="logo-text">
+                  Sile <span class="logo-accent">Communications</span>
+                </div>
+                <div class="logo-sub">PREMIUM ELECTRONICS · KITALE</div>
+              </div></a
+            >
+          </div>
+          <div class="search-bar">
+            <form action="category.html">
+              <input
+                type="text"
+                placeholder="Search phones, laptops, solar panels..."
+              /><button>Search</button>
+            </form>
+          </div>
+          <div class="header-actions">
+            <div class="action-btn cart" onclick="toggleCart()">
+              <div class="action-icon-wrap">
+                <i class="fas fa-shopping-bag"></i
+                ><span class="cart-badge" id="cart-count">0</span>
+              </div>
+              <span class="action-label">Cart</span>
+            </div>
+            <div class="action-btn account" id="accountButton">
+              <a href="login.html" id="accountLink">
+                <i class="fas fa-user"></i>
+                <span class="action-label" id="userNameLabel">Login</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-bottom">
+        <div class="container">
+          <nav class="main-nav">
+            <ul class="nav-links" id="nav-links">
+              <li><a href="index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="category.html?cat=smartphones"
+                  >Smartphones <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=smartphones&brand=samsung"
+                    >Samsung</a
+                  ><a href="category.html?cat=smartphones&brand=apple">Apple</a
+                  ><a href="category.html?cat=smartphones&brand=huawei"
+                    >Huawei</a
+                  ><a href="category.html?cat=smartphones&brand=xiaomi"
+                    >Xiaomi</a
+                  ><a href="category.html?cat=smartphones&brand=tecno">Tecno</a
+                  ><a href="category.html?cat=smartphones&brand=infinix"
+                    >Infinix</a
+                  ><a href="category.html?cat=smartphones&brand=oppo">Oppo</a
+                  ><a href="category.html?cat=smartphones&brand=honor">Honor</a
+                  ><a href="category.html?cat=smartphones&brand=nokia"
+                    >Nokia/HMD</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=kabambe"
+                  >Kabambe <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=kabambe&brand=itel">Itel</a
+                  ><a href="category.html?cat=kabambe&brand=tecno">Tecno</a>
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=laptops"
+                  >Laptops <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=laptops&brand=dell">Dell</a
+                  ><a href="category.html?cat=laptops&brand=hp">HP</a
+                  ><a href="category.html?cat=laptops&brand=lenovo">Lenovo</a
+                  ><a href="category.html?cat=laptops&brand=asus">Asus</a
+                  ><a href="category.html?cat=laptops&brand=apple-mac"
+                    >Apple Mac</a
+                  >
+                </div>
+              </li>
+              <li><a href="solar-solutions.html">Solar Solutions</a></li>
+              <li><a href="safaricom-services.html">Safaricom Services</a></li>
+              <li><a href="lipa-polepole.html">Lipa Mdogo Mdogo</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+              <i class="fas fa-bars"></i>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="service-hero">
+        <h1>Service Center</h1>
+        <p>Professional repair services for all your devices</p>
+      </div>
+      <div
+        style="
+          background: white;
+          padding: 40px;
+          border-radius: 20px;
+          margin-bottom: 50px;
+        "
+      >
+        <p style="margin-bottom: 20px">
+          At Sile Communications, we offer professional repair services for all
+          your devices. Our certified technicians use genuine parts to ensure
+          quality repairs.
+        </p>
+        <h3 style="margin: 30px 0 20px">Repair Services We Offer:</h3>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+          "
+        >
+          <div>
+            <i
+              class="fas fa-mobile-alt"
+              style="color: var(--primary); width: 25px"
+            ></i>
+            Smartphone Screen Replacement
+          </div>
+          <div>
+            <i
+              class="fas fa-battery-full"
+              style="color: var(--primary); width: 25px"
+            ></i>
+            Battery Replacement
+          </div>
+          <div>
+            <i
+              class="fas fa-plug"
+              style="color: var(--primary); width: 25px"
+            ></i>
+            Charging Port Repair
+          </div>
+          <div>
+            <i
+              class="fas fa-camera"
+              style="color: var(--primary); width: 25px"
+            ></i>
+            Camera Repair
+          </div>
+          <div>
+            <i
+              class="fas fa-water"
+              style="color: var(--primary); width: 25px"
+            ></i>
+            Water Damage Repair
+          </div>
+          <div>
+            <i
+              class="fas fa-microchip"
+              style="color: var(--primary); width: 25px"
+            ></i>
+            Motherboard Repair
+          </div>
+          <div>
+            <i
+              class="fas fa-laptop"
+              style="color: var(--primary); width: 25px"
+            ></i>
+            Laptop Repair & Diagnostics
+          </div>
+          <div>
+            <i
+              class="fas fa-headphones"
+              style="color: var(--primary); width: 25px"
+            ></i>
+            Audio Device Repair
+          </div>
+        </div>
+        <div
+          style="
+            background: var(--bg-light);
+            padding: 25px;
+            border-radius: 16px;
+            margin-top: 30px;
+          "
+        >
+          <h3>Contact for Repairs:</h3>
+          <p><strong>Phone:</strong> 0745 063030</p>
+          <p>
+            <strong>Location:</strong> Sky Plaza Building, 1st Floor, Kitale
+          </p>
+          <p><strong>Hours:</strong> Mon-Fri: 8AM-6PM, Sat: 9AM-4PM</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>Sile Communications</h4>
+            <p>Sky Plaza Building, Kitale</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="about.html">About</a><a href="contact.html">Contact</a
+            ><a href="service-center.html">Service Center</a>
+          </div>
+          <div class="footer-col">
+            <h4>Categories</h4>
+            <a href="category.html?cat=smartphones">Smartphones</a
+            ><a href="category.html?cat=kabambe">Kabambe</a
+            ><a href="category.html?cat=laptops">Laptops</a
+            ><a href="category.html?cat=accessories">Accessories</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>0710 102424</p>
+            <p>silecommunications.ltd@gmail.com</p>
+                        <div class="social-links">
+              <a href="https://www.facebook.com/Silecommunications.ltd" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/silecommunicationsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://x.com/SileCommsLtd" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+              <a href="https://www.tiktok.com/@silecommunications" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="https://wa.me/254710102424" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Sile Communications Ltd. Authorized Safaricom Dealer.
+            All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+      }
+    </script>
+    <style>
+      .service-hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        padding: 60px;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+        margin: 40px 0;
+      }
+      .service-hero h1 {
+        font-size: 38px;
+        margin-bottom: 15px;
+      }
+      @media (max-width: 768px) {
+        .service-hero {
+          padding: 40px 20px;
+        }
+        .service-hero h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </body>
+</html>
