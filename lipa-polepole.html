@@ -20,8 +20,8 @@
       <div class="header-top">
         <div class="container">
           <div class="logo">
-            <a href="index.html"
-              ><img
+            <a href="index.html">
+              <img
                 src="images/logo.png"
                 alt="Sile Communications"
                 class="logo-img"
@@ -31,22 +31,24 @@
                   Sile <span class="logo-accent">Communications</span>
                 </div>
                 <div class="logo-sub">PREMIUM ELECTRONICS · KITALE</div>
-              </div></a
-            >
+              </div>
+            </a>
           </div>
           <div class="search-bar">
-            <form action="category.html">
+            <form action="category.html" method="get">
               <input
                 type="text"
+                name="search"
                 placeholder="Search phones, laptops, solar panels..."
-              /><button>Search</button>
+              />
+              <button type="submit">Search</button>
             </form>
           </div>
           <div class="header-actions">
             <div class="action-btn cart" onclick="toggleCart()">
               <div class="action-icon-wrap">
-                <i class="fas fa-shopping-bag"></i
-                ><span class="cart-badge" id="cart-count">0</span>
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cart-count">0</span>
               </div>
               <span class="action-label">Cart</span>
             </div>
@@ -71,18 +73,28 @@
                 <div class="dropdown-content">
                   <a href="category.html?cat=smartphones&brand=samsung"
                     >Samsung</a
-                  ><a href="category.html?cat=smartphones&brand=apple">Apple</a
-                  ><a href="category.html?cat=smartphones&brand=huawei"
+                  >
+                  <a href="category.html?cat=smartphones&brand=apple">Apple</a>
+                  <a href="category.html?cat=smartphones&brand=huawei"
                     >Huawei</a
-                  ><a href="category.html?cat=smartphones&brand=xiaomi"
+                  >
+                  <a href="category.html?cat=smartphones&brand=xiaomi"
                     >Xiaomi</a
-                  ><a href="category.html?cat=smartphones&brand=tecno">Tecno</a
-                  ><a href="category.html?cat=smartphones&brand=infinix"
+                  >
+                  <a href="category.html?cat=smartphones&brand=tecno">Tecno</a>
+                  <a href="category.html?cat=smartphones&brand=infinix"
                     >Infinix</a
-                  ><a href="category.html?cat=smartphones&brand=oppo">Oppo</a
-                  ><a href="category.html?cat=smartphones&brand=honor">Honor</a
-                  ><a href="category.html?cat=smartphones&brand=nokia"
+                  >
+                  <a href="category.html?cat=smartphones&brand=oppo">Oppo</a>
+                  <a href="category.html?cat=smartphones&brand=honor">Honor</a>
+                  <a href="category.html?cat=smartphones&brand=nokia"
                     >Nokia/HMD</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=google"
+                    >Google Pixel</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=nothing"
+                    >Nothing</a
                   >
                 </div>
               </li>
@@ -91,8 +103,10 @@
                   >Kabambe <i class="fas fa-chevron-down"></i
                 ></a>
                 <div class="dropdown-content">
-                  <a href="category.html?cat=kabambe&brand=itel">Itel</a
-                  ><a href="category.html?cat=kabambe&brand=tecno">Tecno</a>
+                  <a href="category.html?cat=kabambe&brand=itel">Itel</a>
+                  <a href="category.html?cat=kabambe&brand=tecno"
+                    >Tecno Feature Phones</a
+                  >
                 </div>
               </li>
               <li class="dropdown">
@@ -100,13 +114,14 @@
                   >Laptops <i class="fas fa-chevron-down"></i
                 ></a>
                 <div class="dropdown-content">
-                  <a href="category.html?cat=laptops&brand=dell">Dell</a
-                  ><a href="category.html?cat=laptops&brand=hp">HP</a
-                  ><a href="category.html?cat=laptops&brand=lenovo">Lenovo</a
-                  ><a href="category.html?cat=laptops&brand=asus">Asus</a
-                  ><a href="category.html?cat=laptops&brand=apple-mac"
+                  <a href="category.html?cat=laptops&brand=dell">Dell</a>
+                  <a href="category.html?cat=laptops&brand=hp">HP</a>
+                  <a href="category.html?cat=laptops&brand=lenovo">Lenovo</a>
+                  <a href="category.html?cat=laptops&brand=asus">Asus</a>
+                  <a href="category.html?cat=laptops&brand=apple-mac"
                     >Apple Mac</a
                   >
+                  <a href="category.html?cat=laptops&brand=acer">Acer</a>
                 </div>
               </li>
               <li class="dropdown">
@@ -116,12 +131,21 @@
                 <div class="dropdown-content">
                   <a href="category.html?cat=accessories&brand=smartwatches"
                     >Smartwatches</a
-                  ><a href="category.html?cat=accessories&brand=powerbanks"
+                  >
+                  <a href="category.html?cat=accessories&brand=powerbanks"
                     >Power Banks</a
-                  ><a href="category.html?cat=accessories&brand=earbuds"
+                  >
+                  <a href="category.html?cat=accessories&brand=earbuds"
                     >Earbuds</a
-                  ><a href="category.html?cat=accessories&brand=cases"
+                  >
+                  <a href="category.html?cat=accessories&brand=cases"
                     >Phone Cases</a
+                  >
+                  <a href="category.html?cat=accessories&brand=protectors"
+                    >Screen Protectors</a
+                  >
+                  <a href="category.html?cat=accessories&brand=chargers"
+                    >Chargers</a
                   >
                 </div>
               </li>
@@ -132,12 +156,22 @@
                 <div class="dropdown-content">
                   <a href="category.html?cat=content-creator&brand=gimbals"
                     >Gimbals</a
-                  ><a href="category.html?cat=content-creator&brand=mics"
+                  >
+                  <a href="category.html?cat=content-creator&brand=mics"
                     >Wireless Mics</a
-                  ><a href="category.html?cat=content-creator&brand=tripods"
+                  >
+                  <a href="category.html?cat=content-creator&brand=tripods"
                     >Tripods</a
-                  ><a href="category.html?cat=content-creator&brand=ringlights"
+                  >
+                  <a href="category.html?cat=content-creator&brand=ringlights"
                     >Ring Lights</a
+                  >
+                  <a
+                    href="category.html?cat=content-creator&brand=actioncameras"
+                    >Action Cameras</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=smartglasses"
+                    >Smart Glasses</a
                   >
                 </div>
               </li>
@@ -164,28 +198,52 @@
         </p>
       </div>
 
-      <div class="steps-grid">
-        <div class="step-card">
+      <div class="steps-grid steps-grid-images">
+        <div class="step-card step-card-image">
           <div class="step-number">1</div>
-          <i class="fas fa-mobile-alt"></i>
+          <div class="step-image-wrap">
+            <img
+              src="images/lipa-banner.jpg"
+              alt="Choose your device"
+              loading="lazy"
+            />
+          </div>
           <h3>Choose Your Device</h3>
           <p>Select any eligible product from our Lipa Mdogo Mdogo catalog</p>
         </div>
-        <div class="step-card">
+        <div class="step-card step-card-image">
           <div class="step-number">2</div>
-          <i class="fas fa-file-signature"></i>
+          <div class="step-image-wrap">
+            <img
+              src="images/requirements.jpg"
+              alt="Apply for financing"
+              loading="lazy"
+            />
+          </div>
           <h3>Apply for Financing</h3>
           <p>Fill out our simple application form with your details</p>
         </div>
-        <div class="step-card">
+        <div class="step-card step-card-image">
           <div class="step-number">3</div>
-          <i class="fas fa-clock"></i>
+          <div class="step-image-wrap">
+            <img
+              src="images/lipa-polepole-icon.png"
+              alt="Approval"
+              loading="lazy"
+            />
+          </div>
           <h3>Approval</h3>
           <p>Get approved within 10 minutes (ID and passport required)</p>
         </div>
-        <div class="step-card">
+        <div class="step-card step-card-image">
           <div class="step-number">4</div>
-          <i class="fas fa-hand-holding-usd"></i>
+          <div class="step-image-wrap">
+            <img
+              src="images/fresh-deal-camon.jpg"
+              alt="Pay and take device"
+              loading="lazy"
+            />
+          </div>
           <h3>Pay & Take Device</h3>
           <p>Pay the deposit and take your device home the same day</p>
         </div>
@@ -233,26 +291,61 @@
           </div>
           <div class="footer-col">
             <h4>Quick Links</h4>
-            <a href="about.html">About</a><a href="contact.html">Contact</a
-            ><a href="service-center.html">Service Center</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="service-center.html">Service Center</a>
+            <a href="lipa-polepole.html">Lipa Mdogo Mdogo</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
           </div>
           <div class="footer-col">
             <h4>Categories</h4>
-            <a href="category.html?cat=smartphones">Smartphones</a
-            ><a href="category.html?cat=kabambe">Kabambe</a
-            ><a href="category.html?cat=laptops">Laptops</a
-            ><a href="category.html?cat=accessories">Accessories</a>
+            <a href="category.html?cat=smartphones">Smartphones</a>
+            <a href="category.html?cat=kabambe">Kabambe</a>
+            <a href="category.html?cat=laptops">Laptops</a>
+            <a href="category.html?cat=accessories">Accessories</a>
+            <a href="category.html?cat=content-creator">Content Creator Kits</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
           </div>
           <div class="footer-col">
             <h4>Contact</h4>
-            <p>0710 102424</p>
-            <p>silecommunications.ltd@gmail.com</p>
-                        <div class="social-links">
-              <a href="https://www.facebook.com/Silecommunications.ltd" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-              <a href="https://www.instagram.com/silecommunicationsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-              <a href="https://x.com/SileCommsLtd" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-              <a href="https://www.tiktok.com/@silecommunications" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-              <a href="https://wa.me/254710102424" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <p>Phone: 0710 102424</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+            <div class="social-links">
+              <a
+                href="https://www.facebook.com/Silecommunications.ltd"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/silecommunicationsltd/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://x.com/SileCommsLtd"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X"
+                ><i class="fab fa-x-twitter"></i
+              ></a>
+              <a
+                href="https://www.tiktok.com/@silecommunications"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                ><i class="fab fa-tiktok"></i
+              ></a>
+              <a
+                href="https://wa.me/254710102424"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
             </div>
           </div>
         </div>
@@ -265,6 +358,7 @@
       </div>
     </footer>
 
+    <!-- Cart Modal -->
     <div class="cart-modal" id="cart-modal">
       <div class="cart-content">
         <div class="cart-header">
@@ -285,12 +379,32 @@
       </div>
     </div>
 
+    <!-- Chat Widget -->
+    <button class="chat-toggle" onclick="toggleChat()">
+      <i class="fas fa-headset"></i>
+    </button>
+    <div class="chat-widget" id="chat-widget">
+      <div class="chat-header">
+        <span>We're Online!</span>
+        <button onclick="toggleChat()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chat-body">
+        <p>Do you Need Help Buying?</p>
+        <a href="tel:0710102424" class="chat-call"
+          ><i class="fas fa-phone"></i> Call Us</a
+        >
+        <a href="https://wa.me/254710102424" class="chat-wa"
+          ><i class="fab fa-whatsapp"></i> WhatsApp</a
+        >
+      </div>
+    </div>
+
     <script src="js/config.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/wishlist.js"></script>
     <script src="js/nav.js"></script>
+    <script src="js/main.js"></script>
     <script>
-      }
       document.addEventListener("DOMContentLoaded", () => {
         const lipaProducts = LIPA_POLE_POLE_PRODUCTS.slice(0, 12);
         document.getElementById("lipa-products").innerHTML = lipaProducts
@@ -381,6 +495,25 @@
       .step-card p {
         color: var(--text-light);
         font-size: 12px;
+      }
+      .steps-grid-images .step-card-image {
+        padding-top: 28px;
+      }
+      .step-image-wrap {
+        width: 100%;
+        height: 120px;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 16px 0 12px;
+        background: var(--bg-light);
+      }
+      .step-image-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .steps-grid-images .step-card i {
+        display: none;
       }
       .requirements-grid {
         display: grid;

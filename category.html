@@ -90,6 +90,12 @@
                   <a href="category.html?cat=smartphones&brand=nokia"
                     >Nokia/HMD</a
                   >
+                  <a href="category.html?cat=smartphones&brand=google"
+                    >Google Pixel</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=nothing"
+                    >Nothing</a
+                  >
                 </div>
               </li>
               <li class="dropdown">
@@ -98,7 +104,9 @@
                 ></a>
                 <div class="dropdown-content">
                   <a href="category.html?cat=kabambe&brand=itel">Itel</a>
-                  <a href="category.html?cat=kabambe&brand=tecno">Tecno</a>
+                  <a href="category.html?cat=kabambe&brand=tecno"
+                    >Tecno Feature Phones</a
+                  >
                 </div>
               </li>
               <li class="dropdown">
@@ -113,6 +121,7 @@
                   <a href="category.html?cat=laptops&brand=apple-mac"
                     >Apple Mac</a
                   >
+                  <a href="category.html?cat=laptops&brand=acer">Acer</a>
                 </div>
               </li>
               <li class="dropdown">
@@ -132,6 +141,12 @@
                   <a href="category.html?cat=accessories&brand=cases"
                     >Phone Cases</a
                   >
+                  <a href="category.html?cat=accessories&brand=protectors"
+                    >Screen Protectors</a
+                  >
+                  <a href="category.html?cat=accessories&brand=chargers"
+                    >Chargers</a
+                  >
                 </div>
               </li>
               <li class="dropdown">
@@ -150,6 +165,13 @@
                   >
                   <a href="category.html?cat=content-creator&brand=ringlights"
                     >Ring Lights</a
+                  >
+                  <a
+                    href="category.html?cat=content-creator&brand=actioncameras"
+                    >Action Cameras</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=smartglasses"
+                    >Smart Glasses</a
                   >
                 </div>
               </li>
@@ -196,6 +218,7 @@
             <a href="category.html?cat=kabambe">Kabambe</a>
             <a href="category.html?cat=laptops">Laptops</a>
             <a href="category.html?cat=accessories">Accessories</a>
+            <a href="category.html?cat=content-creator">Content Creator Kits</a>
             <a href="solar-solutions.html">Solar Solutions</a>
           </div>
           <div class="footer-col">
@@ -220,6 +243,10 @@
       </div>
     </footer>
 
+    
+    </div>
+
+    <!-- Cart Modal -->
     <div class="cart-modal" id="cart-modal">
       <div class="cart-content">
         <div class="cart-header">
@@ -240,14 +267,32 @@
       </div>
     </div>
 
+    <!-- Chat Widget -->
+    <button class="chat-toggle" onclick="toggleChat()">
+      <i class="fas fa-headset"></i>
+    </button>
+    <div class="chat-widget" id="chat-widget">
+      <div class="chat-header">
+        <span>We're Online!</span>
+        <button onclick="toggleChat()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chat-body">
+        <p>Do you Need Help Buying?</p>
+        <a href="tel:0710102424" class="chat-call"
+          ><i class="fas fa-phone"></i> Call Us</a
+        >
+        <a href="https://wa.me/254710102424" class="chat-wa"
+          ><i class="fab fa-whatsapp"></i> WhatsApp</a
+        >
+      </div>
+    </div>
+
     <script src="js/config.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/wishlist.js"></script>
     <script src="js/nav.js"></script>
     <script src="js/main.js"></script>
     <script>
-      }
-
       function loadCategoryPage() {
         const urlParams = new URLSearchParams(window.location.search);
         const categorySlug = urlParams.get("cat");
@@ -265,7 +310,6 @@
             "content-creator": "Content Creator Kits",
             solar: "Solar Solutions",
             kabambe: "Kabambe (Feature Phones)",
-            audio: "Audio",
           };
           const titleEl = document.getElementById("category-title");
           if (titleEl)
@@ -273,7 +317,10 @@
         }
 
         if (brandParam) {
-          filtered = filtered.filter((p) => p.brand_cat === brandParam);
+          // Support both brand_cat (backend) and brandCat (admin/localStorage) field names
+          filtered = filtered.filter(
+            (p) => (p.brand_cat || p.brandCat) === brandParam
+          );
           const brandDisplay = brandParam
             .split("-")
             .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
@@ -283,8 +330,13 @@
         }
 
         if (searchQuery) {
-          filtered = filtered.filter((p) =>
-            p.name.toLowerCase().includes(searchQuery.toLowerCase()),
+          const q = searchQuery.toLowerCase();
+          filtered = filtered.filter(
+            (p) =>
+              p.name.toLowerCase().includes(q) ||
+              (p.brand && p.brand.toLowerCase().includes(q)) ||
+              (p.desc && p.desc.toLowerCase().includes(q)) ||
+              (p.description && p.description.toLowerCase().includes(q))
           );
           const titleEl = document.getElementById("category-title");
           if (titleEl) titleEl.textContent = `Search: "${searchQuery}"`;
@@ -298,24 +350,30 @@
         if (!container) return;
         if (productsArray.length === 0) {
           container.innerHTML =
-            '<p style="text-align:center; padding:50px;">No products found.</p>';
+            '<p style="text-align:center; padding:50px; grid-column:1/-1;">No products found.</p>';
           return;
         }
         container.innerHTML = productsArray
           .map((product) => createProductCard(product))
           .join("");
+        if (typeof refreshAllWishlistButtons === "function")
+          refreshAllWishlistButtons();
       }
 
-      // Wait for products to load
-      if (window.PRODUCTS && window.PRODUCTS.length > 0) {
-        loadCategoryPage();
-      } else {
-        window.addEventListener("productsLoaded", loadCategoryPage);
+      // Load products - handle both sync (localStorage) and async (backend) scenarios
+      function tryLoad() {
+        if (window.PRODUCTS && window.PRODUCTS.length > 0) {
+          loadCategoryPage();
+        }
       }
 
+      window.addEventListener("productsLoaded", loadCategoryPage);
       document.addEventListener("DOMContentLoaded", () => {
+        tryLoad();
         updateCartUI();
       });
+      // Also try immediately in case products already loaded before DOMContentLoaded
+      tryLoad();
     </script>
     <style>
       .category-header {

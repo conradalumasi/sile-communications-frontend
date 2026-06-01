@@ -92,12 +92,12 @@ async function fetchProducts() {
 
 /* ── Safaricom services (static) ──────────────────────────── */
 const SAFARICOM_SERVICES = [
-  { id: 1, name: 'M-PESA Registration',       description: 'New M-PESA account setup with full KYC',     price: 0,    icon: 'fa-mobile-alt' },
-  { id: 2, name: 'M-PESA Agent Registration', description: 'Become an authorized M-PESA agent',          price: 0,    icon: 'fa-users' },
-  { id: 3, name: 'SIM Card Replacement',      description: 'Replace lost or damaged SIM card',           price: 100,  icon: 'fa-sim-card' },
-  { id: 4, name: 'ID Number Change',          description: 'Update your M-PESA ID number',               price: 0,    icon: 'fa-id-card' },
-  { id: 5, name: 'Home Fiber Installation',   description: 'Safaricom Home Fiber setup',                 price: 3000, icon: 'fa-home' },
-  { id: 6, name: 'Bundles Purchase',          description: 'Data, voice, and SMS bundles',               price: 0,    icon: 'fa-wifi' },
+  { id: 1, name: 'M-PESA Registration',       description: 'New M-PESA account setup with full KYC verification', price: 0,    image: 'images/service-mpesa.jpg' },
+  { id: 2, name: 'M-PESA Agent Registration', description: 'Become an authorized M-PESA agent — complete training included', price: 0, image: 'images/service-agent.jpg' },
+  { id: 3, name: 'SIM Card Replacement',      description: 'Replace lost or damaged SIM card — instant service', price: 100,  image: 'images/service-sim.jpg' },
+  { id: 4, name: 'ID Number Change',          description: 'Update your M-PESA ID number after ID change', price: 0,    image: 'images/service-id.jpg' },
+  { id: 5, name: 'Home Fiber Installation',   description: 'Safaricom Home Fiber installation and setup — same day service', price: 3000, image: 'images/service-fiber.jpg' },
+  { id: 6, name: 'Bundles Purchase',          description: 'Data, voice, and SMS bundles at discounted rates', price: 0,    image: 'images/service-bundles.jpg' },
 ];
 
 const CATEGORIES = [

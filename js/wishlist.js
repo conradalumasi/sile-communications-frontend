@@ -1,7 +1,7 @@
 /**
  * wishlist.js — Sile Communications
- * Guests: wishlist lives in sessionStorage (lost on close).
- * Logged-in users: synced to backend /api/wishlist.
+ * Guests: wishlist lives in localStorage (persists across sessions).
+ * Logged-in users: also synced to backend /api/wishlist.
  */
 
 const WISHLIST_KEY = 'sileWishlist';
@@ -14,12 +14,12 @@ function _getToken() {
 
 function _getLocalIds() {
   try {
-    return JSON.parse(sessionStorage.getItem(WISHLIST_KEY)) || [];
+    return JSON.parse(localStorage.getItem(WISHLIST_KEY)) || [];
   } catch { return []; }
 }
 
 function _saveLocalIds(ids) {
-  sessionStorage.setItem(WISHLIST_KEY, JSON.stringify(ids));
+  localStorage.setItem(WISHLIST_KEY, JSON.stringify(ids));
 }
 
 /* ── Badge update ─────────────────────────────────────────── */
@@ -35,7 +35,8 @@ function updateWishlistBadge() {
 /* ── Public API ───────────────────────────────────────────── */
 
 function isInWishlist(productId) {
-  return _getLocalIds().includes(Number(productId));
+  const id = Number(productId);
+  return _getLocalIds().map(Number).includes(id);
 }
 
 function getWishlistIds() {
@@ -52,10 +53,9 @@ async function addToWishlist(productId) {
   updateWishlistBadge();
   refreshWishlistButtons(productId, true);
 
-  const product = window.PRODUCTS ? window.PRODUCTS.find(p => p.id === productId) : null;
-  showWishlistNotification(`${product ? product.name : 'Item'} added to wishlist`, 'add');
+  const product = window.PRODUCTS ? window.PRODUCTS.find(p => Number(p.id) === productId) : null;
+  showWishlistNotification((product ? product.name : 'Item') + ' added to wishlist', 'add');
 
-  // Sync to backend if logged in
   const token = _getToken();
   if (token) {
     try {
@@ -75,10 +75,9 @@ async function removeFromWishlist(productId) {
   updateWishlistBadge();
   refreshWishlistButtons(productId, false);
 
-  const product = window.PRODUCTS ? window.PRODUCTS.find(p => p.id === productId) : null;
-  showWishlistNotification(`${product ? product.name : 'Item'} removed from wishlist`, 'remove');
+  const product = window.PRODUCTS ? window.PRODUCTS.find(p => Number(p.id) === productId) : null;
+  showWishlistNotification((product ? product.name : 'Item') + ' removed from wishlist', 'remove');
 
-  // Sync to backend if logged in
   const token = _getToken();
   if (token) {
     try {
@@ -117,7 +116,7 @@ function refreshWishlistButtons(productId, inWishlist) {
 }
 
 function refreshAllWishlistButtons() {
-  const ids = _getLocalIds();
+  const ids = _getLocalIds().map(Number);
   document.querySelectorAll('[data-wishlist-id]').forEach(btn => {
     const id = Number(btn.dataset.wishlistId);
     refreshWishlistButtons(id, ids.includes(id));
@@ -131,7 +130,6 @@ function showWishlistNotification(message, type) {
   el.className = `sile-toast sile-toast-${type === 'add' ? 'wishlist' : 'remove'}`;
   el.innerHTML = `<i class="fa${type === 'add' ? 's' : 'r'} fa-heart"></i><span>${message}</span>`;
   document.body.appendChild(el);
-  // Trigger animation
   requestAnimationFrame(() => el.classList.add('sile-toast-show'));
   setTimeout(() => {
     el.classList.remove('sile-toast-show');
@@ -150,13 +148,10 @@ async function syncWishlistFromBackend() {
     });
     if (!res.ok) return;
     const data = await res.json();
-    // data expected to be array of {productId} or array of numbers
     const ids = data.map(item => Number(item.productId || item.id || item));
-    // Merge: union of local + backend
-    const localIds = _getLocalIds();
+    const localIds = _getLocalIds().map(Number);
     const merged = [...new Set([...localIds, ...ids])];
     _saveLocalIds(merged);
-    // Push any local-only ids to backend
     for (const id of localIds) {
       if (!ids.includes(id)) {
         try {
@@ -180,8 +175,5 @@ function initWishlist() {
   syncWishlistFromBackend();
 }
 
-// Auto-init when DOM is ready
 document.addEventListener('DOMContentLoaded', initWishlist);
-
-// Also refresh buttons when products load
 window.addEventListener('productsLoaded', refreshAllWishlistButtons);

@@ -146,12 +146,218 @@
         color: #166534;
         display: block;
       }
+      .checkout-section-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin: 28px 0 14px;
+        padding-top: 8px;
+        border-top: 1px solid var(--border);
+        color: var(--dark);
+      }
+      .checkout-section-title:first-of-type {
+        border-top: none;
+        margin-top: 0;
+        padding-top: 0;
+      }
+      .checkout-hint {
+        font-size: 12px;
+        color: var(--text-light);
+        margin: -8px 0 12px;
+      }
+      .option-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .option-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 14px 16px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+        background: #fafafa;
+      }
+      .option-card:hover {
+        border-color: #a7f3d0;
+        background: #f0fdf4;
+      }
+      .option-card.selected {
+        border-color: var(--primary);
+        background: #ecfdf5;
+        box-shadow: 0 0 0 1px var(--primary);
+      }
+      .option-card input {
+        margin-top: 4px;
+        accent-color: var(--primary);
+        flex-shrink: 0;
+      }
+      .option-card-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .option-card-body strong {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+      .option-card-body span {
+        font-size: 12px;
+        color: var(--text-light);
+        line-height: 1.45;
+      }
+      .option-card-price {
+        font-weight: 700;
+        font-size: 13px;
+        color: var(--primary);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .delivery-zone-wrap {
+        margin-top: 12px;
+        padding: 16px;
+        background: #f8fafc;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        display: none;
+      }
+      .delivery-zone-wrap.visible {
+        display: block;
+      }
+      .delivery-zone-wrap label {
+        display: block;
+        font-weight: 600;
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+      .delivery-zone-wrap select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 14px;
+        background: white;
+      }
+      .mpesa-panel {
+        margin-top: 14px;
+        padding: 18px;
+        background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+        border: 1px solid #a7f3d0;
+        border-radius: 12px;
+        display: none;
+      }
+      .mpesa-panel.visible {
+        display: block;
+      }
+      .mpesa-panel-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .mpesa-panel-header img,
+      .mpesa-panel-header .mpesa-logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: #00a651;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 11px;
+      }
+      .mpesa-panel-header h4 {
+        font-size: 15px;
+        margin: 0;
+      }
+      .mpesa-panel-header p {
+        font-size: 12px;
+        color: var(--text-light);
+        margin: 2px 0 0;
+      }
+      .mpesa-input-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .mpesa-input-row input {
+        flex: 1;
+        min-width: 180px;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 14px;
+      }
+      .btn-initiate-mpesa {
+        padding: 12px 20px;
+        background: #00a651;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.2s;
+      }
+      .btn-initiate-mpesa:hover {
+        background: #008c45;
+      }
+      .btn-initiate-mpesa:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+      }
+      .mpesa-status {
+        margin-top: 12px;
+        font-size: 13px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        display: none;
+      }
+      .mpesa-status.info {
+        display: block;
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .mpesa-status.success {
+        display: block;
+        background: #dcfce7;
+        color: #166534;
+      }
+      .mpesa-status.error {
+        display: block;
+        background: #fee2e2;
+        color: #dc2626;
+      }
+      .payment-icons {
+        display: flex;
+        gap: 8px;
+        margin-top: 6px;
+      }
+      .payment-icons i {
+        font-size: 18px;
+        color: var(--primary);
+      }
       @media (max-width: 768px) {
         .checkout-grid {
           grid-template-columns: 1fr;
         }
         .form-row {
           grid-template-columns: 1fr;
+        }
+        .mpesa-input-row {
+          flex-direction: column;
+        }
+        .btn-initiate-mpesa {
+          width: 100%;
+          justify-content: center;
         }
       }
     </style>
@@ -162,8 +368,8 @@
       <div class="header-top">
         <div class="container">
           <div class="logo">
-            <a href="index.html"
-              ><img
+            <a href="index.html">
+              <img
                 src="images/logo.png"
                 alt="Sile Communications"
                 class="logo-img"
@@ -173,8 +379,8 @@
                   Sile <span class="logo-accent">Communications</span>
                 </div>
                 <div class="logo-sub">PREMIUM ELECTRONICS · KITALE</div>
-              </div></a
-            >
+              </div>
+            </a>
           </div>
           <div class="search-bar">
             <form action="category.html" method="get">
@@ -182,14 +388,15 @@
                 type="text"
                 name="search"
                 placeholder="Search phones, laptops, solar panels..."
-              /><button type="submit">Search</button>
+              />
+              <button type="submit">Search</button>
             </form>
           </div>
           <div class="header-actions">
             <div class="action-btn cart" onclick="toggleCart()">
               <div class="action-icon-wrap">
-                <i class="fas fa-shopping-bag"></i
-                ><span class="cart-badge" id="cart-count">0</span>
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cart-count">0</span>
               </div>
               <span class="action-label">Cart</span>
             </div>
@@ -206,7 +413,121 @@
         <div class="container">
           <nav class="main-nav">
             <ul class="nav-links" id="nav-links">
-              <!-- same nav as index.html -->
+              <li><a href="index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="category.html?cat=smartphones"
+                  >Smartphones <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=smartphones&brand=samsung"
+                    >Samsung</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=apple">Apple</a>
+                  <a href="category.html?cat=smartphones&brand=huawei"
+                    >Huawei</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=xiaomi"
+                    >Xiaomi</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=tecno">Tecno</a>
+                  <a href="category.html?cat=smartphones&brand=infinix"
+                    >Infinix</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=oppo">Oppo</a>
+                  <a href="category.html?cat=smartphones&brand=honor">Honor</a>
+                  <a href="category.html?cat=smartphones&brand=nokia"
+                    >Nokia/HMD</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=google"
+                    >Google Pixel</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=nothing"
+                    >Nothing</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=kabambe"
+                  >Kabambe <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=kabambe&brand=itel">Itel</a>
+                  <a href="category.html?cat=kabambe&brand=tecno"
+                    >Tecno Feature Phones</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=laptops"
+                  >Laptops <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=laptops&brand=dell">Dell</a>
+                  <a href="category.html?cat=laptops&brand=hp">HP</a>
+                  <a href="category.html?cat=laptops&brand=lenovo">Lenovo</a>
+                  <a href="category.html?cat=laptops&brand=asus">Asus</a>
+                  <a href="category.html?cat=laptops&brand=apple-mac"
+                    >Apple Mac</a
+                  >
+                  <a href="category.html?cat=laptops&brand=acer">Acer</a>
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=accessories"
+                  >Accessories <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=accessories&brand=smartwatches"
+                    >Smartwatches</a
+                  >
+                  <a href="category.html?cat=accessories&brand=powerbanks"
+                    >Power Banks</a
+                  >
+                  <a href="category.html?cat=accessories&brand=earbuds"
+                    >Earbuds</a
+                  >
+                  <a href="category.html?cat=accessories&brand=cases"
+                    >Phone Cases</a
+                  >
+                  <a href="category.html?cat=accessories&brand=protectors"
+                    >Screen Protectors</a
+                  >
+                  <a href="category.html?cat=accessories&brand=chargers"
+                    >Chargers</a
+                  >
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="category.html?cat=content-creator"
+                  >Content Creator <i class="fas fa-chevron-down"></i
+                ></a>
+                <div class="dropdown-content">
+                  <a href="category.html?cat=content-creator&brand=gimbals"
+                    >Gimbals</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=mics"
+                    >Wireless Mics</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=tripods"
+                    >Tripods</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=ringlights"
+                    >Ring Lights</a
+                  >
+                  <a
+                    href="category.html?cat=content-creator&brand=actioncameras"
+                    >Action Cameras</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=smartglasses"
+                    >Smart Glasses</a
+                  >
+                </div>
+              </li>
+              <li><a href="solar-solutions.html">Solar Solutions</a></li>
+              <li><a href="safaricom-services.html">Safaricom Services</a></li>
+              <li><a href="lipa-polepole.html">Lipa Mdogo Mdogo</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
             </ul>
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
               <i class="fas fa-bars"></i>
@@ -255,27 +576,92 @@
                 <label>Town / City *</label
                 ><input type="text" id="town" required />
               </div>
-              <div class="form-group">
-                <label>Delivery Option *</label
-                ><select id="deliveryOption" required>
-                  <option value="100">Within Kitale CBD - KSh 100</option>
-                  <option value="400">Outside Kitale - KSh 400</option>
-                  <option value="0">Shop Pickup - Free</option>
+
+              <h4 class="checkout-section-title">How will you receive your order?</h4>
+              <p class="checkout-hint">Choose delivery to your address or collect at our Kitale shop.</p>
+              <div class="option-cards" id="fulfillmentOptions">
+                <label class="option-card selected" data-fulfillment="delivery">
+                  <input type="radio" name="fulfillment" value="delivery" checked />
+                  <div class="option-card-body">
+                    <strong><i class="fas fa-truck"></i> Home / office delivery</strong>
+                    <span>We deliver to your address. Shipping fee depends on your area.</span>
+                  </div>
+                </label>
+                <label class="option-card" data-fulfillment="pickup">
+                  <input type="radio" name="fulfillment" value="pickup" />
+                  <div class="option-card-body">
+                    <strong><i class="fas fa-store"></i> Shop pickup</strong>
+                    <span>Collect at Sky Plaza, Kenyatta Street, Kitale — no delivery fee.</span>
+                  </div>
+                  <span class="option-card-price">Free</span>
+                </label>
+              </div>
+              <div class="delivery-zone-wrap visible" id="deliveryZoneWrap">
+                <label for="deliveryZone">Delivery area *</label>
+                <select id="deliveryZone">
+                  <option value="cbd" data-fee="0">Kitale CBD — Free</option>
+                  <option value="kitale" data-fee="150">Around Kitale areas — KSh 150</option>
+                  <option value="outside" data-fee="500">Outside Kitale — KSh 500</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label>Payment Method *</label
-                ><select id="paymentMethod" required>
-                  <option value="mpesa">M-PESA</option>
-                  <option value="cod">Cash on Delivery</option>
-                </select>
+
+              <h4 class="checkout-section-title">Payment method</h4>
+              <p class="checkout-hint">Select how you would like to pay for this order.</p>
+              <div class="option-cards" id="paymentOptions">
+                <label class="option-card" data-payment="cod">
+                  <input type="radio" name="payment" value="cod" />
+                  <div class="option-card-body">
+                    <strong>Cash on delivery</strong>
+                    <span>Pay with cash when your order is delivered.</span>
+                    <div class="payment-icons"><i class="fas fa-money-bill-wave"></i></div>
+                  </div>
+                </label>
+                <label class="option-card selected" data-payment="mpesa">
+                  <input type="radio" name="payment" value="mpesa" checked />
+                  <div class="option-card-body">
+                    <strong>M-PESA</strong>
+                    <span>Pay instantly via STK push to your M-PESA number.</span>
+                    <div class="payment-icons"><i class="fas fa-mobile-alt"></i></div>
+                  </div>
+                </label>
+                <label class="option-card" data-payment="pickup">
+                  <input type="radio" name="payment" value="pickup" />
+                  <div class="option-card-body">
+                    <strong>Pay at shop (pickup)</strong>
+                    <span>Pay when you collect your order at our store.</span>
+                    <div class="payment-icons"><i class="fas fa-store"></i></div>
+                  </div>
+                </label>
               </div>
-              <div class="form-group">
+
+              <div class="mpesa-panel visible" id="mpesaPanel">
+                <div class="mpesa-panel-header">
+                  <div class="mpesa-logo">M-PESA</div>
+                  <div>
+                    <h4>M-PESA payment</h4>
+                    <p>Enter the number to receive the payment prompt</p>
+                  </div>
+                </div>
+                <div class="mpesa-input-row">
+                  <input
+                    type="tel"
+                    id="mpesaPhone"
+                    placeholder="e.g. 0710 102424 or 254710102424"
+                    autocomplete="tel"
+                  />
+                  <button type="button" class="btn-initiate-mpesa" id="initiateMpesaBtn">
+                    <i class="fas fa-paper-plane"></i> Initiate payment
+                  </button>
+                </div>
+                <div class="mpesa-status" id="mpesaStatus"></div>
+              </div>
+
+              <div class="form-group" style="margin-top: 20px">
                 <label>Order Notes (Optional)</label
                 ><textarea
                   id="notes"
                   rows="3"
-                  placeholder="Special delivery instructions..."
+                  placeholder="Special delivery instructions, landmark, preferred time..."
                 ></textarea>
               </div>
             </form>
@@ -317,14 +703,56 @@
     <!-- ========== FOOTER ========== -->
     <footer class="main-footer">
       <div class="container">
-        <div class="footer-grid"><!-- same as index.html --></div>
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h4>Sile Communications</h4>
+            <p>Sky Plaza Building, ground Floor<br />Kenyatta Street, Kitale</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="service-center.html">Service Center</a>
+            <a href="lipa-polepole.html">Lipa Mdogo Mdogo</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
+          </div>
+          <div class="footer-col">
+            <h4>Categories</h4>
+            <a href="category.html?cat=smartphones">Smartphones</a>
+            <a href="category.html?cat=kabambe">Kabambe</a>
+            <a href="category.html?cat=laptops">Laptops</a>
+            <a href="category.html?cat=accessories">Accessories</a>
+            <a href="category.html?cat=content-creator">Content Creator Kits</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>Phone: 0710 102424</p>
+            <p>Email: silecommunications.ltd@gmail.com</p>
+                        <div class="social-links">
+              <a href="https://www.facebook.com/Silecommunications.ltd" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/silecommunicationsltd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://x.com/SileCommsLtd" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+              <a href="https://www.tiktok.com/@silecommunications" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="https://wa.me/254710102424" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+        </div>
         <div class="footer-bottom">
-          <p>&copy; 2026 Sile Communications Ltd. All Rights Reserved.</p>
+          <p>
+            &copy; 2026 Sile Communications Ltd. Authorized Safaricom Dealer.
+            All Rights Reserved.
+          </p>
         </div>
       </div>
     </footer>
 
     <!-- Cart Modal (for completeness) -->
+    
+    </div>
+
+    <!-- Cart Modal -->
     <div class="cart-modal" id="cart-modal">
       <div class="cart-content">
         <div class="cart-header">
@@ -339,8 +767,29 @@
           </div>
           <a href="checkout.html" class="btn-cart-checkout"
             >Proceed to Checkout</a
-          ><a href="cart.html" class="btn-cart-view">View Cart</a>
+          >
+          <a href="cart.html" class="btn-cart-view">View Cart</a>
         </div>
+      </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <button class="chat-toggle" onclick="toggleChat()">
+      <i class="fas fa-headset"></i>
+    </button>
+    <div class="chat-widget" id="chat-widget">
+      <div class="chat-header">
+        <span>We're Online!</span>
+        <button onclick="toggleChat()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chat-body">
+        <p>Do you Need Help Buying?</p>
+        <a href="tel:0710102424" class="chat-call"
+          ><i class="fas fa-phone"></i> Call Us</a
+        >
+        <a href="https://wa.me/254710102424" class="chat-wa"
+          ><i class="fab fa-whatsapp"></i> WhatsApp</a
+        >
       </div>
     </div>
 
@@ -394,13 +843,144 @@
         updateTotal(subtotal);
       }
 
+      function getFulfillment() {
+        return document.querySelector('input[name="fulfillment"]:checked')?.value || "delivery";
+      }
+
+      function getPaymentMethod() {
+        return document.querySelector('input[name="payment"]:checked')?.value || "mpesa";
+      }
+
+      function getDeliveryFee() {
+        if (getFulfillment() === "pickup") return 0;
+        const zone = document.getElementById("deliveryZone");
+        const opt = zone?.options[zone.selectedIndex];
+        return parseInt(opt?.getAttribute("data-fee") || "0", 10);
+      }
+
+      function getDeliveryLabel() {
+        if (getFulfillment() === "pickup") {
+          return "Shop pickup — Sky Plaza, Kitale (Free)";
+        }
+        const zone = document.getElementById("deliveryZone");
+        return zone?.options[zone.selectedIndex]?.text || "Delivery";
+      }
+
       function updateTotal(subtotal) {
-        const deliverySelect = document.getElementById("deliveryOption");
-        const deliveryFee = parseInt(deliverySelect.value);
-        document.getElementById("checkoutDelivery").innerText =
-          `KSh ${deliveryFee.toLocaleString()}`;
+        const deliveryFee = getDeliveryFee();
+        const deliveryEl = document.getElementById("checkoutDelivery");
+        deliveryEl.innerText =
+          deliveryFee === 0 ? "Free" : `KSh ${deliveryFee.toLocaleString()}`;
         document.getElementById("checkoutTotal").innerText =
           `KSh ${(subtotal + deliveryFee).toLocaleString()}`;
+        return deliveryFee;
+      }
+
+      function syncOptionCards(containerId, selectedAttr) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.querySelectorAll(".option-card").forEach((card) => {
+          const input = card.querySelector('input[type="radio"]');
+          card.classList.toggle("selected", input?.checked);
+        });
+      }
+
+      function onFulfillmentChange() {
+        const isDelivery = getFulfillment() === "delivery";
+        document.getElementById("deliveryZoneWrap")?.classList.toggle("visible", isDelivery);
+        syncOptionCards("fulfillmentOptions");
+        const subtotal = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+        updateTotal(subtotal);
+        if (!isDelivery) {
+          const pickupPay = document.querySelector('#paymentOptions input[value="pickup"]');
+          if (pickupPay) pickupPay.checked = true;
+          onPaymentChange();
+        }
+      }
+
+      function onPaymentChange() {
+        const payment = getPaymentMethod();
+        syncOptionCards("paymentOptions");
+        document.getElementById("mpesaPanel")?.classList.toggle("visible", payment === "mpesa");
+      }
+
+      function normalizeMpesaPhone(raw) {
+        let p = raw.replace(/\D/g, "");
+        if (p.startsWith("0")) p = "254" + p.slice(1);
+        if (p.length === 9) p = "254" + p;
+        return p;
+      }
+
+      function validateMpesaPhone(raw) {
+        const p = normalizeMpesaPhone(raw);
+        return /^2547\d{8}$/.test(p);
+      }
+
+      async function initiateMpesaPayment() {
+        const statusEl = document.getElementById("mpesaStatus");
+        const phoneRaw = document.getElementById("mpesaPhone").value.trim();
+        const btn = document.getElementById("initiateMpesaBtn");
+
+        statusEl.className = "mpesa-status";
+        statusEl.style.display = "none";
+
+        if (!phoneRaw) {
+          statusEl.textContent = "Please enter your M-PESA phone number.";
+          statusEl.className = "mpesa-status error";
+          return;
+        }
+        if (!validateMpesaPhone(phoneRaw)) {
+          statusEl.textContent = "Enter a valid Safaricom number (07XX XXX XXX or 2547XXXXXXXX).";
+          statusEl.className = "mpesa-status error";
+          return;
+        }
+
+        const subtotal = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+        const deliveryFee = getDeliveryFee();
+        const amount = subtotal + deliveryFee;
+        const phone = normalizeMpesaPhone(phoneRaw);
+
+        const originalHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner" style="display:inline-block;border-color:#fff;border-top-color:transparent;width:16px;height:16px;"></span> Sending...';
+
+        try {
+          const response = await fetch(`${API_BASE}/payments/mpesa/stk-push`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+            },
+            body: JSON.stringify({
+              phone,
+              amount,
+              accountReference: "SILE-CHECKOUT",
+              transactionDesc: "Sile Communications order payment",
+            }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            statusEl.textContent =
+              data.message ||
+              "Payment request sent. Check your phone and enter your M-PESA PIN.";
+            statusEl.className = "mpesa-status success";
+            sessionStorage.setItem("sileMpesaPending", JSON.stringify({ phone, amount }));
+          } else {
+            const data = await response.json().catch(() => ({}));
+            statusEl.textContent =
+              data.error ||
+              "Could not start payment. Try again or choose another payment method.";
+            statusEl.className = "mpesa-status error";
+          }
+        } catch (err) {
+          statusEl.textContent =
+            "M-PESA (Daraja) will be connected when the backend is ready. You can still place your order — we will contact you to complete payment.";
+          statusEl.className = "mpesa-status info";
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = originalHtml;
+        }
       }
 
       function updateCartBadge() {
@@ -431,11 +1011,11 @@
         const phone = document.getElementById("phone").value.trim();
         const email = document.getElementById("email").value.trim();
         const town = document.getElementById("town").value.trim();
-        const deliverySelect = document.getElementById("deliveryOption");
-        const deliveryOptionText =
-          deliverySelect.options[deliverySelect.selectedIndex]?.text;
-        const deliveryFee = parseInt(deliverySelect.value);
-        const paymentMethod = document.getElementById("paymentMethod").value;
+        const fulfillment = getFulfillment();
+        const deliveryOptionText = getDeliveryLabel();
+        const deliveryFee = getDeliveryFee();
+        const paymentMethod = getPaymentMethod();
+        const mpesaPhone = document.getElementById("mpesaPhone").value.trim();
         const notes = document.getElementById("notes").value;
         const termsChecked = document.getElementById("termsCheckbox").checked;
 
@@ -445,7 +1025,19 @@
           msgDiv.style.display = "block";
           return;
         }
-        if (!termsChecked) {
+        if (paymentMethod === "mpesa" && mpesaPhone && !validateMpesaPhone(mpesaPhone)) {
+          msgDiv.innerText = "Please enter a valid M-PESA phone number.";
+          msgDiv.className = "message error";
+          msgDiv.style.display = "block";
+          return;
+        }
+        if (paymentMethod === "pickup" && fulfillment !== "pickup") {
+          msgDiv.innerText = 'Select "Shop pickup" above to pay at the shop, or choose another payment method.';
+          msgDiv.className = "message error";
+          msgDiv.style.display = "block";
+          return;
+        }
+        if (termsChecked === false) {
           msgDiv.innerText = "You must agree to the terms and conditions.";
           msgDiv.className = "message error";
           msgDiv.style.display = "block";
@@ -459,10 +1051,19 @@
         );
         const total = subtotal + deliveryFee;
 
+        const paymentLabels = {
+          cod: "Cash on Delivery",
+          mpesa: "M-PESA",
+          pickup: "Pay at Shop (Pickup)",
+        };
+
         const orderData = {
           customer: { firstName, lastName, phone, email, town },
+          fulfillment,
           delivery: { option: deliveryOptionText, fee: deliveryFee },
           paymentMethod,
+          paymentLabel: paymentLabels[paymentMethod] || paymentMethod,
+          mpesaPhone: paymentMethod === "mpesa" ? normalizeMpesaPhone(mpesaPhone || phone) : null,
           notes,
           items: cartItems.map((i) => ({
             productId: i.id,
@@ -491,10 +1092,65 @@
           });
           const data = await response.json();
           if (response.ok) {
-            // Clear cart
+            const orderNumber = data.orderNumber;
+            const successOrder = {
+              orderNumber,
+              items: cartItems.map((i) => ({
+                id: i.id,
+                name: i.name,
+                price: i.price,
+                quantity: i.quantity,
+                image: i.image || i.img || "",
+              })),
+              subtotal,
+              deliveryFee,
+              total,
+              customer: { firstName, lastName, phone, email, town },
+              fulfillment,
+              deliveryOption: deliveryOptionText,
+              paymentMethod,
+              paymentLabel: paymentLabels[paymentMethod],
+              mpesaPhone: orderData.mpesaPhone,
+              notes,
+              date: new Date().toISOString(),
+            };
+            sessionStorage.setItem(
+              "sileLastOrder",
+              JSON.stringify(successOrder),
+            );
+            const adminOrders = JSON.parse(
+              localStorage.getItem("sile_admin_orders") || "[]",
+            );
+            adminOrders.unshift({
+              order: {
+                orderNumber,
+                total,
+                subtotal,
+                deliveryFee,
+                date: successOrder.date,
+                status: "pending",
+                paymentMethod,
+                paymentLabel: paymentLabels[paymentMethod],
+                paymentStatus:
+                  paymentMethod === "mpesa"
+                    ? "pending"
+                    : paymentMethod === "cod"
+                      ? "unpaid"
+                      : "pay_at_shop",
+                mpesaPhone: orderData.mpesaPhone,
+                fulfillment,
+                deliveryOption: deliveryOptionText,
+                notes,
+              },
+              customer: successOrder.customer,
+              items: successOrder.items,
+            });
+            localStorage.setItem(
+              "sile_admin_orders",
+              JSON.stringify(adminOrders.slice(0, 200)),
+            );
             localStorage.removeItem("sileCart");
-            // Redirect to success page
-            window.location.href = `order-success.html?order=${data.orderNumber}`;
+            window.location.href = `order-success.html?order=${orderNumber}`;
           } else {
             msgDiv.innerText = data.error || "Order failed. Please try again.";
             msgDiv.className = "message error";
@@ -514,18 +1170,30 @@
       }
 
       // ========== EVENT LISTENERS ==========
-      document
-        .getElementById("deliveryOption")
-        .addEventListener("change", () => {
-          const subtotal = cartItems.reduce(
-            (sum, i) => sum + i.price * i.quantity,
-            0,
-          );
-          updateTotal(subtotal);
-        });
-      document
-        .getElementById("placeOrderBtn")
-        .addEventListener("click", placeOrder);
+      document.querySelectorAll('input[name="fulfillment"]').forEach((el) => {
+        el.addEventListener("change", onFulfillmentChange);
+      });
+      document.getElementById("deliveryZone")?.addEventListener("change", () => {
+        const subtotal = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+        updateTotal(subtotal);
+      });
+      document.querySelectorAll('input[name="payment"]').forEach((el) => {
+        el.addEventListener("change", onPaymentChange);
+      });
+      document.getElementById("fulfillmentOptions")?.addEventListener("click", (e) => {
+        const card = e.target.closest(".option-card");
+        if (card) {
+          card.querySelector('input[type="radio"]')?.click();
+        }
+      });
+      document.getElementById("paymentOptions")?.addEventListener("click", (e) => {
+        const card = e.target.closest(".option-card");
+        if (card) {
+          card.querySelector('input[type="radio"]')?.click();
+        }
+      });
+      document.getElementById("initiateMpesaBtn")?.addEventListener("click", initiateMpesaPayment);
+      document.getElementById("placeOrderBtn")?.addEventListener("click", placeOrder);
 
       // ========== SIMPLE HEADER & CART UI (no external JS) ==========
       window.toggleCart = () => {
@@ -580,18 +1248,29 @@
       document.addEventListener("DOMContentLoaded", () => {
         updateHeaderUser();
         loadCart();
-        // Pre-fill user info if logged in
+        onFulfillmentChange();
+        onPaymentChange();
         const user = JSON.parse(localStorage.getItem("user") || "null");
         if (user) {
           if (user.firstName)
             document.getElementById("firstName").value = user.firstName || "";
           if (user.lastName)
             document.getElementById("lastName").value = user.lastName || "";
-          if (user.phone)
+          if (user.phone) {
             document.getElementById("phone").value = user.phone || "";
+            const mpesaEl = document.getElementById("mpesaPhone");
+            if (mpesaEl && !mpesaEl.value) mpesaEl.value = user.phone;
+          }
           if (user.email)
             document.getElementById("email").value = user.email || "";
         }
+        document.getElementById("phone")?.addEventListener("blur", () => {
+          const mpesaEl = document.getElementById("mpesaPhone");
+          const phoneEl = document.getElementById("phone");
+          if (mpesaEl && phoneEl && !mpesaEl.value.trim()) {
+            mpesaEl.value = phoneEl.value;
+          }
+        });
       });
     </script>
   </body>

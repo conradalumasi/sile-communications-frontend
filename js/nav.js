@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initMobileMenu();
   initCartOverlay();
   initBackToTop();
+  initChatWidget();
   updateCartUI();
 });
 
@@ -121,21 +122,22 @@ function initMobileMenu() {
 
 /* ── Cart overlay (click-outside-to-close) ───────────────── */
 function initCartOverlay() {
-  // Inject overlay if not present
   if (!document.getElementById('cart-overlay')) {
     const overlay = document.createElement('div');
     overlay.id = 'cart-overlay';
     overlay.className = 'cart-overlay';
     overlay.addEventListener('click', function () {
-      const modal = document.getElementById('cart-modal');
-      if (modal) modal.classList.remove('active');
-      overlay.classList.remove('active');
+      if (typeof closeCartPanel === 'function') closeCartPanel();
     });
     document.body.appendChild(overlay);
   }
 
-  // Override toggleCart to also toggle overlay
   window.toggleCart = function () {
+    const onCartPage = /cart\.html$/i.test(window.location.pathname);
+    if (onCartPage) {
+      if (typeof closeCartPanel === 'function') closeCartPanel();
+      return;
+    }
     const modal   = document.getElementById('cart-modal');
     const overlay = document.getElementById('cart-overlay');
     if (!modal) return;
@@ -143,6 +145,22 @@ function initCartOverlay() {
     modal.classList.toggle('active');
     if (overlay) overlay.classList.toggle('active', isOpening);
     if (isOpening && typeof renderCartItems === 'function') renderCartItems();
+  };
+
+  if (typeof closeCartPanel === 'function') closeCartPanel();
+
+  document.querySelectorAll('.btn-cart-view').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (typeof closeCartPanel === 'function') closeCartPanel();
+    });
+  });
+}
+
+/* ── Chat widget ─────────────────────────────────────────── */
+function initChatWidget() {
+  window.toggleChat = function () {
+    const widget = document.getElementById('chat-widget');
+    if (widget) widget.classList.toggle('active');
   };
 }
 

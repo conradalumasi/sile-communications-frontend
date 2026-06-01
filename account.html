@@ -17,357 +17,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <style>
-
-      /* Additional account-specific styles */
-      .account-page {
-        margin: 40px 0;
-      }
-      .account-layout {
-        display: grid;
-        grid-template-columns: 280px 1fr;
-        gap: 30px;
-      }
-      .account-sidebar {
-        background: white;
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 20px;
-        height: fit-content;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-      }
-      .account-user {
-        text-align: center;
-        margin-bottom: 20px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid var(--border);
-      }
-      .user-avatar {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto 12px;
-        position: relative;
-        cursor: pointer;
-      }
-      .user-avatar img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid var(--primary);
-        transition: transform 0.3s;
-      }
-      .user-avatar:hover img {
-        transform: scale(1.05);
-      }
-      .user-avatar .edit-icon {
-        position: absolute;
-        bottom: 5px;
-        right: 5px;
-        background: var(--primary);
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 12px;
-        border: 2px solid white;
-        transition: transform 0.2s;
-      }
-      .user-avatar:hover .edit-icon {
-        transform: scale(1.1);
-      }
-      .account-menu {
-        list-style: none;
-        padding: 0;
-      }
-      .account-menu li {
-        padding: 14px 18px;
-        cursor: pointer;
-        border-radius: 12px;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        font-weight: 500;
-        color: var(--text);
-      }
-      .account-menu li:hover,
-      .account-menu li.active {
-        background: var(--bg-light);
-        color: var(--primary);
-        transform: translateX(5px);
-      }
-      .account-section {
-        background: white;
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 30px;
-        display: none;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-        animation: fadeIn 0.4s ease-out forwards;
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .account-section.active {
-        display: block;
-      }
-      .account-section h2 {
-        margin-bottom: 25px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid var(--border);
-      }
-      .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 15px;
-      }
-      .form-group {
-        margin-bottom: 20px;
-      }
-      .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        font-size: 14px;
-      }
-      .form-group input,
-      .form-group select {
-        width: 100%;
-        padding: 14px;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        font-size: 15px;
-        transition: border-color 0.2s;
-      }
-      .form-group input:focus {
-        outline: none;
-        border-color: var(--primary);
-      }
-      .btn-primary {
-        background: var(--primary);
-        color: white;
-        padding: 14px 28px;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.2s;
-        font-size: 15px;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .btn-primary:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(234,88,12,0.2);
-      }
-      .btn-primary:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-        transform: none;
-      }
-      .btn-danger {
-        background: #ef4444;
-      }
-      .btn-danger:hover {
-        background: #dc2626;
-        box-shadow: 0 4px 12px rgba(239,68,68,0.2);
-      }
-      .toggle-switch {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        padding: 15px;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-      }
-      .toggle-switch input {
-        width: 44px;
-        height: 24px;
-        appearance: none;
-        background: #e5e7eb;
-        border-radius: 24px;
-        position: relative;
-        cursor: pointer;
-        transition: 0.3s;
-      }
-      .toggle-switch input:checked {
-        background: var(--primary);
-      }
-      .toggle-switch input::before {
-        content: "";
-        width: 18px;
-        height: 18px;
-        background: white;
-        border-radius: 50%;
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        transition: 0.3s;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      }
-      .toggle-switch input:checked::before {
-        left: 23px;
-      }
-      .message-box {
-        margin-top: 15px;
-        margin-bottom: 20px;
-        padding: 14px;
-        border-radius: 12px;
-        display: none;
-        font-weight: 500;
-        animation: fadeIn 0.3s;
-      }
-      .message-box.success {
-        background: #dcfce7;
-        color: #166534;
-        border: 1px solid #bbf7d0;
-      }
-      .message-box.error {
-        background: #fee2e2;
-        color: #b91c1c;
-        border: 1px solid #fecaca;
-      }
-      .order-categories {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 25px;
-        flex-wrap: wrap;
-      }
-      .order-cat-btn {
-        background: white;
-        border: 1px solid var(--border);
-        padding: 10px 20px;
-        border-radius: 30px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-        transition: 0.2s;
-        color: var(--text);
-      }
-      .order-cat-btn:hover {
-        border-color: var(--primary);
-        color: var(--primary);
-      }
-      .order-cat-btn.active {
-        background: var(--primary);
-        color: white;
-        border-color: var(--primary);
-      }
-      .order-card {
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 20px;
-        margin-bottom: 20px;
-        transition: 0.3s;
-        background: #fff;
-      }
-      .order-card:hover {
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-        border-color: #e5e7eb;
-      }
-      .order-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .order-status {
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-      }
-      .status-pending {
-        background: #fef3c7;
-        color: #d97706;
-      }
-      .status-processing {
-        background: #dbeafe;
-        color: #2563eb;
-      }
-      .status-shipped {
-        background: #e0e7ff;
-        color: #4338ca;
-      }
-      .status-delivered {
-        background: #d1fae5;
-        color: #065f46;
-      }
-      .status-cancelled {
-        background: #fee2e2;
-        color: #dc2626;
-      }
-      @media (max-width: 768px) {
-        .account-layout {
-          grid-template-columns: 1fr;
-        }
-        .form-row {
-          grid-template-columns: 1fr;
-        }
-        .account-menu {
-          display: flex;
-          overflow-x: auto;
-          gap: 10px;
-          padding-bottom: 10px;
-          -webkit-overflow-scrolling: touch;
-        }
-        .account-menu::-webkit-scrollbar {
-          height: 4px;
-        }
-        .account-menu::-webkit-scrollbar-thumb {
-          background-color: var(--border);
-          border-radius: 4px;
-        }
-        .account-menu li {
-          white-space: nowrap;
-          margin-bottom: 0;
-          flex: 0 0 auto;
-          padding: 10px 16px;
-        }
-        .account-user {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          text-align: left;
-        }
-        .user-avatar {
-          margin: 0;
-          width: 80px;
-          height: 80px;
-        }
-        .account-section {
-          padding: 20px;
-        }
-      }
-      .spinner {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        border: 2px solid rgba(255,255,255,0.3);
-        border-radius: 50%;
-        border-top-color: #fff;
-        animation: spin 1s ease-in-out infinite;
-      }
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-</style>
   </head>
   <body>
-    <!-- ========== HEADER (Copy from your index.html – adjust if needed) ========== -->
     <header class="main-header">
       <div class="header-top">
         <div class="container">
@@ -399,8 +50,8 @@
           <div class="header-actions">
             <div class="action-btn cart" onclick="toggleCart()">
               <div class="action-icon-wrap">
-                <i class="fas fa-shopping-bag"></i
-                ><span class="cart-badge" id="cart-count">0</span>
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cart-count">0</span>
               </div>
               <span class="action-label">Cart</span>
             </div>
@@ -425,18 +76,28 @@
                 <div class="dropdown-content">
                   <a href="category.html?cat=smartphones&brand=samsung"
                     >Samsung</a
-                  ><a href="category.html?cat=smartphones&brand=apple">Apple</a
-                  ><a href="category.html?cat=smartphones&brand=huawei"
+                  >
+                  <a href="category.html?cat=smartphones&brand=apple">Apple</a>
+                  <a href="category.html?cat=smartphones&brand=huawei"
                     >Huawei</a
-                  ><a href="category.html?cat=smartphones&brand=xiaomi"
+                  >
+                  <a href="category.html?cat=smartphones&brand=xiaomi"
                     >Xiaomi</a
-                  ><a href="category.html?cat=smartphones&brand=tecno">Tecno</a
-                  ><a href="category.html?cat=smartphones&brand=infinix"
+                  >
+                  <a href="category.html?cat=smartphones&brand=tecno">Tecno</a>
+                  <a href="category.html?cat=smartphones&brand=infinix"
                     >Infinix</a
-                  ><a href="category.html?cat=smartphones&brand=oppo">Oppo</a
-                  ><a href="category.html?cat=smartphones&brand=honor">Honor</a
-                  ><a href="category.html?cat=smartphones&brand=nokia"
+                  >
+                  <a href="category.html?cat=smartphones&brand=oppo">Oppo</a>
+                  <a href="category.html?cat=smartphones&brand=honor">Honor</a>
+                  <a href="category.html?cat=smartphones&brand=nokia"
                     >Nokia/HMD</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=google"
+                    >Google Pixel</a
+                  >
+                  <a href="category.html?cat=smartphones&brand=nothing"
+                    >Nothing</a
                   >
                 </div>
               </li>
@@ -445,8 +106,10 @@
                   >Kabambe <i class="fas fa-chevron-down"></i
                 ></a>
                 <div class="dropdown-content">
-                  <a href="category.html?cat=kabambe&brand=itel">Itel</a
-                  ><a href="category.html?cat=kabambe&brand=tecno">Tecno</a>
+                  <a href="category.html?cat=kabambe&brand=itel">Itel</a>
+                  <a href="category.html?cat=kabambe&brand=tecno"
+                    >Tecno Feature Phones</a
+                  >
                 </div>
               </li>
               <li class="dropdown">
@@ -454,13 +117,14 @@
                   >Laptops <i class="fas fa-chevron-down"></i
                 ></a>
                 <div class="dropdown-content">
-                  <a href="category.html?cat=laptops&brand=dell">Dell</a
-                  ><a href="category.html?cat=laptops&brand=hp">HP</a
-                  ><a href="category.html?cat=laptops&brand=lenovo">Lenovo</a
-                  ><a href="category.html?cat=laptops&brand=asus">Asus</a
-                  ><a href="category.html?cat=laptops&brand=apple-mac"
+                  <a href="category.html?cat=laptops&brand=dell">Dell</a>
+                  <a href="category.html?cat=laptops&brand=hp">HP</a>
+                  <a href="category.html?cat=laptops&brand=lenovo">Lenovo</a>
+                  <a href="category.html?cat=laptops&brand=asus">Asus</a>
+                  <a href="category.html?cat=laptops&brand=apple-mac"
                     >Apple Mac</a
                   >
+                  <a href="category.html?cat=laptops&brand=acer">Acer</a>
                 </div>
               </li>
               <li class="dropdown">
@@ -470,12 +134,21 @@
                 <div class="dropdown-content">
                   <a href="category.html?cat=accessories&brand=smartwatches"
                     >Smartwatches</a
-                  ><a href="category.html?cat=accessories&brand=powerbanks"
+                  >
+                  <a href="category.html?cat=accessories&brand=powerbanks"
                     >Power Banks</a
-                  ><a href="category.html?cat=accessories&brand=earbuds"
+                  >
+                  <a href="category.html?cat=accessories&brand=earbuds"
                     >Earbuds</a
-                  ><a href="category.html?cat=accessories&brand=cases"
+                  >
+                  <a href="category.html?cat=accessories&brand=cases"
                     >Phone Cases</a
+                  >
+                  <a href="category.html?cat=accessories&brand=protectors"
+                    >Screen Protectors</a
+                  >
+                  <a href="category.html?cat=accessories&brand=chargers"
+                    >Chargers</a
                   >
                 </div>
               </li>
@@ -486,12 +159,22 @@
                 <div class="dropdown-content">
                   <a href="category.html?cat=content-creator&brand=gimbals"
                     >Gimbals</a
-                  ><a href="category.html?cat=content-creator&brand=mics"
+                  >
+                  <a href="category.html?cat=content-creator&brand=mics"
                     >Wireless Mics</a
-                  ><a href="category.html?cat=content-creator&brand=tripods"
+                  >
+                  <a href="category.html?cat=content-creator&brand=tripods"
                     >Tripods</a
-                  ><a href="category.html?cat=content-creator&brand=ringlights"
+                  >
+                  <a href="category.html?cat=content-creator&brand=ringlights"
                     >Ring Lights</a
+                  >
+                  <a
+                    href="category.html?cat=content-creator&brand=actioncameras"
+                    >Action Cameras</a
+                  >
+                  <a href="category.html?cat=content-creator&brand=smartglasses"
+                    >Smart Glasses</a
                   >
                 </div>
               </li>
@@ -512,6 +195,10 @@
     <!-- ========== MAIN ACCOUNT CONTENT ========== -->
     <div class="container">
       <div class="account-page">
+        <div class="account-page-header">
+          <nav class="breadcrumb"><a href="index.html">Home</a> / My Account</nav>
+          <h1>My Account</h1>
+        </div>
         <div class="account-layout">
           <aside class="account-sidebar">
             <div class="account-user">
@@ -548,13 +235,13 @@
               <li data-section="orders">
                 <i class="fas fa-shopping-bag"></i> My Orders
               </li>
-              <li onclick="window.location.href='wishlist.html'">
+              <li data-section="wishlist">
                 <i class="fas fa-heart"></i> My Wishlist
               </li>
               <li data-section="close">
                 <i class="fas fa-trash-alt"></i> Close Account
               </li>
-              <li onclick="logout()">
+              <li onclick="logout()" class="menu-logout">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </li>
             </ul>
@@ -563,36 +250,13 @@
             <!-- Dashboard -->
             <div id="dashboardSection" class="account-section active">
               <h2>Dashboard</h2>
-              <div
-                style="
-                  display: flex;
-                  gap: 20px;
-                  margin-bottom: 30px;
-                  flex-wrap: wrap;
-                "
-              >
-                <div
-                  style="
-                    background: var(--bg-light);
-                    padding: 20px;
-                    border-radius: 16px;
-                    flex: 1;
-                    text-align: center;
-                  "
-                >
+              <div class="dashboard-stats">
+                <div class="stat-card stat-orders">
                   <i class="fas fa-shopping-bag"></i>
                   <h3>Total Orders</h3>
                   <p id="totalOrders">0</p>
                 </div>
-                <div
-                  style="
-                    background: var(--bg-light);
-                    padding: 20px;
-                    border-radius: 16px;
-                    flex: 1;
-                    text-align: center;
-                  "
-                >
+                <div class="stat-card stat-spent">
                   <i class="fas fa-chart-line"></i>
                   <h3>Total Spent</h3>
                   <p id="totalSpent">KSh 0</p>
@@ -708,12 +372,19 @@
               </div>
               <div id="ordersList"></div>
             </div>
+
+            <!-- My Wishlist (inline) -->
+            <div id="wishlistSection" class="account-section">
+              <h2>My Wishlist</h2>
+              <p class="account-section-desc">Products you've saved. Remove any item you no longer want.</p>
+              <div id="accountWishlistGrid" class="account-wishlist-grid"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ========== FOOTER (copy from your index.html) ========== -->
+    <!-- ========== FOOTER ========== -->
     <footer class="main-footer">
       <div class="container">
         <div class="footer-grid">
@@ -724,19 +395,20 @@
           </div>
           <div class="footer-col">
             <h4>Quick Links</h4>
-            <a href="about.html">About Us</a
-            ><a href="contact.html">Contact Us</a
-            ><a href="service-center.html">Service Center</a
-            ><a href="lipa-polepole.html">Lipa Mdogo Mdogo</a
-            ><a href="solar-solutions.html">Solar Solutions</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="service-center.html">Service Center</a>
+            <a href="lipa-polepole.html">Lipa Mdogo Mdogo</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
           </div>
           <div class="footer-col">
             <h4>Categories</h4>
-            <a href="category.html?cat=smartphones">Smartphones</a
-            ><a href="category.html?cat=kabambe">Kabambe</a
-            ><a href="category.html?cat=laptops">Laptops</a
-            ><a href="category.html?cat=accessories">Accessories</a
-            ><a href="solar-solutions.html">Solar Solutions</a>
+            <a href="category.html?cat=smartphones">Smartphones</a>
+            <a href="category.html?cat=kabambe">Kabambe</a>
+            <a href="category.html?cat=laptops">Laptops</a>
+            <a href="category.html?cat=accessories">Accessories</a>
+            <a href="category.html?cat=content-creator">Content Creator Kits</a>
+            <a href="solar-solutions.html">Solar Solutions</a>
           </div>
           <div class="footer-col">
             <h4>Contact</h4>
@@ -760,7 +432,7 @@
       </div>
     </footer>
 
-    <!-- Cart Modal (required for cart toggle) -->
+    <!-- Cart Modal -->
     <div class="cart-modal" id="cart-modal">
       <div class="cart-content">
         <div class="cart-header">
@@ -775,12 +447,34 @@
           </div>
           <a href="checkout.html" class="btn-cart-checkout"
             >Proceed to Checkout</a
-          ><a href="cart.html" class="btn-cart-view">View Cart</a>
+          >
+          <a href="cart.html" class="btn-cart-view">View Cart</a>
         </div>
       </div>
     </div>
 
+    <!-- Chat Widget -->
+    <button class="chat-toggle" onclick="toggleChat()">
+      <i class="fas fa-headset"></i>
+    </button>
+    <div class="chat-widget" id="chat-widget">
+      <div class="chat-header">
+        <span>We're Online!</span>
+        <button onclick="toggleChat()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chat-body">
+        <p>Do you Need Help Buying?</p>
+        <a href="tel:0710102424" class="chat-call"
+          ><i class="fas fa-phone"></i> Call Us</a
+        >
+        <a href="https://wa.me/254710102424" class="chat-wa"
+          ><i class="fab fa-whatsapp"></i> WhatsApp</a
+        >
+      </div>
+    </div>
+
     <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/wishlist.js"></script>
     <script src="js/nav.js"></script>

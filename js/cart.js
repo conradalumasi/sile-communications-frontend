@@ -1,5 +1,13 @@
 let cart = JSON.parse(localStorage.getItem('sileCart')) || [];
 
+function reloadCartFromStorage() {
+  cart = JSON.parse(localStorage.getItem('sileCart')) || [];
+}
+
+function normalizeCartId(id) {
+  return Number(id);
+}
+
 function updateCartUI() {
     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -38,7 +46,8 @@ function addToCart(productId, quantity = 1) {
 }
 
 function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
+    const id = normalizeCartId(productId);
+    cart = cart.filter(item => normalizeCartId(item.id) !== id);
     localStorage.setItem('sileCart', JSON.stringify(cart));
     updateCartUI();
     if (typeof renderCartItems === 'function') renderCartItems();
@@ -46,7 +55,8 @@ function removeFromCart(productId) {
 }
 
 function updateCartQuantity(productId, change) {
-    const itemIndex = cart.findIndex(item => item.id === productId);
+    const id = normalizeCartId(productId);
+    const itemIndex = cart.findIndex(item => normalizeCartId(item.id) === id);
     if (itemIndex !== -1) {
         cart[itemIndex].quantity += change;
         if (cart[itemIndex].quantity <= 0) {
@@ -60,6 +70,7 @@ function updateCartQuantity(productId, change) {
 }
 
 function renderCartItems() {
+    reloadCartFromStorage();
     const container = document.getElementById('cart-items');
     const footer = document.getElementById('cart-footer');
     
@@ -78,15 +89,16 @@ function renderCartItems() {
                 <h4>${item.name}</h4>
                 <p>KSh ${item.price.toLocaleString()}</p>
                 <div class="qty-control">
-                    <button onclick="updateCartQuantity(${item.id}, -1)">-</button>
+                    <button type="button" onclick="updateCartQuantity(${item.id}, -1)" aria-label="Decrease quantity">-</button>
                     <span>${item.quantity}</span>
-                    <button onclick="updateCartQuantity(${item.id}, 1)">+</button>
+                    <button type="button" onclick="updateCartQuantity(${item.id}, 1)" aria-label="Increase quantity">+</button>
                 </div>
             </div>
-            <div>
+            <div class="cart-item-actions">
                 <strong>KSh ${(item.price * item.quantity).toLocaleString()}</strong>
-                <br>
-                <button onclick="removeFromCart(${item.id})" style="background:none; border:none; color:#ef4444; cursor:pointer; margin-top:8px; font-size:12px;">Remove</button>
+                <button type="button" class="cart-remove-btn" onclick="removeFromCart(${item.id})" aria-label="Remove ${item.name}">
+                    <i class="fas fa-trash-alt"></i> Remove
+                </button>
             </div>
         </div>
     `).join('');
@@ -94,13 +106,74 @@ function renderCartItems() {
     if (footer) footer.style.display = 'block';
 }
 
+function renderCartPage() {
+    reloadCartFromStorage();
+    const container = document.getElementById('cart-items-container');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    if (!container) return;
+
+    if (cart.length === 0) {
+        container.innerHTML = `<div class="cart-empty-state"><i class="fas fa-shopping-cart"></i><h2>Your cart is empty</h2><a href="category.html" class="btn-primary">Continue Shopping</a></div>`;
+        if (checkoutBtn) checkoutBtn.style.display = 'none';
+        const subtotalEl = document.getElementById('cart-subtotal');
+        const totalEl = document.getElementById('cart-total');
+        if (subtotalEl) subtotalEl.textContent = 'KSh 0';
+        if (totalEl) totalEl.textContent = 'KSh 0';
+        return;
+    }
+
+    let html = '<div class="cart-table"><div class="cart-table-header"><span>Product</span><span>Price</span><span>Quantity</span><span>Subtotal</span><span></span></div>';
+    let subtotal = 0;
+
+    cart.forEach((item) => {
+        const itemSubtotal = item.price * item.quantity;
+        subtotal += itemSubtotal;
+        html += `<div class="cart-table-row">
+            <div class="product-info">
+                <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60x60'">
+                <span>${item.name}</span>
+            </div>
+            <div>KSh ${item.price.toLocaleString()}</div>
+            <div class="product-qty">
+                <button type="button" onclick="updateCartQuantity(${item.id}, -1)" aria-label="Decrease quantity">-</button>
+                <span>${item.quantity}</span>
+                <button type="button" onclick="updateCartQuantity(${item.id}, 1)" aria-label="Increase quantity">+</button>
+            </div>
+            <div>KSh ${itemSubtotal.toLocaleString()}</div>
+            <div>
+                <button type="button" class="cart-remove-btn cart-remove-btn--icon" onclick="removeFromCart(${item.id})" aria-label="Remove ${item.name}">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>`;
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+
+    const subtotalEl = document.getElementById('cart-subtotal');
+    const totalEl = document.getElementById('cart-total');
+    if (subtotalEl) subtotalEl.textContent = `KSh ${subtotal.toLocaleString()}`;
+    if (totalEl) totalEl.textContent = `KSh ${subtotal.toLocaleString()}`;
+    if (checkoutBtn) checkoutBtn.style.display = 'block';
+}
+
+function closeCartPanel() {
+    const modal = document.getElementById('cart-modal');
+    const overlay = document.getElementById('cart-overlay');
+    if (modal) modal.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+}
+
 function toggleCart() {
     const modal = document.getElementById('cart-modal');
     if (modal) {
+        const isOpening = !modal.classList.contains('active');
         modal.classList.toggle('active');
-        if (modal.classList.contains('active')) {
-            renderCartItems();
-        }
+        const overlay = document.getElementById('cart-overlay');
+        if (overlay) overlay.classList.toggle('active', isOpening);
+        if (isOpening) renderCartItems();
     }
 }
 
@@ -118,4 +191,7 @@ function viewProductDetail(productId) {
 
 document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
+    if (document.getElementById('cart-items-container')) {
+        renderCartPage();
+    }
 });

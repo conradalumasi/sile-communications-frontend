@@ -196,8 +196,6 @@
 
     <!-- Hero Slider -->
     <section class="hero-slider">
-      <button class="slider-arrow prev" onclick="changeSlide(-1)" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
-      <button class="slider-arrow next" onclick="changeSlide(1)" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
       <div class="slideshow-container">
         <div class="slide fade">
           <img src="images/slide-solar-energy.jpg" alt="Oppo Phones" />
@@ -511,7 +509,7 @@
       goToSlide(1);
       slideTimer = setTimeout(autoAdvance, 7000);
 
-      // Keyboard support
+      // Keyboard support (dots still work; arrows hidden in UI)
       document.addEventListener('keydown', function(e) {
         if (e.key === 'ArrowLeft')  changeSlide(-1);
         if (e.key === 'ArrowRight') changeSlide(1);

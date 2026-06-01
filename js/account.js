@@ -96,8 +96,56 @@ function initAccountNavigation() {
       sections.forEach(sec => sec.classList.remove("active"));
       const targetSection = document.getElementById(targetId + "Section");
       if (targetSection) targetSection.classList.add("active");
+
+      if (targetId === "wishlist") renderAccountWishlist();
     });
   });
+}
+
+async function renderAccountWishlist() {
+  const container = document.getElementById("accountWishlistGrid");
+  if (!container) return;
+
+  if (!window.PRODUCTS || window.PRODUCTS.length === 0) {
+    container.innerHTML = '<p class="account-wishlist-loading">Loading products&hellip;</p>';
+    await new Promise((resolve) => {
+      if (window.PRODUCTS && window.PRODUCTS.length) return resolve();
+      window.addEventListener("productsLoaded", resolve, { once: true });
+      setTimeout(resolve, 3000);
+    });
+  }
+
+  const ids = typeof getWishlistIds === "function" ? getWishlistIds().map(Number) : [];
+  const products = (window.PRODUCTS || []).filter((p) => ids.includes(Number(p.id)));
+
+  if (products.length === 0) {
+    container.innerHTML = `
+      <div class="account-wishlist-empty">
+        <i class="far fa-heart"></i>
+        <p>Your wishlist is empty.</p>
+        <a href="category.html" class="btn-primary">Browse products</a>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = products.map((p) => `
+    <div class="account-wishlist-item">
+      <a href="product-detail.html?id=${p.id}" class="account-wishlist-thumb">
+        <img src="${p.image || 'images/no-image.png'}" alt="${p.name}" onerror="this.src='images/no-image.png'">
+      </a>
+      <div class="account-wishlist-info">
+        <a href="product-detail.html?id=${p.id}" class="account-wishlist-name">${p.name}</a>
+        <span class="account-wishlist-brand">${p.brand || ""}</span>
+        <span class="account-wishlist-price">KSh ${Number(p.price).toLocaleString()}</span>
+      </div>
+      <div class="account-wishlist-actions">
+        <a href="product-detail.html?id=${p.id}" class="btn-view">View</a>
+        <button type="button" class="account-wishlist-remove" onclick="removeFromWishlist(${p.id}); renderAccountWishlist();" aria-label="Remove from wishlist">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  `).join("");
 }
 
 function initOrdersTabs() {

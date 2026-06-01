@@ -12,362 +12,126 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="stylesheet" href="css/admin.css" />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: "Outfit", sans-serif;
-        background: #f1f5f9;
-        color: #1e293b;
-      }
-      .admin-header {
-        background: #0f172a;
-        color: white;
-        padding: 15px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 15px;
-      }
-      .admin-logo {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .admin-logo img {
-        height: 40px;
-      }
-      .admin-logo span {
-        font-size: 18px;
-        font-weight: 700;
-      }
-      .admin-user {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-      .btn-logout {
-        background: #ef4444;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 8px;
-        color: white;
-        cursor: pointer;
-        font-weight: 600;
-      }
-      .container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-      .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        margin-bottom: 30px;
-      }
-      .stat-card {
-        background: white;
-        border-radius: 16px;
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      }
-      .stat-number {
-        font-size: 28px;
-        font-weight: 700;
-        color: #10b981;
-      }
-      .stat-icon i {
-        font-size: 32px;
-        color: #10b981;
-      }
-      .admin-tabs {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-        border-bottom: 2px solid #e2e8f0;
-        padding-bottom: 10px;
-        flex-wrap: wrap;
-      }
-      .tab-btn {
-        background: none;
-        border: none;
-        padding: 10px 24px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 600;
-        border-radius: 30px;
-        transition: all 0.2s;
-      }
-      .tab-btn.active {
-        background: #10b981;
-        color: white;
-      }
-      .tab-content {
-        display: none;
-        background: white;
-        border-radius: 20px;
-        padding: 25px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      }
-      .tab-content.active {
-        display: block;
-      }
-      .tab-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-        gap: 15px;
-      }
-      .btn-add {
-        background: #10b981;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .btn-reset {
-        background: #ef4444;
-      }
-      .category-section {
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        overflow: hidden;
-      }
-      .category-header {
-        background: #f8fafc;
-        padding: 15px 20px;
-        cursor: pointer;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        border-bottom: 1px solid #e2e8f0;
-      }
-      .category-header i {
-        color: #10b981;
-      }
-      .product-count {
-        font-size: 13px;
-        color: #64748b;
-        font-weight: normal;
-        margin-left: 8px;
-      }
-      .products-table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      .products-table th,
-      .products-table td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #e2e8f0;
-      }
-      .product-image-small {
-        width: 45px;
-        height: 45px;
-        object-fit: contain;
-        background: #f8fafc;
-        border-radius: 8px;
-      }
-      .btn-edit,
-      .btn-delete {
-        padding: 5px 12px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 12px;
-        margin-right: 5px;
-      }
-      .btn-edit {
-        background: #f59e0b;
-        color: white;
-      }
-      .btn-delete {
-        background: #ef4444;
-        color: white;
-      }
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-      }
-      .modal.active {
-        display: flex;
-      }
-      .modal-content {
-        background: white;
-        border-radius: 20px;
-        width: 100%;
-        max-width: 600px;
-        max-height: 90vh;
-        overflow-y: auto;
-      }
-      .modal-header {
-        padding: 20px;
-        border-bottom: 1px solid #e2e8f0;
-        display: flex;
-        justify-content: space-between;
-      }
-      .modal-body {
-        padding: 20px;
-      }
-      .modal-footer {
-        padding: 20px;
-        border-top: 1px solid #e2e8f0;
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-      }
-      .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-bottom: 15px;
-      }
-      .form-group {
-        margin-bottom: 15px;
-      }
-      .form-group label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: 600;
-        font-size: 13px;
-      }
-      .form-group input,
-      .form-group select,
-      .form-group textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #cbd5e1;
-        border-radius: 8px;
-      }
-      .image-preview img {
-        max-width: 100px;
-        border-radius: 8px;
-        margin-top: 10px;
-      }
-      .checkbox-group {
-        display: flex;
-        gap: 20px;
-        margin: 15px 0;
-      }
-      .btn-save {
-        background: #10b981;
-        color: white;
-        border: none;
-        padding: 10px 24px;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-      .btn-cancel {
-        background: #e2e8f0;
-        border: none;
-        padding: 10px 24px;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-      .success-message {
-        background: #dcfce7;
-        color: #166534;
-        padding: 12px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        display: none;
-      }
-      .success-message.show {
-        display: block;
-      }
-      @media (max-width: 768px) {
-        .stats-grid {
-          grid-template-columns: 1fr;
-        }
-        .form-row {
-          grid-template-columns: 1fr;
-        }
-      }
+      /* Legacy modal/checkbox helpers kept minimal */
+      .checkbox-group { display: flex; gap: 20px; margin: 15px 0; flex-wrap: wrap; }
+      .image-preview img { max-width: 100px; border-radius: 8px; margin-top: 10px; }
     </style>
   </head>
   <body>
-    <div class="admin-header">
-      <div class="admin-logo">
-        <img
-          src="../images/logo.png"
-          alt="Logo"
-          onerror="this.src = 'https://via.placeholder.com/40'"
-        /><span>Admin Panel</span>
-      </div>
-      <div class="admin-user">
-        <span id="adminName">Admin</span
-        ><button class="btn-logout" onclick="logout()">Logout</button>
-      </div>
-    </div>
+    <div class="admin-shell">
+      <aside class="admin-sidebar" id="adminSidebar">
+        <div class="admin-sidebar-brand">
+          <img src="../images/logo.png" alt="Sile" onerror="this.style.display='none'" />
+          <div>
+            <span>Sile Admin</span>
+            <small>E-commerce control</small>
+          </div>
+        </div>
+        <nav class="admin-nav">
+          <button type="button" class="admin-nav-btn active" data-tab="overview" onclick="showTab('overview', this)">
+            <i class="fas fa-chart-pie"></i> Overview
+          </button>
+          <button type="button" class="admin-nav-btn" data-tab="products" onclick="showTab('products', this)">
+            <i class="fas fa-box"></i> Products
+          </button>
+          <button type="button" class="admin-nav-btn" data-tab="orders" onclick="showTab('orders', this)">
+            <i class="fas fa-shopping-cart"></i> Orders
+          </button>
+          <button type="button" class="admin-nav-btn" data-tab="categories" onclick="showTab('categories', this)">
+            <i class="fas fa-tags"></i> Categories
+          </button>
+        </nav>
+        <div class="admin-sidebar-footer">
+          <div class="admin-user-pill">
+            <span id="adminName">Admin</span>
+            <button type="button" class="btn-logout" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </aside>
 
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div>
-            <h3>Total Products</h3>
-            <div class="stat-number" id="totalProducts">0</div>
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" class="admin-menu-toggle" id="adminMenuToggle" aria-label="Menu">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div>
+              <h1 id="adminPageTitle">Dashboard Overview</h1>
+              <p id="adminPageSubtitle">Sales, orders, and store performance</p>
+            </div>
           </div>
-          <div class="stat-icon"><i class="fas fa-box"></i></div>
-        </div>
-        <div class="stat-card">
-          <div>
-            <h3>Active Products</h3>
-            <div class="stat-number" id="activeProducts">0</div>
-          </div>
-          <div class="stat-icon"><i class="fas fa-fire"></i></div>
-        </div>
-        <div class="stat-card">
-          <div>
-            <h3>Total Orders</h3>
-            <div class="stat-number" id="totalOrders">0</div>
-          </div>
-          <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
-        </div>
-        <div class="stat-card">
-          <div>
-            <h3>Total Revenue</h3>
-            <div class="stat-number" id="totalRevenue">KSh 0</div>
-          </div>
-          <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-        </div>
-      </div>
+          <span id="adminDate" style="font-size:13px;color:var(--admin-muted);"></span>
+        </header>
 
-      <div class="admin-tabs">
-        <button class="tab-btn active" onclick="showTab('products')">
-          Products
-        </button>
-        <button class="tab-btn" onclick="showTab('orders')">Orders</button>
-        <button class="tab-btn" onclick="showTab('categories')">
-          Categories
-        </button>
-      </div>
+        <div class="admin-content">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div>
+                <h3>Total Products</h3>
+                <div class="stat-number" id="totalProducts">0</div>
+              </div>
+              <div class="stat-icon"><i class="fas fa-box"></i></div>
+            </div>
+            <div class="stat-card">
+              <div>
+                <h3>Active Products</h3>
+                <div class="stat-number" id="activeProducts">0</div>
+                <div class="stat-trend">Hot &amp; offer listings</div>
+              </div>
+              <div class="stat-icon"><i class="fas fa-fire"></i></div>
+            </div>
+            <div class="stat-card">
+              <div>
+                <h3>Total Orders</h3>
+                <div class="stat-number" id="totalOrders">0</div>
+                <div class="stat-trend up" id="ordersTrend"></div>
+              </div>
+              <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+            </div>
+            <div class="stat-card">
+              <div>
+                <h3>Total Revenue</h3>
+                <div class="stat-number" id="totalRevenue">KSh 0</div>
+                <div class="stat-trend up" id="revenueTrend"></div>
+              </div>
+              <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+            </div>
+          </div>
 
-      <div id="productsTab" class="tab-content active">
+          <div id="overviewTab" class="tab-content active">
+            <div class="charts-row">
+              <div class="chart-card">
+                <h3>Revenue (last 7 days)</h3>
+                <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+              </div>
+              <div class="chart-card">
+                <h3>Orders by status</h3>
+                <div class="chart-wrap"><canvas id="statusChart"></canvas></div>
+              </div>
+            </div>
+            <div class="chart-card recent-orders-card">
+              <h3>Recent orders</h3>
+              <p class="tab-subtitle" style="margin:-8px 0 12px;">Click a row for full details</p>
+              <div style="overflow-x:auto;">
+                <table class="products-table">
+                  <thead>
+                    <tr>
+                      <th>Order</th>
+                      <th>Customer</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Date &amp; time</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentOrdersTable"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+      <div id="productsTab" class="tab-content">
         <div class="tab-header">
           <h2>Manage Products</h2>
           <div>
@@ -387,17 +151,23 @@
       </div>
 
       <div id="ordersTab" class="tab-content">
-        <div class="tab-header"><h2>Customer Orders</h2></div>
+        <div class="tab-header">
+          <div>
+            <h2>Customer Orders</h2>
+            <p class="tab-subtitle">Newest first — click any order to view full details</p>
+          </div>
+        </div>
         <div style="overflow-x: auto">
-          <table class="products-table">
+          <table class="products-table orders-table">
             <thead>
               <tr>
+                <th>Date &amp; time</th>
                 <th>Order ID</th>
                 <th>Customer</th>
                 <th>Phone</th>
                 <th>Amount</th>
                 <th>Status</th>
-                <th>Date</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody id="ordersList"></tbody>
@@ -424,6 +194,8 @@
             </thead>
             <tbody id="categoriesList"></tbody>
           </table>
+        </div>
+      </div>
         </div>
       </div>
     </div>
@@ -517,6 +289,18 @@
       </div>
     </div>
 
+    <!-- Order detail modal -->
+    <div id="orderDetailModal" class="modal">
+      <div class="modal-content order-detail-modal">
+        <div class="modal-header">
+          <h3 id="orderDetailTitle">Order details</h3>
+          <button type="button" class="close-modal" onclick="closeOrderDetailModal()" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body" id="orderDetailBody"></div>
+        <div class="modal-footer order-detail-footer" id="orderDetailFooter"></div>
+      </div>
+    </div>
+
     <!-- Add Category Modal -->
     <div id="categoryModal" class="modal">
       <div class="modal-content">
@@ -544,6 +328,7 @@
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script>
       // ---------- FULL PRODUCTS DATABASE (81 products, same as your config.js) ----------
       const DEFAULT_PRODUCTS = [
@@ -1675,6 +1460,383 @@
       let products = [];
       let categories = [];
       let orders = [];
+      let revenueChartInstance = null;
+      let statusChartInstance = null;
+
+      const API_BASE =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+          ? "http://localhost:5000/api"
+          : "https://sile-backend.onrender.com/api";
+
+      const PAGE_TITLES = {
+        overview: ["Dashboard Overview", "Sales, orders, and store performance"],
+        products: ["Manage Products", "Add, edit, and organize your catalog"],
+        orders: ["Customer Orders", "Track and fulfill orders"],
+        categories: ["Categories", "Product category management"],
+      };
+
+      function escHtml(str) {
+        if (str == null) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function getOrderTimestamp(o) {
+        const d = o?.order?.date;
+        const t = d ? new Date(d).getTime() : 0;
+        return Number.isNaN(t) ? 0 : t;
+      }
+
+      function sortOrdersByDate(list) {
+        return [...list].sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
+      }
+
+      function formatOrderDateTime(dateStr) {
+        if (!dateStr) return "—";
+        const d = new Date(dateStr);
+        if (Number.isNaN(d.getTime())) return "—";
+        return d.toLocaleString("en-KE", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        });
+      }
+
+      function derivePaymentStatus(ord) {
+        if (ord.paymentStatus) return ord.paymentStatus;
+        const m = (ord.paymentMethod || "").toLowerCase();
+        if (m === "mpesa") return "pending";
+        if (m === "cod") return "unpaid";
+        if (m === "pickup") return "pay_at_shop";
+        return "unknown";
+      }
+
+      function getPaymentDisplay(o) {
+        const ord = o.order || {};
+        const status = derivePaymentStatus(ord);
+        const labels = {
+          paid: { text: "Paid", class: "payment-paid", icon: "fa-check-circle" },
+          pending: { text: "Payment pending (M-PESA)", class: "payment-pending", icon: "fa-clock" },
+          unpaid: { text: "Unpaid — cash on delivery", class: "payment-unpaid", icon: "fa-money-bill-wave" },
+          pay_at_shop: { text: "Pay at shop on pickup", class: "payment-pickup", icon: "fa-store" },
+          unknown: { text: "Not specified", class: "payment-unknown", icon: "fa-question-circle" },
+        };
+        const info = labels[status] || labels.unknown;
+        return {
+          status,
+          label: ord.paymentLabel || info.text,
+          badgeClass: info.class,
+          icon: info.icon,
+          method: ord.paymentMethod || "—",
+          mpesaPhone: ord.mpesaPhone || null,
+        };
+      }
+
+      function normalizeOrder(raw) {
+        let o;
+        if (raw.order) {
+          o = raw;
+        } else {
+          o = {
+            order: {
+              orderNumber: raw.order_number || raw.orderNumber || "ORD-" + raw.id,
+              total: raw.total || 0,
+              subtotal: raw.subtotal,
+              deliveryFee: raw.delivery?.fee ?? raw.deliveryFee,
+              date: raw.created_at || raw.createdAt || new Date().toISOString(),
+              status: raw.status || "pending",
+              paymentMethod: raw.paymentMethod,
+              paymentLabel: raw.paymentLabel,
+              paymentStatus: raw.paymentStatus,
+              mpesaPhone: raw.mpesaPhone,
+              fulfillment: raw.fulfillment,
+              deliveryOption: raw.delivery?.option || raw.deliveryOption,
+              notes: raw.notes,
+            },
+            customer: raw.customer || {
+              firstName: raw.firstName || "",
+              lastName: raw.lastName || "",
+              phone: raw.phone || "",
+              email: raw.email || "",
+              town: raw.town || "",
+            },
+            items: raw.items || [],
+          };
+        }
+        if (!o.order.paymentStatus) o.order.paymentStatus = derivePaymentStatus(o.order);
+        if (!o.customer) o.customer = {};
+        if (!o.items) o.items = [];
+        return o;
+      }
+
+      async function fetchOrdersFromApi() {
+        const stored = JSON.parse(localStorage.getItem("sile_admin_orders") || "[]");
+        orders = stored.map(normalizeOrder);
+
+        const token = localStorage.getItem("authToken");
+        try {
+          const res = await fetch(`${API_BASE}/orders`, {
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+          });
+          if (res.ok) {
+            const data = await res.json();
+            const apiOrders = Array.isArray(data) ? data.map(normalizeOrder) : [];
+            const seen = new Set();
+            orders = [...apiOrders, ...stored.map(normalizeOrder)].filter((o) => {
+              const key = o.order?.orderNumber;
+              if (!key || seen.has(key)) return false;
+              seen.add(key);
+              return true;
+            });
+          }
+        } catch (e) {
+          console.warn("Using local orders only", e);
+        }
+        orders = sortOrdersByDate(orders);
+      }
+
+      function renderDashboardCharts() {
+        const last7 = {};
+        const labels = [];
+        const dateKeys = [];
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          const key = d.toISOString().slice(0, 10);
+          dateKeys.push(key);
+          labels.push(d.toLocaleDateString("en-KE", { weekday: "short" }));
+          last7[key] = 0;
+        }
+        orders.forEach((o) => {
+          const dateKey = (o.order?.date || "").slice(0, 10);
+          if (last7[dateKey] !== undefined) {
+            last7[dateKey] += o.order?.total || 0;
+          }
+        });
+        const revenueData = dateKeys.map((k) => last7[k]);
+
+        const statusCounts = { pending: 0, processing: 0, delivered: 0, other: 0 };
+        orders.forEach((o) => {
+          const s = (o.order?.status || "pending").toLowerCase();
+          if (statusCounts[s] !== undefined) statusCounts[s]++;
+          else statusCounts.other++;
+        });
+
+        const revCtx = document.getElementById("revenueChart");
+        if (revCtx) {
+          if (revenueChartInstance) revenueChartInstance.destroy();
+          revenueChartInstance = new Chart(revCtx, {
+            type: "line",
+            data: {
+              labels,
+              datasets: [{
+                label: "Revenue (KSh)",
+                data: revenueData,
+                borderColor: "#10b981",
+                backgroundColor: "rgba(16, 185, 129, 0.12)",
+                fill: true,
+                tension: 0.35,
+              }],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              scales: {
+                y: { beginAtZero: true, ticks: { callback: (v) => "KSh " + v.toLocaleString() } },
+              },
+            },
+          });
+        }
+
+        const stCtx = document.getElementById("statusChart");
+        if (stCtx) {
+          if (statusChartInstance) statusChartInstance.destroy();
+          statusChartInstance = new Chart(stCtx, {
+            type: "doughnut",
+            data: {
+              labels: ["Pending", "Processing", "Delivered", "Other"],
+              datasets: [{
+                data: [statusCounts.pending, statusCounts.processing, statusCounts.delivered, statusCounts.other],
+                backgroundColor: ["#f59e0b", "#3b82f6", "#10b981", "#94a3b8"],
+              }],
+            },
+            options: { responsive: true, maintainAspectRatio: false },
+          });
+        }
+
+        const recentTbody = document.getElementById("recentOrdersTable");
+        if (recentTbody) {
+          const recent = sortOrdersByDate(orders).slice(0, 8);
+          recentTbody.innerHTML = recent.length
+            ? recent.map((o) => renderOrderRowHtml(o, { compact: true })).join("")
+            : `<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--admin-muted);">No orders yet</td></tr>`;
+        }
+      }
+
+      function renderOrderRowHtml(o, opts = {}) {
+        const orderNum = o.order?.orderNumber || "";
+        const st = (o.order?.status || "pending").toLowerCase();
+        const safeNum = escHtml(orderNum).replace(/'/g, "\\'");
+        const when = formatOrderDateTime(o.order?.date);
+        const customerName = `${o.customer?.firstName || ""} ${o.customer?.lastName || ""}`.trim() || "—";
+
+        if (opts.compact) {
+          return `<tr class="order-row-clickable" onclick="openOrderDetail('${safeNum}')">
+            <td><strong>${escHtml(orderNum) || "—"}</strong></td>
+            <td>${escHtml(customerName)}</td>
+            <td>KSh ${(o.order?.total || 0).toLocaleString()}</td>
+            <td><span class="status-badge status-${st}">${st}</span></td>
+            <td class="order-time-cell">${when}</td>
+          </tr>`;
+        }
+
+        const deliveredBtn =
+          st === "delivered"
+            ? `<span class="status-badge status-delivered">Done</span>`
+            : `<button type="button" class="btn-edit" onclick="event.stopPropagation(); markOrderDelivered('${safeNum}')" title="Mark delivered"><i class="fas fa-check"></i></button>`;
+
+        return `<tr class="order-row-clickable" onclick="openOrderDetail('${safeNum}')">
+          <td class="order-time-cell">${when}</td>
+          <td><strong>${escHtml(orderNum) || "N/A"}</strong></td>
+          <td>${escHtml(customerName)}</td>
+          <td>${escHtml(o.customer?.phone || "—")}</td>
+          <td>KSh ${(o.order?.total || 0).toLocaleString()}</td>
+          <td><span class="status-badge status-${st}">${st}</span></td>
+          <td class="order-actions-cell" onclick="event.stopPropagation()">
+            ${deliveredBtn}
+            <button type="button" class="btn-delete" onclick="deleteOrder('${safeNum}')" title="Delete order"><i class="fas fa-trash"></i></button>
+            <button type="button" class="btn-view-order" onclick="openOrderDetail('${safeNum}')" title="View details"><i class="fas fa-eye"></i></button>
+          </td>
+        </tr>`;
+      }
+
+      function openOrderDetail(orderNumber) {
+        const o = orders.find((x) => x.order?.orderNumber === orderNumber);
+        if (!o) return;
+
+        const ord = o.order || {};
+        const c = o.customer || {};
+        const pay = getPaymentDisplay(o);
+        const st = (ord.status || "pending").toLowerCase();
+        const items = o.items || [];
+        const subtotal =
+          ord.subtotal ??
+          items.reduce((s, i) => s + (i.price || 0) * (i.quantity || 1), 0);
+        const deliveryFee = ord.deliveryFee ?? ord.delivery?.fee ?? 0;
+        const location =
+          ord.fulfillment === "pickup"
+            ? "Shop pickup — Sky Plaza, Kenyatta Street, Kitale"
+            : [ord.deliveryOption || ord.delivery?.option, c.town].filter(Boolean).join(" · ") || c.town || "—";
+
+        document.getElementById("orderDetailTitle").textContent =
+          `Order ${ord.orderNumber || ""}`;
+
+        const itemsHtml = items.length
+          ? items
+              .map(
+                (item) => `
+            <tr>
+              <td>
+                <div class="order-detail-product">
+                  ${item.image ? `<img src="${escHtml(orderItemImageSrc(item.image))}" alt="" onerror="this.style.display='none'">` : ""}
+                  <span>${escHtml(item.name || "Product")}</span>
+                </div>
+              </td>
+              <td>${item.quantity || 1}</td>
+              <td>KSh ${Number(item.price || 0).toLocaleString()}</td>
+              <td><strong>KSh ${Number((item.price || 0) * (item.quantity || 1)).toLocaleString()}</strong></td>
+            </tr>`,
+              )
+              .join("")
+          : `<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--admin-muted);">No line items recorded</td></tr>`;
+
+        document.getElementById("orderDetailBody").innerHTML = `
+          <div class="order-detail-meta">
+            <span class="status-badge status-${st}">${escHtml(st)}</span>
+            <span class="order-detail-datetime"><i class="far fa-clock"></i> ${formatOrderDateTime(ord.date)}</span>
+          </div>
+          <div class="order-detail-grid">
+            <section class="order-detail-block">
+              <h4><i class="fas fa-user"></i> Customer</h4>
+              <ul>
+                <li><span>Name</span><strong>${escHtml(`${c.firstName || ""} ${c.lastName || ""}`.trim() || "—")}</strong></li>
+                <li><span>Phone</span><strong>${escHtml(c.phone || "—")}</strong></li>
+                <li><span>Email</span><strong>${escHtml(c.email || "—")}</strong></li>
+                <li><span>Town / city</span><strong>${escHtml(c.town || "—")}</strong></li>
+              </ul>
+            </section>
+            <section class="order-detail-block">
+              <h4><i class="fas fa-map-marker-alt"></i> Delivery &amp; location</h4>
+              <ul>
+                <li><span>Fulfillment</span><strong>${ord.fulfillment === "pickup" ? "Shop pickup" : "Delivery"}</strong></li>
+                <li><span>Location</span><strong>${escHtml(location)}</strong></li>
+                <li><span>Delivery fee</span><strong>${deliveryFee === 0 ? "Free" : "KSh " + Number(deliveryFee).toLocaleString()}</strong></li>
+              </ul>
+            </section>
+            <section class="order-detail-block">
+              <h4><i class="fas fa-credit-card"></i> Payment</h4>
+              <ul>
+                <li><span>Method</span><strong>${escHtml(pay.label)}</strong></li>
+                <li><span>Status</span><strong><span class="payment-badge ${pay.badgeClass}"><i class="fas ${pay.icon}"></i> ${escHtml(pay.status.replace(/_/g, " "))}</span></strong></li>
+                ${pay.mpesaPhone ? `<li><span>M-PESA no.</span><strong>${escHtml(pay.mpesaPhone)}</strong></li>` : ""}
+              </ul>
+            </section>
+          </div>
+          <section class="order-detail-block order-detail-items-block">
+            <h4><i class="fas fa-box"></i> Products ordered</h4>
+            <table class="products-table order-detail-items-table">
+              <thead>
+                <tr><th>Product</th><th>Qty</th><th>Unit price</th><th>Line total</th></tr>
+              </thead>
+              <tbody>${itemsHtml}</tbody>
+            </table>
+            <div class="order-detail-totals">
+              <div class="row"><span>Subtotal</span><span>KSh ${Number(subtotal).toLocaleString()}</span></div>
+              <div class="row"><span>Delivery</span><span>${deliveryFee === 0 ? "Free" : "KSh " + Number(deliveryFee).toLocaleString()}</span></div>
+              <div class="row total"><span>Order total</span><span>KSh ${Number(ord.total || 0).toLocaleString()}</span></div>
+            </div>
+          </section>
+          <section class="order-detail-block">
+            <h4><i class="fas fa-sticky-note"></i> Customer notes</h4>
+            <p class="order-detail-notes">${ord.notes ? escHtml(ord.notes) : '<em class="muted">No notes provided</em>'}</p>
+          </section>
+        `;
+
+        const safeNum = escHtml(orderNumber).replace(/'/g, "\\'");
+        const deliveredAction =
+          st === "delivered"
+            ? ""
+            : `<button type="button" class="btn-save" onclick="markOrderDelivered('${safeNum}'); closeOrderDetailModal();"><i class="fas fa-check"></i> Mark delivered</button>`;
+        document.getElementById("orderDetailFooter").innerHTML = `
+          ${deliveredAction}
+          <button type="button" class="btn-cancel" onclick="closeOrderDetailModal()">Close</button>
+          <button type="button" class="btn-delete" onclick="if(confirm('Delete this order?')) { deleteOrder('${safeNum}'); closeOrderDetailModal(); }"><i class="fas fa-trash"></i> Delete</button>
+        `;
+
+        document.getElementById("orderDetailModal").classList.add("active");
+      }
+
+      function closeOrderDetailModal() {
+        document.getElementById("orderDetailModal")?.classList.remove("active");
+      }
+
+      document.getElementById("adminDate").textContent = new Date().toLocaleDateString("en-KE", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      document.getElementById("adminMenuToggle")?.addEventListener("click", () => {
+        document.getElementById("adminSidebar")?.classList.toggle("open");
+      });
 
       function loadData() {
         const stored = localStorage.getItem("sile_products");
@@ -1714,11 +1876,13 @@
         }
         localStorage.setItem("adminCategories", JSON.stringify(categories));
 
-        orders = JSON.parse(localStorage.getItem("orders")) || [];
-        renderProductsGrouped();
-        renderCategories();
-        renderOrders();
-        updateStats();
+        fetchOrdersFromApi().then(() => {
+          renderProductsGrouped();
+          renderCategories();
+          renderOrders();
+          updateStats();
+          renderDashboardCharts();
+        });
       }
 
       function groupProducts() {
@@ -1785,15 +1949,51 @@
           )
           .join("");
       }
+      function saveOrdersToStorage() {
+        localStorage.setItem("sile_admin_orders", JSON.stringify(orders));
+      }
+
+      function orderItemImageSrc(img) {
+        if (!img) return "";
+        if (img.startsWith("http") || img.startsWith("data:") || img.startsWith("../")) return img;
+        if (img.startsWith("images/")) return "../" + img;
+        return img;
+      }
+
+      function markOrderDelivered(orderNumber) {
+        const o = orders.find((x) => x.order?.orderNumber === orderNumber);
+        if (!o) return;
+        if (!confirm(`Mark order ${orderNumber} as delivered?`)) return;
+        o.order.status = "delivered";
+        orders = sortOrdersByDate(orders);
+        saveOrdersToStorage();
+        renderOrders();
+        updateStats();
+        renderDashboardCharts();
+        if (document.getElementById("orderDetailModal")?.classList.contains("active")) {
+          openOrderDetail(orderNumber);
+        }
+      }
+
+      function deleteOrder(orderNumber) {
+        if (!confirm(`Delete order ${orderNumber}? This cannot be undone.`)) return;
+        orders = sortOrdersByDate(
+          orders.filter((x) => x.order?.orderNumber !== orderNumber),
+        );
+        saveOrdersToStorage();
+        closeOrderDetailModal();
+        renderOrders();
+        updateStats();
+        renderDashboardCharts();
+      }
+
       function renderOrders() {
         const tbody = document.getElementById("ordersList");
         if (!tbody) return;
-        tbody.innerHTML = orders
-          .map(
-            (o) =>
-              `<tr><td>${o.order?.orderNumber || "N/A"}</td><td>${o.customer?.firstName || ""} ${o.customer?.lastName || ""}</td><td>${o.customer?.phone || ""}</td><td>KSh ${(o.order?.total || 0).toLocaleString()}</td><td>Pending</td><td>${new Date(o.order?.date).toLocaleDateString()}</td></tr>`,
-          )
-          .join("");
+        const sorted = sortOrdersByDate(orders);
+        tbody.innerHTML = sorted.length
+          ? sorted.map((o) => renderOrderRowHtml(o)).join("")
+          : `<tr><td colspan="7" style="text-align:center;padding:30px;">No orders yet</td></tr>`;
       }
       function updateStats() {
         document.getElementById("totalProducts").innerText = products.length;
@@ -1804,6 +2004,10 @@
         const revenue = orders.reduce((s, o) => s + (o.order?.total || 0), 0);
         document.getElementById("totalRevenue").innerText =
           `KSh ${revenue.toLocaleString()}`;
+        const trendEl = document.getElementById("revenueTrend");
+        if (trendEl && orders.length) {
+          trendEl.textContent = `${orders.length} order${orders.length !== 1 ? "s" : ""} recorded`;
+        }
       }
       function saveProduct() {
         const id = document.getElementById("productId").value;
@@ -1945,22 +2149,27 @@
       function openAddCategoryModal() {
         openModal("categoryModal");
       }
-      function showTab(tab) {
-        document
-          .querySelectorAll(".tab-content")
-          .forEach((t) => t.classList.remove("active"));
-        document
-          .querySelectorAll(".tab-btn")
-          .forEach((b) => b.classList.remove("active"));
-        if (tab === "products") {
-          document.getElementById("productsTab").classList.add("active");
-        } else if (tab === "orders") {
-          document.getElementById("ordersTab").classList.add("active");
-          renderOrders();
-        } else if (tab === "categories") {
-          document.getElementById("categoriesTab").classList.add("active");
+      function showTab(tab, btn) {
+        document.querySelectorAll(".tab-content").forEach((t) => t.classList.remove("active"));
+        document.querySelectorAll(".admin-nav-btn").forEach((b) => b.classList.remove("active"));
+        const tabMap = {
+          overview: "overviewTab",
+          products: "productsTab",
+          orders: "ordersTab",
+          categories: "categoriesTab",
+        };
+        const el = document.getElementById(tabMap[tab]);
+        if (el) el.classList.add("active");
+        if (btn) btn.classList.add("active");
+        else document.querySelector(`.admin-nav-btn[data-tab="${tab}"]`)?.classList.add("active");
+        const titles = PAGE_TITLES[tab];
+        if (titles) {
+          document.getElementById("adminPageTitle").textContent = titles[0];
+          document.getElementById("adminPageSubtitle").textContent = titles[1];
         }
-        event.target.classList.add("active");
+        if (tab === "orders") renderOrders();
+        if (tab === "overview") renderDashboardCharts();
+        document.getElementById("adminSidebar")?.classList.remove("open");
       }
       function showSuccess(msg) {
         let div = document.getElementById("successMsg");
