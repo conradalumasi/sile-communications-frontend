@@ -15,14 +15,23 @@ window.toggleMobileMenu = function() {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-  initAuthButton();
-  injectWishlistIcon();
-  initMobileMenu();
-  initCartOverlay();
-  initBackToTop();
-  initChatWidget();
-  updateCartUI();
+  // Run mobile menu first so a failure in any other init can't break the hamburger.
+  safeRun(initMobileMenu, 'initMobileMenu');
+  safeRun(initAuthButton, 'initAuthButton');
+  safeRun(injectWishlistIcon, 'injectWishlistIcon');
+  safeRun(initCartOverlay, 'initCartOverlay');
+  safeRun(initBackToTop, 'initBackToTop');
+  safeRun(initChatWidget, 'initChatWidget');
+  safeRun(function () {
+    if (typeof updateCartUI === 'function') updateCartUI();
+  }, 'updateCartUI');
 });
+
+function safeRun(fn, name) {
+  try { fn(); } catch (err) {
+    console.error('[nav.js] ' + name + ' failed:', err);
+  }
+}
 
 /* ── Auth: update account button on every page ───────────── */
 function initAuthButton() {
