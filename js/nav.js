@@ -8,6 +8,12 @@
  *   - Back-to-top button
  */
 
+// Fallback for inline onclick before DOM ready
+window.toggleMobileMenu = function() {
+  const navLinks = document.getElementById('nav-links');
+  if (navLinks) navLinks.classList.toggle('active');
+};
+
 document.addEventListener('DOMContentLoaded', function () {
   initAuthButton();
   injectWishlistIcon();
@@ -79,9 +85,9 @@ function injectWishlistIcon() {
   if (typeof updateWishlistBadge === 'function') updateWishlistBadge();
 }
 
-/* ── Mobile menu ─────────────────────────────────────────── */
+/* ── Mobile menu (hamburger) ─────────────────────────────── */
 function initMobileMenu() {
-  // Toggle function (called from inline onclick too)
+  // Ensure global function works
   window.toggleMobileMenu = function () {
     const navLinks = document.getElementById('nav-links');
     const btn      = document.querySelector('.mobile-menu-btn');
@@ -99,12 +105,24 @@ function initMobileMenu() {
     if (nav && nav.classList.contains('active')) {
       if (!nav.contains(e.target) && btn && !btn.contains(e.target)) {
         nav.classList.remove('active');
-        btn.innerHTML = '<i class="fas fa-bars"></i>';
+        if (btn) btn.innerHTML = '<i class="fas fa-bars"></i>';
       }
     }
   });
 
-  // Mobile dropdown: tap to toggle
+  // Auto-close mobile menu when any nav link is clicked
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      const navLinks = document.getElementById('nav-links');
+      const btn = document.querySelector('.mobile-menu-btn');
+      if (navLinks && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        if (btn) btn.innerHTML = '<i class="fas fa-bars"></i>';
+      }
+    });
+  });
+
+  // Mobile dropdown: tap to toggle (prevent default for parent link)
   document.querySelectorAll('.dropdown > a').forEach(link => {
     link.addEventListener('click', function (e) {
       if (window.innerWidth <= 900) {
