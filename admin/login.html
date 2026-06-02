@@ -4,14 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Login - Sile Communications</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link rel="icon" href="../images/favicon.ico" />
     <style>
       * {
         margin: 0;
@@ -19,7 +12,7 @@
         box-sizing: border-box;
       }
       body {
-        font-family: "Outfit", sans-serif;
+        font-family: system-ui, "Segoe UI", monospace;
         background: linear-gradient(135deg, #0f2b44, #1e3a5f);
         min-height: 100vh;
         display: flex;
@@ -72,12 +65,6 @@
         border: 1px solid #e2e8f0;
         border-radius: 12px;
         font-size: 14px;
-        transition: all 0.3s;
-      }
-      .form-group input:focus {
-        outline: none;
-        border-color: #10b981;
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
       }
       .btn-login {
         width: 100%;
@@ -89,14 +76,12 @@
         font-size: 16px;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.3s;
       }
       .btn-login:hover {
         background: #059669;
-        transform: translateY(-2px);
       }
       .error-message {
-        background: #fef2f2;
+        background: #fee2e2;
         color: #dc2626;
         padding: 12px;
         border-radius: 10px;
@@ -104,6 +89,29 @@
         font-size: 13px;
         text-align: center;
         display: none;
+      }
+      .spinner {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border: 2px solid white;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        margin-left: 8px;
+        vertical-align: middle;
+        display: none;
+      }
+      .btn-login.loading .spinner {
+        display: inline-block;
+      }
+      .btn-login.loading .btn-text {
+        display: none;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
       }
     </style>
   </head>
@@ -116,16 +124,16 @@
           onerror="this.src = 'https://via.placeholder.com/70'"
         />
         <h1>Admin Login</h1>
-        <p>Enter your credentials to access the dashboard</p>
+        <p>Sign in with your admin account</p>
       </div>
       <div class="login-form">
         <form id="loginForm">
           <div class="form-group">
-            <label>Username / Email</label>
+            <label>Email</label>
             <input
-              type="text"
-              id="username"
-              placeholder="Enter your username"
+              type="email"
+              id="email"
+              placeholder="admin@example.com"
               required
               autocomplete="off"
             />
@@ -139,32 +147,65 @@
               required
             />
           </div>
-          <button type="submit" class="btn-login">Login to Dashboard</button>
+          <button type="submit" class="btn-login" id="loginBtn">
+            <span class="btn-text">Login to Dashboard</span>
+            <span class="spinner"></span>
+          </button>
           <div id="errorMsg" class="error-message"></div>
         </form>
       </div>
     </div>
 
     <script>
-      const ADMIN_USERNAME = "admin";
-      const ADMIN_PASSWORD = "SileAdmin2026";
+      const API_BASE =
+        location.hostname === "localhost"
+          ? "http://localhost:5000/api"
+          : "https://sile-backend.onrender.com/api";
 
       document
         .getElementById("loginForm")
-        .addEventListener("submit", function (e) {
+        .addEventListener("submit", async function (e) {
           e.preventDefault();
-          const username = document.getElementById("username").value;
+          const btn = document.getElementById("loginBtn");
+          const errorMsg = document.getElementById("errorMsg");
+          errorMsg.style.display = "none";
+          btn.classList.add("loading");
+          btn.disabled = true;
+
+          const email = document.getElementById("email").value.trim();
           const password = document.getElementById("password").value;
 
-          if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-            localStorage.setItem("adminLoggedIn", "true");
-            localStorage.setItem("adminUser", username);
-            window.location.href = "dashboard.html";
-          } else {
-            const errorMsg = document.getElementById("errorMsg");
-            errorMsg.textContent = "Invalid username or password";
+          try {
+            const res = await fetch(`${API_BASE}/auth/login`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, password }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+              // Store token and user
+              localStorage.setItem("adminToken", data.token);
+              localStorage.setItem("adminUser", JSON.stringify(data.user));
+              localStorage.setItem("adminLoggedIn", "true");
+              // Optional: check admin role
+              if (data.user.role !== "admin") {
+                errorMsg.textContent = "You do not have admin privileges.";
+                errorMsg.style.display = "block";
+                btn.classList.remove("loading");
+                btn.disabled = false;
+                return;
+              }
+              window.location.href = "dashboard.html";
+            } else {
+              errorMsg.textContent = data.error || "Invalid credentials";
+              errorMsg.style.display = "block";
+            }
+          } catch (err) {
+            errorMsg.textContent = "Server error. Please try again.";
             errorMsg.style.display = "block";
-            setTimeout(() => (errorMsg.style.display = "none"), 3000);
+          } finally {
+            btn.classList.remove("loading");
+            btn.disabled = false;
           }
         });
     </script>
