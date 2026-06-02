@@ -234,6 +234,38 @@
         height: 280px;
       }
 
+      /* Toast Notification */
+      .admin-toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #1e293b;
+        color: white;
+        padding: 14px 24px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 9999;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .admin-toast.show {
+        transform: translateX(0);
+      }
+      .admin-toast.success {
+        background: #10b981;
+      }
+      .admin-toast.error {
+        background: #ef4444;
+      }
+      .admin-toast i {
+        font-size: 18px;
+      }
+
       /* Tables */
       .tab-content {
         display: none;
@@ -518,17 +550,6 @@
         border-radius: 8px;
         margin-top: 10px;
       }
-      .success-message {
-        background: #dcfce7;
-        color: #166534;
-        padding: 12px;
-        border-radius: 10px;
-        margin-bottom: 16px;
-        display: none;
-      }
-      .success-message.show {
-        display: block;
-      }
 
       /* Responsive */
       @media (max-width: 900px) {
@@ -592,6 +613,13 @@
           </button>
           <button
             class="admin-nav-btn"
+            data-tab="messages"
+            onclick="showTab('messages', this)"
+          >
+            <i class="fas fa-envelope"></i> Contact Messages
+          </button>
+          <button
+            class="admin-nav-btn"
             data-tab="categories"
             onclick="showTab('categories', this)"
           >
@@ -635,7 +663,6 @@
                 <div>
                   <h3>Active Products</h3>
                   <div class="stat-number" id="activeProducts">0</div>
-                  <div class="stat-trend">Hot & offer</div>
                 </div>
                 <div class="stat-icon"><i class="fas fa-fire"></i></div>
               </div>
@@ -696,7 +723,6 @@
                 <i class="fas fa-plus"></i> Add Product
               </button>
             </div>
-            <div id="successMsg" class="success-message"></div>
             <div id="productsListContainer"></div>
           </div>
 
@@ -717,6 +743,26 @@
                   </tr>
                 </thead>
                 <tbody id="ordersList"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Contact Messages Tab -->
+          <div id="messagesTab" class="tab-content">
+            <div class="tab-header"><h2>Contact Messages</h2></div>
+            <div style="overflow-x: auto">
+              <table class="products-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Message</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="messagesList"></tbody>
               </table>
             </div>
           </div>
@@ -888,15 +934,27 @@
       let products = [];
       let categories = [];
       let orders = [];
+      let messages = [];
       let revenueChart = null;
       let statusChart = null;
 
-      function showSuccess(msg) {
-        const div = document.getElementById("successMsg");
-        div.innerText = msg;
-        div.classList.add("show");
-        setTimeout(() => div.classList.remove("show"), 3000);
+      // Toast notification
+      function showToast(message, type = "success") {
+        const existing = document.querySelector(".admin-toast");
+        if (existing) existing.remove();
+
+        const toast = document.createElement("div");
+        toast.className = `admin-toast ${type}`;
+        toast.innerHTML = `<i class="fas ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}"></i><span>${message}</span>`;
+        document.body.appendChild(toast);
+
+        setTimeout(() => toast.classList.add("show"), 10);
+        setTimeout(() => {
+          toast.classList.remove("show");
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
       }
+
       function escapeHtml(str) {
         if (!str) return "";
         return str.replace(/[&<>]/g, (m) =>
@@ -944,6 +1002,7 @@
           return [];
         }
       }
+
       async function saveProductToBackend(product, id = null) {
         const method = id ? "PUT" : "POST";
         const url = id ? `${API_BASE}/products/${id}` : `${API_BASE}/products`;
@@ -961,6 +1020,7 @@
         }
         return await res.json();
       }
+
       async function deleteProductFromBackend(id) {
         const res = await fetch(`${API_BASE}/products/${id}`, {
           method: "DELETE",
@@ -969,6 +1029,7 @@
         if (!res.ok) throw new Error("Delete failed");
         return true;
       }
+
       function groupProductsByCategory() {
         const groups = {};
         products.forEach((p) => {
@@ -978,6 +1039,7 @@
         });
         return groups;
       }
+
       function getCategoryDisplayName(slug) {
         const names = {
           smartphones: "📱 Smartphones",
@@ -990,6 +1052,7 @@
         };
         return names[slug] || slug;
       }
+
       function renderProductsGrouped() {
         const container = document.getElementById("productsListContainer");
         if (!container) return;
@@ -1009,12 +1072,13 @@
                 : p.image
                   ? `../${p.image}`
                   : "../images/placeholder.jpg";
-            html += `<tr><td>${p.id}</td><td><img src="${imgSrc}" class="product-image-small" onerror="this.src='https://via.placeholder.com/45x45'"></td><td>${escapeHtml(p.name)}</td><td>${escapeHtml(p.brand)}</td><td>KSh ${p.price.toLocaleString()}</td><td><button class="btn-edit" onclick="editProduct(${p.id})">Edit</button><button class="btn-delete" onclick="deleteProduct(${p.id})">Delete</button></td></tr>`;
+            html += `<tr><td class="product-id">${p.id}</td><td><img src="${imgSrc}" class="product-image-small" onerror="this.src='https://via.placeholder.com/45x45'"></td><td>${escapeHtml(p.name)}</td><td>${escapeHtml(p.brand)}</td><td>KSh ${p.price.toLocaleString()}</td><td><button class="btn-edit" onclick="editProduct(${p.id})">Edit</button><button class="btn-delete" onclick="deleteProduct(${p.id})">Delete</button></td></tr>`;
           });
           html += `</tbody></table></div></div></div>`;
         }
         container.innerHTML = html;
       }
+
       window.toggleCategory = function (header) {
         const content = header.nextElementSibling;
         const icon = header.querySelector("i");
@@ -1026,6 +1090,7 @@
           icon.className = "fas fa-chevron-right";
         }
       };
+
       async function saveProduct() {
         const id = document.getElementById("productId").value;
         const imgBase64 = document.getElementById("prodImageBase64").value;
@@ -1034,10 +1099,22 @@
           imgBase64 ||
           (imgFile ? `images/${imgFile}` : "images/placeholder.jpg");
         if (imgBase64) finalImage = imgBase64;
+
+        const priceRaw = document.getElementById("prodPrice").value;
+        const price = parseInt(priceRaw);
+        if (isNaN(price) || price <= 0) {
+          showToast(
+            "Please enter a valid price (number greater than 0)",
+            "error",
+          );
+          return;
+        }
+
+        // CRITICAL: Do NOT include 'id' for new products
         const productData = {
           name: document.getElementById("prodName").value,
           brand: document.getElementById("prodBrand").value,
-          price: parseInt(document.getElementById("prodPrice").value),
+          price: price,
           oldPrice:
             parseInt(document.getElementById("prodOldPrice").value) || null,
           category: document.getElementById("prodCategory").value,
@@ -1048,17 +1125,47 @@
           desc: document.getElementById("prodDesc").value,
           specs: document.getElementById("prodSpecs").value,
         };
+
+        // Only for editing: add id to the URL path, NOT in the body
+        const isEditing = id && id !== "" && id !== "null";
+        const url = isEditing
+          ? `${API_BASE}/products/${id}`
+          : `${API_BASE}/products`;
+        const method = isEditing ? "PUT" : "POST";
+
         const btn = document.getElementById("saveProductBtn");
         const original = btn.innerText;
         btn.disabled = true;
         btn.innerText = "Saving...";
+
         try {
-          await saveProductToBackend(productData, id);
+          const res = await fetch(url, {
+            method: method,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authToken}`,
+            },
+            body: JSON.stringify(productData),
+          });
+
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Save failed");
+
           await fetchProducts();
           closeModal("productModal");
-          showSuccess(id ? "Product updated!" : "Product added!");
+          document.getElementById("productId").value = "";
+          document.getElementById("productForm")?.reset();
+          document.getElementById("prodImageBase64").value = "";
+          document.getElementById("imagePreview").innerHTML = "";
+          showToast(
+            isEditing
+              ? "Product updated successfully!"
+              : "Product added successfully!",
+            "success",
+          );
         } catch (err) {
-          alert(err.message);
+          console.error("Save error:", err);
+          showToast(err.message, "error");
         } finally {
           btn.disabled = false;
           btn.innerText = original;
@@ -1093,21 +1200,23 @@
         document.getElementById("modalTitle").innerText = "Edit Product";
         openModal("productModal");
       }
+
       async function deleteProduct(id) {
         if (!confirm("Delete this product permanently?")) return;
         try {
           await deleteProductFromBackend(id);
           await fetchProducts();
-          showSuccess("Product deleted");
+          showToast("Product deleted successfully!");
         } catch (err) {
-          alert(err.message);
+          showToast(err.message, "error");
         }
       }
+
       function handleImageUpload(input) {
         const file = input.files[0];
         if (!file) return;
         if (file.size > 2 * 1024 * 1024) {
-          alert("Max 2MB");
+          showToast("Image too large (max 2MB)", "error");
           input.value = "";
           return;
         }
@@ -1140,25 +1249,27 @@
           return [];
         }
       }
+
       function renderOrders() {
         const tbody = document.getElementById("ordersList");
         if (!tbody) return;
         if (!orders.length) {
           tbody.innerHTML =
-            '<tr><td colspan="7" style="text-align:center;padding:30px;">No orders found</td></tr>';
+            '<tr><td colspan="7" style="text-align:center;padding:30px;">No orders found</td>' +
+            "处";
           return;
         }
         tbody.innerHTML = orders
           .map(
             (o) => `
             <tr>
-                <td>${new Date(o.created_at).toLocaleString()}</td>
+                <td class="order-date">${new Date(o.created_at).toLocaleString()}</td>
                 <td><strong>${o.order_number}</strong></td>
                 <td>${escapeHtml(o.customer_name || "")}</td>
                 <td>${escapeHtml(o.customer_phone || "")}</td>
                 <td>KSh ${(o.total || 0).toLocaleString()}</td>
                 <td><span class="status-badge status-${o.status}">${o.status}</span></td>
-                <td>
+                <td class="order-actions">
                     <button class="btn-edit" onclick="markOrderDelivered('${o.order_number}')">Delivered</button>
                     <button class="btn-delete" onclick="deleteOrder('${o.order_number}')">Delete</button>
                     <button class="btn-view" onclick="openOrderDetail('${o.order_number}')">View</button>
@@ -1168,6 +1279,7 @@
           )
           .join("");
       }
+
       function renderRecentOrders() {
         const tbody = document.getElementById("recentOrdersTable");
         if (tbody) {
@@ -1175,7 +1287,7 @@
             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
             .slice(0, 3);
           if (recent.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6">No orders yet</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6">No orders yet</td>' + "处";
             return;
           }
           tbody.innerHTML = recent
@@ -1194,6 +1306,7 @@
             .join("");
         }
       }
+
       async function markOrderDelivered(orderNumber) {
         if (!confirm(`Mark order ${orderNumber} as delivered?`)) return;
         try {
@@ -1206,22 +1319,28 @@
             body: JSON.stringify({ status: "delivered" }),
           }).catch(() => {});
           await fetchOrders();
+          showToast(`Order ${orderNumber} marked as delivered!`);
         } catch (err) {
-          console.error(err);
+          showToast(err.message, "error");
         }
       }
+
       async function deleteOrder(orderNumber) {
-        if (!confirm(`Delete order ${orderNumber}?`)) return;
+        if (!confirm(`Delete order ${orderNumber}? This cannot be undone.`))
+          return;
         try {
-          await fetch(`${API_BASE}/orders/${orderNumber}`, {
+          const res = await fetch(`${API_BASE}/orders/${orderNumber}`, {
             method: "DELETE",
             headers: { Authorization: `Bearer ${authToken}` },
           });
+          if (!res.ok) throw new Error("Failed to delete order");
           await fetchOrders();
+          showToast(`Order ${orderNumber} deleted successfully!`);
         } catch (err) {
-          console.error(err);
+          showToast(err.message, "error");
         }
       }
+
       async function openOrderDetail(orderNumber) {
         const order = orders.find((o) => o.order_number === orderNumber);
         if (!order) return;
@@ -1234,42 +1353,16 @@
             </table>
         `
           : "<p>No items recorded for this order.</p>";
+
         document.getElementById("orderDetailTitle").innerText =
           `Order ${order.order_number}`;
         document.getElementById("orderDetailBody").innerHTML = `
             <div class="order-detail-grid">
-                <div class="order-detail-card">
-                    <h4>Customer Information</h4>
-                    <ul>
-                        <li><span>Name</span><strong>${escapeHtml(order.customer_name)}</strong></li>
-                        <li><span>Phone</span><strong>${escapeHtml(order.customer_phone)}</strong></li>
-                        <li><span>Email</span><strong>${escapeHtml(order.customer_email)}</strong></li>
-                        <li><span>Town</span><strong>${escapeHtml(order.customer_town)}</strong></li>
-                    </ul>
-                </div>
-                <div class="order-detail-card">
-                    <h4>Delivery & Payment</h4>
-                    <ul>
-                        <li><span>Delivery option</span><strong>${escapeHtml(order.delivery_option)}</strong></li>
-                        <li><span>Delivery fee</span><strong>${order.delivery_fee === 0 ? "Free" : "KSh " + order.delivery_fee.toLocaleString()}</strong></li>
-                        <li><span>Payment method</span><strong>${escapeHtml(order.payment_method)}</strong></li>
-                        <li><span>Status</span><strong><span class="status-badge status-${order.status}">${order.status}</span></strong></li>
-                    </ul>
-                </div>
+                <div class="order-detail-card"><h4>Customer Information</h4><ul><li><span>Name</span><strong>${escapeHtml(order.customer_name)}</strong></li><li><span>Phone</span><strong>${escapeHtml(order.customer_phone)}</strong></li><li><span>Email</span><strong>${escapeHtml(order.customer_email)}</strong></li><li><span>Town</span><strong>${escapeHtml(order.customer_town)}</strong></li></ul></div>
+                <div class="order-detail-card"><h4>Delivery & Payment</h4><ul><li><span>Delivery option</span><strong>${escapeHtml(order.delivery_option)}</strong></li><li><span>Delivery fee</span><strong>${order.delivery_fee === 0 ? "Free" : "KSh " + order.delivery_fee.toLocaleString()}</strong></li><li><span>Payment method</span><strong>${escapeHtml(order.payment_method)}</strong></li><li><span>Status</span><strong><span class="status-badge status-${order.status}">${order.status}</span></strong></li></ul></div>
             </div>
-            <div class="order-detail-card">
-                <h4>Order Items</h4>
-                ${itemsHtml}
-                <div class="order-totals">
-                    <div><span>Subtotal</span><span>KSh ${(order.total - order.delivery_fee).toLocaleString()}</span></div>
-                    <div><span>Delivery</span><span>${order.delivery_fee === 0 ? "Free" : "KSh " + order.delivery_fee.toLocaleString()}</span></div>
-                    <div class="total"><span>Total</span><span>KSh ${order.total.toLocaleString()}</span></div>
-                </div>
-            </div>
-            <div class="order-detail-card">
-                <h4>Order Notes</h4>
-                <p>${escapeHtml(order.notes) || "No notes provided."}</p>
-            </div>
+            <div class="order-detail-card"><h4>Order Items</h4>${itemsHtml}<div class="order-totals"><div><span>Subtotal</span><span>KSh ${(order.total - order.delivery_fee).toLocaleString()}</span></div><div><span>Delivery</span><span>${order.delivery_fee === 0 ? "Free" : "KSh " + order.delivery_fee.toLocaleString()}</span></div><div class="total"><span>Total</span><span>KSh ${order.total.toLocaleString()}</span></div></div></div>
+            <div class="order-detail-card"><h4>Order Notes</h4><p>${escapeHtml(order.notes) || "No notes provided."}</p></div>
         `;
         document.getElementById("orderDetailFooter").innerHTML = `
             <button class="btn-save" onclick="markOrderDelivered('${order.order_number}'); closeOrderDetailModal();">Mark Delivered</button>
@@ -1277,6 +1370,64 @@
             <button class="btn-delete" onclick="if(confirm('Delete this order?')){ deleteOrder('${order.order_number}'); closeOrderDetailModal(); }">Delete</button>
         `;
         openModal("orderDetailModal");
+      }
+
+      // Contact Messages
+      async function fetchMessages() {
+        try {
+          const res = await fetch(`${API_BASE}/contacts`, {
+            headers: { Authorization: `Bearer ${authToken}` },
+          });
+          if (!res.ok) throw new Error();
+          messages = await res.json();
+          renderMessages();
+          return messages;
+        } catch (err) {
+          console.error(err);
+          messages = [];
+          renderMessages();
+          return [];
+        }
+      }
+
+      function renderMessages() {
+        const tbody = document.getElementById("messagesList");
+        if (!tbody) return;
+        if (!messages.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="6" style="text-align:center;padding:30px;">No messages yet</td>' +
+            "处";
+          return;
+        }
+        tbody.innerHTML = messages
+          .map(
+            (m) => `
+            <tr>
+                <td>${new Date(m.created_at).toLocaleString()}</td>
+                <td>${escapeHtml(m.name)}</td>
+                <td>${escapeHtml(m.email)}</td>
+                <td>${escapeHtml(m.phone || "—")}</td>
+                <td style="max-width:300px;">${escapeHtml(m.message)}</td>
+                <td><button class="btn-delete" onclick="deleteMessage(${m.id})">Delete</button></td>
+            </tr>
+        `,
+          )
+          .join("");
+      }
+
+      async function deleteMessage(id) {
+        if (!confirm("Delete this message?")) return;
+        try {
+          const res = await fetch(`${API_BASE}/contacts/${id}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${authToken}` },
+          });
+          if (!res.ok) throw new Error("Failed to delete");
+          await fetchMessages();
+          showToast("Message deleted successfully!");
+        } catch (err) {
+          showToast(err.message, "error");
+        }
       }
 
       // Categories
@@ -1293,16 +1444,19 @@
           ];
         renderCategories();
       }
+
       function renderCategories() {
         const tbody = document.getElementById("categoriesList");
         if (!tbody) return;
         tbody.innerHTML = categories
           .map(
             (c) =>
-              `<tr><td>${c.id}</td><td>${escapeHtml(c.name)}</td><td>${c.slug}</td><td><button class="btn-delete" onclick="deleteCategory(${c.id})">Delete</button></td></tr>`,
+              `<tr><td>${c.id}</td><td>${escapeHtml(c.name)}</td><td>${c.slug}</td><td><button class="btn-delete" onclick="deleteCategory(${c.id})">Delete</button></td>` +
+              "处",
           )
           .join("");
       }
+
       function saveCategory() {
         const name = document.getElementById("catName").value,
           slug = document.getElementById("catSlug").value;
@@ -1314,15 +1468,16 @@
           localStorage.setItem("adminCategories", JSON.stringify(categories));
           renderCategories();
           closeModal("categoryModal");
-          showSuccess("Category added");
+          showToast("Category added!");
         }
       }
+
       function deleteCategory(id) {
         if (confirm("Delete category?")) {
           categories = categories.filter((c) => c.id !== id);
           localStorage.setItem("adminCategories", JSON.stringify(categories));
           renderCategories();
-          showSuccess("Category deleted");
+          showToast("Category deleted!");
         }
       }
 
@@ -1337,6 +1492,7 @@
         document.getElementById("totalRevenue").innerText =
           `KSh ${revenue.toLocaleString()}`;
       }
+
       function renderDashboardCharts() {
         const last7 = {};
         const labels = [];
@@ -1424,22 +1580,31 @@
         else if (tab === "orders") {
           document.getElementById("ordersTab").classList.add("active");
           fetchOrders();
+        } else if (tab === "messages") {
+          document.getElementById("messagesTab").classList.add("active");
+          fetchMessages();
         } else if (tab === "categories")
           document.getElementById("categoriesTab").classList.add("active");
         if (btn) btn.classList.add("active");
         document.getElementById("adminSidebar")?.classList.remove("open");
       }
+
       function openAddProductModal() {
-        document.getElementById("productForm")?.reset();
+        const form = document.getElementById("productForm");
+        if (form) form.reset();
         document.getElementById("productId").value = "";
         document.getElementById("prodImageBase64").value = "";
         document.getElementById("imagePreview").innerHTML = "";
         document.getElementById("modalTitle").innerText = "Add Product";
+        // Extra safety: clear any lingering ID
+        document.getElementById("productId").value = "";
         openModal("productModal");
       }
+
       function openAddCategoryModal() {
         openModal("categoryModal");
       }
+
       function logout() {
         localStorage.removeItem("adminToken");
         localStorage.removeItem("adminLoggedIn");
