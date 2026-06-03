@@ -162,6 +162,7 @@ function initOrdersTabs() {
 window.logout = function() {
   localStorage.removeItem("authToken");
   localStorage.removeItem("user");
+  localStorage.removeItem("sileWishlist");
   window.location.href = "index.html";
 };
 
@@ -418,6 +419,10 @@ function initForms() {
         showMessage("passwordMessage", "New passwords do not match.", true);
         return;
       }
+      
+      if (newPwd.length < 8) return showMessage("passwordMessage", "Password must be at least 8 characters.", true);
+      if (!/[A-Z]/.test(newPwd)) return showMessage("passwordMessage", "Password must contain at least one uppercase letter.", true);
+      if (!/[^a-zA-Z0-9]/.test(newPwd)) return showMessage("passwordMessage", "Password must contain at least one special character.", true);
       
       setButtonLoading("changePwdBtn", true);
       

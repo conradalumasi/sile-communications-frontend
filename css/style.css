@@ -2766,6 +2766,105 @@ a {
     animation: spin 1s ease-in-out infinite;
 }
 
+/* Account Wishlist */
+.account-wishlist-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+.account-wishlist-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    transition: 0.2s;
+}
+.account-wishlist-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.account-wishlist-thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.account-wishlist-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.account-wishlist-info {
+    flex-grow: 1;
+}
+.account-wishlist-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text);
+    text-decoration: none;
+    margin-bottom: 4px;
+    display: block;
+}
+.account-wishlist-brand {
+    font-size: 12px;
+    color: var(--text-light);
+    display: block;
+    margin-bottom: 4px;
+}
+.account-wishlist-price {
+    font-weight: 700;
+    color: var(--primary);
+}
+.account-wishlist-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+}
+.account-wishlist-remove {
+    background: #fee2e2;
+    color: #dc2626;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+.account-wishlist-remove:hover {
+    background: #fca5a5;
+}
+.account-wishlist-empty {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    color: var(--text-light);
+}
+.account-wishlist-empty i {
+    font-size: 48px;
+    color: #cbd5e1;
+    margin-bottom: 16px;
+}
+.account-wishlist-empty p {
+    margin-bottom: 20px;
+}
+.account-wishlist-empty .btn-primary {
+    display: inline-block;
+}
+
+
 /* =============================================
    RESPONSIVE OVERRIDES FOR MOBILE (FINAL)
    ============================================= */
@@ -2804,7 +2903,6 @@ a {
     .product-detail-layout { grid-template-columns: 1fr; padding: 20px; }
 
     /* Account page mobile layout - compact and professional */
-@media (max-width: 900px) {
     .account-layout {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -2946,7 +3044,7 @@ a {
         padding: 10px 20px;
         font-size: 14px;
     }
-}
+
     /* Horizontal scrolling menu */
     .account-menu {
         display: flex;

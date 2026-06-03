@@ -143,29 +143,25 @@ async function syncWishlistFromBackend() {
   const token = _getToken();
   if (!token) return;
   try {
-    const res = await fetch(`${window.API_BASE}/wishlist`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    if (!res.ok) return;
-    const data = await res.json();
-    const ids = data.map(item => Number(item.productId || item.id || item));
     const localIds = _getLocalIds().map(Number);
-    const merged = [...new Set([...localIds, ...ids])];
-    _saveLocalIds(merged);
-    for (const id of localIds) {
-      if (!ids.includes(id)) {
-        try {
-          await fetch(`${window.API_BASE}/wishlist`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-            body: JSON.stringify({ productId: id })
-          });
-        } catch (e) {}
-      }
-    }
+    const res = await fetch(`${window.API_BASE}/wishlist/sync`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}` 
+      },
+      body: JSON.stringify({ productIds: localIds })
+    });
+    
+    if (!res.ok) return;
+    
+    const serverIds = await res.json();
+    _saveLocalIds(serverIds);
     updateWishlistBadge();
     refreshAllWishlistButtons();
-  } catch (e) { /* backend may not have wishlist endpoint yet */ }
+  } catch (e) { 
+    console.error('Wishlist sync failed:', e);
+  }
 }
 
 /* ── Init ─────────────────────────────────────────────────── */
