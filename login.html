@@ -918,6 +918,9 @@
     </div>
 
     <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/nav.js"></script>
     <script>
       // Use the global API_BASE from config.js
       const API_BASE_URL = window.API_BASE + "/auth";
@@ -1026,6 +1029,9 @@
             if (res.ok) {
               localStorage.setItem("authToken", data.token);
               localStorage.setItem("user", JSON.stringify(data.user));
+              if (typeof syncWishlistFromBackend === "function") {
+                await syncWishlistFromBackend();
+              }
               window.location.href = "account.html";
             } else {
               showMessage("loginMessage", data.error || "Login failed", true);
@@ -1126,6 +1132,9 @@
             if (res.ok) {
               localStorage.setItem("authToken", data.token);
               localStorage.setItem("user", JSON.stringify(data.user));
+              if (typeof syncWishlistFromBackend === "function") {
+                await syncWishlistFromBackend();
+              }
               window.location.href = "account.html";
             } else {
               showMessage(

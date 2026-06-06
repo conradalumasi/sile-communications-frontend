@@ -95,38 +95,52 @@ function injectWishlistIcon() {
 }
 
 /* ── Mobile menu (hamburger) ─────────────────────────────── */
+function getMobileMenuButtons() {
+  return document.querySelectorAll('.header-bottom .mobile-menu-btn, .main-nav .mobile-menu-btn');
+}
+
+function setMobileMenuIcon(open) {
+  getMobileMenuButtons().forEach((btn) => {
+    btn.innerHTML = open ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+}
+
+function closeMobileMenu() {
+  const navLinks = document.getElementById('nav-links');
+  if (navLinks) navLinks.classList.remove('active');
+  setMobileMenuIcon(false);
+}
+
 function initMobileMenu() {
-  // Ensure global function works
-  window.toggleMobileMenu = function () {
+  window.toggleMobileMenu = function (e) {
+    if (e && e.stopPropagation) e.stopPropagation();
     const navLinks = document.getElementById('nav-links');
-    const btn      = document.querySelector('.mobile-menu-btn');
     if (!navLinks) return;
     const isOpen = navLinks.classList.toggle('active');
-    if (btn) btn.innerHTML = isOpen
-      ? '<i class="fas fa-times"></i>'
-      : '<i class="fas fa-bars"></i>';
+    setMobileMenuIcon(isOpen);
   };
 
-  // Close menu when clicking outside
+  getMobileMenuButtons().forEach((btn) => {
+    btn.removeAttribute('onclick');
+    btn.setAttribute('aria-label', 'Toggle navigation menu');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', window.toggleMobileMenu);
+  });
+
+  // Close when tapping outside nav and any hamburger button
   document.addEventListener('click', function (e) {
     const nav = document.getElementById('nav-links');
-    const btn = document.querySelector('.mobile-menu-btn');
-    if (nav && nav.classList.contains('active')) {
-      if (!nav.contains(e.target) && btn && !btn.contains(e.target)) {
-        nav.classList.remove('active');
-        if (btn) btn.innerHTML = '<i class="fas fa-bars"></i>';
-      }
-    }
+    if (!nav || !nav.classList.contains('active')) return;
+    const clickedMenuBtn = Array.from(getMobileMenuButtons()).some((btn) => btn.contains(e.target));
+    if (!nav.contains(e.target) && !clickedMenuBtn) closeMobileMenu();
   });
 
   // Auto-close mobile menu when any nav link is clicked
-  document.querySelectorAll('.nav-links a').forEach(link => {
+  document.querySelectorAll('#nav-links a').forEach((link) => {
     link.addEventListener('click', () => {
-      const navLinks = document.getElementById('nav-links');
-      const btn = document.querySelector('.mobile-menu-btn');
-      if (navLinks && navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
-        if (btn) btn.innerHTML = '<i class="fas fa-bars"></i>';
+      if (document.getElementById('nav-links')?.classList.contains('active')) {
+        closeMobileMenu();
       }
     });
   });

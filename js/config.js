@@ -64,6 +64,41 @@ function showAllErrors() {
   });
 }
 
+/** Normalize API product fields for storefront + admin compatibility */
+function normalizeProduct(p) {
+  if (!p) return p;
+  return {
+    ...p,
+    id: Number(p.id),
+    name: p.name || '',
+    brand: p.brand || '',
+    price: Number(p.price) || 0,
+    old_price: p.old_price != null ? Number(p.old_price) : (p.oldPrice != null ? Number(p.oldPrice) : null),
+    category: p.category || '',
+    brand_cat: p.brand_cat || p.brandCat || '',
+    image: p.image || 'images/no-image.png',
+    is_hot: !!(p.is_hot ?? p.isHot),
+    is_offer: !!(p.is_offer ?? p.isOffer),
+    desc: p.desc || p.description || '',
+    specs: p.specs || '',
+  };
+}
+
+window.normalizeProduct = normalizeProduct;
+
+function hydrateProductsFromCache() {
+  try {
+    const stored = localStorage.getItem('sile_products');
+    if (!stored) return;
+    const parsed = JSON.parse(stored);
+    if (!Array.isArray(parsed) || !parsed.length) return;
+    PRODUCTS = parsed.map(normalizeProduct);
+    window.PRODUCTS = PRODUCTS;
+  } catch (e) {
+    /* ignore corrupt cache */
+  }
+}
+
 /* ── Fetch products ───────────────────────────────────────── */
 async function fetchProducts() {
   // Show skeletons immediately
@@ -73,7 +108,13 @@ async function fetchProducts() {
     const response = await fetch(`${API_BASE}/products`);
     if (!response.ok) throw new Error('Failed to fetch products');
     const products = await response.json();
-    PRODUCTS = products;
+    PRODUCTS = (Array.isArray(products) ? products : []).map(normalizeProduct);
+    window.PRODUCTS = PRODUCTS;
+    try {
+      localStorage.setItem('sile_products', JSON.stringify(PRODUCTS));
+    } catch (e) {
+      /* storage full or private mode */
+    }
 
     FEATURED_PRODUCTS         = PRODUCTS.filter(p => p.is_hot).slice(0, 10);
     BEST_SELLING_PHONES       = PRODUCTS.filter(p => p.category === 'smartphones').slice(0, 10);
@@ -109,5 +150,6 @@ const CATEGORIES = [
   { id: 6, name: 'Solar Solutions',     slug: 'solar',          icon: 'fa-solar-panel' },
 ];
 
-// Start fetching immediately
+// Hydrate from cache for instant cart/checkout totals, then refresh from API
+hydrateProductsFromCache();
 fetchProducts();

@@ -22,12 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
   initOrdersTabs();
   initProfilePictureUpload();
   initForms();
-  
+
+  window.addEventListener("wishlistSynced", () => {
+    if (document.getElementById("wishlistSection")?.classList.contains("active")) {
+      renderAccountWishlist();
+    }
+  });
+
   if (!authToken) {
     handleNotLoggedIn();
     return;
   }
-  
+
   loadUser();
 });
 
@@ -73,32 +79,37 @@ function handleNotLoggedIn() {
 
 /* ── Navigation ─────────────────────────────────────────── */
 
+function switchAccountSection(targetId) {
+  if (targetId === "close") {
+    if (confirm("Are you sure you want to close your account? This action cannot be undone.")) {
+      logout();
+    }
+    return;
+  }
+
+  document.querySelectorAll(".account-menu li[data-section]").forEach((m) => {
+    m.classList.toggle("active", m.getAttribute("data-section") === targetId);
+  });
+  document.querySelectorAll(".account-mobile-tabs [data-section]").forEach((m) => {
+    m.classList.toggle("active", m.getAttribute("data-section") === targetId);
+  });
+
+  document.querySelectorAll(".account-section").forEach((sec) => sec.classList.remove("active"));
+  const targetSection = document.getElementById(targetId + "Section");
+  if (targetSection) targetSection.classList.add("active");
+
+  if (targetId === "wishlist") renderAccountWishlist();
+  if (targetId === "orders") {
+    loadOrders();
+  }
+}
+
 function initAccountNavigation() {
-  const menuItems = document.querySelectorAll(".account-menu li[data-section]");
-  const sections = document.querySelectorAll(".account-section");
-
-  menuItems.forEach(item => {
-    item.addEventListener("click", () => {
-      const targetId = item.getAttribute("data-section");
-      if (targetId === 'close') {
-        if(confirm("Are you sure you want to close your account? This action cannot be undone.")) {
-            // Fake account closure
-            logout();
-        }
-        return;
-      }
-
-      // Update active menu
-      menuItems.forEach(m => m.classList.remove("active"));
-      item.classList.add("active");
-
-      // Update active section
-      sections.forEach(sec => sec.classList.remove("active"));
-      const targetSection = document.getElementById(targetId + "Section");
-      if (targetSection) targetSection.classList.add("active");
-
-      if (targetId === "wishlist") renderAccountWishlist();
-    });
+  document.querySelectorAll(".account-menu li[data-section]").forEach((item) => {
+    item.addEventListener("click", () => switchAccountSection(item.getAttribute("data-section")));
+  });
+  document.querySelectorAll(".account-mobile-tabs [data-section]").forEach((btn) => {
+    btn.addEventListener("click", () => switchAccountSection(btn.getAttribute("data-section")));
   });
 }
 
@@ -162,7 +173,6 @@ function initOrdersTabs() {
 window.logout = function() {
   localStorage.removeItem("authToken");
   localStorage.removeItem("user");
-  localStorage.removeItem("sileWishlist");
   window.location.href = "index.html";
 };
 
@@ -291,14 +301,13 @@ async function loadOrders() {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     if (!res.ok) throw new Error("Failed to fetch orders");
-    allOrders = await res.json();
+    const data = await res.json();
+    allOrders = (Array.isArray(data) ? data : []).sort(
+      (a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0),
+    );
   } catch (err) {
-    console.warn("Could not load orders from backend. Generating mock data for preview.", err);
-    // Generate some fake orders for the UI to look professional
-    allOrders = [
-      { order_number: "ORD-9283", created_at: new Date().toISOString(), status: "delivered", total: 45000, delivery_option: "CBD Delivery", payment_method: "mpesa", items: [{product_name: "Samsung S24 Ultra", quantity: 1}] },
-      { order_number: "ORD-8472", created_at: new Date(Date.now() - 86400000*3).toISOString(), status: "processing", total: 2500, delivery_option: "Shop Pickup", payment_method: "cash", items: [{product_name: "Oraimo FreePods", quantity: 1}] }
-    ];
+    console.warn("Could not load orders from backend.", err);
+    allOrders = [];
   }
   updateOrderStats();
   renderOrders("all");

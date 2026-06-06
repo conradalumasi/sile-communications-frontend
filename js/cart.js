@@ -24,19 +24,23 @@ function updateCartUI() {
 }
 
 function addToCart(productId, quantity = 1) {
-    const product = PRODUCTS.find(p => p.id === productId);
-    if (!product) return;
-    
-    const existing = cart.find(item => item.id === productId);
+    const id = normalizeCartId(productId);
+    const product = (window.PRODUCTS || []).find(p => normalizeCartId(p.id) === id);
+    if (!product) {
+        console.warn('addToCart: product not found', productId);
+        return;
+    }
+
+    const existing = cart.find(item => normalizeCartId(item.id) === id);
     if (existing) {
         existing.quantity += quantity;
     } else {
-        cart.push({ 
-            id: product.id, 
-            name: product.name, 
-            price: product.price, 
-            image: product.image, 
-            quantity: quantity 
+        cart.push({
+            id: id,
+            name: product.name,
+            price: Number(product.price) || 0,
+            image: product.image || 'images/no-image.png',
+            quantity: quantity
         });
     }
     

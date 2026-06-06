@@ -274,15 +274,44 @@
     <!-- Complete Solar Systems -->
     <section id="solar-systems" class="solar-systems-section">
       <div class="container">
-        <h2 class="section-title">Complete Solar Systems</h2>
+        <div class="solar-section-head">
+          <h2 class="section-title">Complete Solar Systems</h2>
+          <p class="solar-section-lead">Turnkey packages for homes, shops, and offices — installation and warranty included.</p>
+        </div>
         <div class="solar-systems-grid" id="solar-systems-grid"></div>
+      </div>
+    </section>
+
+    <!-- Solar value strip -->
+    <section class="solar-value-strip">
+      <div class="container">
+        <div class="solar-value-grid">
+          <div class="solar-value-card">
+            <img src="images/solar-savings.jpg" alt="Lower electricity bills" loading="lazy" />
+            <h3>Cut your power bill</h3>
+            <p>Reduce monthly KPLC costs with clean solar generation tailored to your usage.</p>
+          </div>
+          <div class="solar-value-card">
+            <img src="images/solar-backup.jpg" alt="Backup power" loading="lazy" />
+            <h3>Reliable backup</h3>
+            <p>Stay powered during outages with battery-backed systems for lights, fridge, and essentials.</p>
+          </div>
+          <div class="solar-value-card">
+            <img src="images/solar-warranty.jpg" alt="Warranty support" loading="lazy" />
+            <h3>Warranty &amp; support</h3>
+            <p>Professional installation in Kitale with ongoing service from Sile Communications.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Solar Components -->
     <section class="solar-components-section">
       <div class="container">
-        <h2 class="section-title">Solar Components</h2>
+        <div class="solar-section-head">
+          <h2 class="section-title">Solar Components</h2>
+          <p class="solar-section-lead">Panels, inverters, batteries, and accessories — build or upgrade your system.</p>
+        </div>
         <div class="products-grid" id="solar-components-grid"></div>
       </div>
     </section>
@@ -576,69 +605,114 @@
         document.getElementById("calculator-result").style.display = "block";
       }
 
+      const FALLBACK_SOLAR_SYSTEMS = [
+        { name: "3kW Home Solar System", desc: "Ideal for a 2–3 bedroom home. Panels, inverter, mounting & installation.", price: 135000, image: "images/solar-install-1.jpg" },
+        { name: "5kW Shop / Office System", desc: "Powers lights, computers, fridges and small equipment during the day.", price: 215000, image: "images/solar-install-2.jpg" },
+        { name: "10kW Off-Grid Backup", desc: "Full backup with battery storage for extended outages.", price: 485000, image: "images/solar-install-3.jpg" },
+      ];
+
+      const FALLBACK_SOLAR_COMPONENTS = [
+        { name: "550W Mono Solar Panel", brand: "Solar", price: 12500, image: "images/solar-install-4.jpg", is_hot: true },
+        { name: "5kVA Hybrid Inverter", brand: "Solar", price: 85000, image: "images/solar-hero.jpg" },
+        { name: "200Ah Deep Cycle Battery", brand: "Solar", price: 42000, image: "images/solar-backup.jpg", is_offer: true },
+        { name: "Solar Charge Controller", brand: "Solar", price: 8500, image: "images/solar-financing.jpg" },
+      ];
+
+      function solarEmptyState(title, message) {
+        return `<div class="solar-empty-state">
+          <i class="fas fa-solar-panel"></i>
+          <h3>${title}</h3>
+          <p>${message}</p>
+          <a href="contact.html" class="btn-primary">Request a quote</a>
+          <a href="tel:0710102424" class="btn-outline solar-empty-call"><i class="fas fa-phone"></i> Call 0710 102424</a>
+        </div>`;
+      }
+
+      function renderSolarSystemCard(product, isFallback) {
+        const desc = (product.desc || "").slice(0, 110);
+        const click = isFallback
+          ? "location.href='contact.html'"
+          : `location.href='product-detail.html?id=${product.id}'`;
+        const cartBtn = isFallback
+          ? `<button class="btn-view" onclick="event.stopPropagation(); location.href='contact.html'">Get Quote</button>`
+          : `<button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})">Add to Cart</button>
+             <button class="btn-view" onclick="event.stopPropagation(); location.href='product-detail.html?id=${product.id}'">View Details</button>`;
+        return `<div class="solar-system-card" onclick="${click}">
+          <div class="solar-system-img">
+            <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='images/solar-hero.jpg'">
+          </div>
+          <div class="solar-system-info">
+            <h3>${product.name}</h3>
+            <p>${desc}${desc.length >= 110 ? "…" : ""}</p>
+            <div class="solar-price">From KSh ${Number(product.price).toLocaleString()}</div>
+            <div class="solar-actions">${cartBtn}</div>
+          </div>
+        </div>`;
+      }
+
+      function renderSolarComponentCard(product, isFallback) {
+        const click = isFallback
+          ? "location.href='contact.html'"
+          : `location.href='product-detail.html?id=${product.id}'`;
+        const hot = product.is_hot || product.isHot;
+        const offer = product.is_offer || product.isOffer;
+        const cart = isFallback
+          ? `<button class="btn-view" onclick="event.stopPropagation(); location.href='contact.html'">Enquire</button>`
+          : `<button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})">Add to Cart</button>
+             <button class="btn-view" onclick="event.stopPropagation(); location.href='product-detail.html?id=${product.id}'">View</button>`;
+        return `<div class="product-card" onclick="${click}">
+          ${hot ? '<span class="product-badge badge-hot">HOT</span>' : ""}
+          ${offer ? '<span class="product-badge badge-offer">OFFER</span>' : ""}
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='images/solar-hero.jpg'">
+          </div>
+          <div class="product-details">
+            <div class="product-category">${product.brand || "Solar"}</div>
+            <div class="product-name">${product.name}</div>
+            <div class="product-price">KSh ${Number(product.price).toLocaleString()}</div>
+            <div class="product-actions">${cart}</div>
+          </div>
+        </div>`;
+      }
+
       function loadSolarProducts() {
-        const solarSystems = PRODUCTS.filter(
-          (p) =>
-            p.category === "solar" &&
-            (p.name.includes("kW") || p.name.includes("Off-Grid")),
+        const list = (window.PRODUCTS || []).map((p) =>
+          typeof normalizeProduct === "function" ? normalizeProduct(p) : p,
         );
-        const solarComponents = PRODUCTS.filter(
+        let solarSystems = list.filter(
           (p) =>
             p.category === "solar" &&
-            !p.name.includes("kW") &&
-            !p.name.includes("Off-Grid"),
+            (p.name.includes("kW") || p.name.includes("Off-Grid") || p.name.includes("System")),
+        );
+        let solarComponents = list.filter(
+          (p) =>
+            p.category === "solar" &&
+            !solarSystems.includes(p),
         );
 
         const systemsContainer = document.getElementById("solar-systems-grid");
-        const componentsContainer = document.getElementById(
-          "solar-components-grid",
-        );
+        const componentsContainer = document.getElementById("solar-components-grid");
 
         if (systemsContainer) {
-          systemsContainer.innerHTML = solarSystems
-            .map(
-              (product) => `
-                <div class="solar-system-card" onclick="location.href='product-detail.html?id=${product.id}'">
-                    <div class="solar-system-img">
-                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200'">
-                    </div>
-                    <div class="solar-system-info">
-                        <h3>${product.name}</h3>
-                        <p>${product.desc.substring(0, 100)}...</p>
-                        <div class="solar-price">KSh ${product.price.toLocaleString()}</div>
-                        <div class="solar-actions">
-                            <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})">Add to Cart</button>
-                            <button class="btn-view" onclick="event.stopPropagation(); location.href='product-detail.html?id=${product.id}'">View Details</button>
-                        </div>
-                    </div>
-                </div>
-            `,
-            )
-            .join("");
+          const useFallback = solarSystems.length === 0;
+          const items = useFallback ? FALLBACK_SOLAR_SYSTEMS : solarSystems;
+          systemsContainer.innerHTML = items.map((p) => renderSolarSystemCard(p, useFallback)).join("");
+          if (useFallback) {
+            systemsContainer.insertAdjacentHTML(
+              "beforeend",
+              solarEmptyState(
+                "Custom systems available",
+                "Catalog systems are being updated. Contact us for a free site survey and tailored quote.",
+              ),
+            );
+          }
         }
 
         if (componentsContainer) {
-          componentsContainer.innerHTML = solarComponents
-            .map(
-              (product) => `
-                <div class="product-card" onclick="location.href='product-detail.html?id=${product.id}'">
-                    ${product.isHot ? '<span class="product-badge badge-hot">HOT</span>' : ""}
-                    ${product.isOffer ? '<span class="product-badge badge-offer">OFFER</span>' : ""}
-                    <div class="product-image">
-                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/200x200'">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-category">${product.brand}</div>
-                        <div class="product-name">${product.name.length > 30 ? product.name.substring(0, 30) + "..." : product.name}</div>
-                        <div class="product-price">KSh ${product.price.toLocaleString()}</div>
-                        <div class="product-actions">
-                            <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})">Add to Cart</button>
-                            <button class="btn-view" onclick="event.stopPropagation(); location.href='product-detail.html?id=${product.id}'">View</button>
-                        </div>
-                    </div>
-                </div>
-            `,
-            )
+          const useFallback = solarComponents.length === 0;
+          const items = useFallback ? FALLBACK_SOLAR_COMPONENTS : solarComponents;
+          componentsContainer.innerHTML = items
+            .map((p) => renderSolarComponentCard(p, useFallback))
             .join("");
         }
       }
