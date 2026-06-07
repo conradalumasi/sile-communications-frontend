@@ -41,7 +41,7 @@
       .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
         outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(16,185,129,0.12);
       }
-      .pay-methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .pay-methods-grid, .delivery-methods-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .pay-method-card {
         border: 2px solid var(--border); border-radius: 14px; padding: 18px 14px; text-align: center; cursor: pointer;
         background: #fafafa; transition: all 0.2s; font-family: inherit;
@@ -51,11 +51,19 @@
       .pay-method-card .pay-icon { width: 44px; height: 44px; border-radius: 12px; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
       .pay-method-card[data-payment="mpesa"] .pay-icon { background: #00a651; color: white; }
       .pay-method-card[data-payment="cod"] .pay-icon { background: #fef3c7; color: #b45309; }
-      .pay-method-card[data-payment="pickup"] .pay-icon { background: #e0e7ff; color: #3730a3; }
       .pay-method-card strong { display: block; font-size: 13px; margin-bottom: 4px; }
       .pay-method-card span { font-size: 11px; color: var(--text-light); line-height: 1.4; }
+      .pay-method-card[data-delivery="kitale_cbd"] .pay-icon { background: #ecfdf5; color: var(--primary); }
+      .pay-method-card[data-delivery="outside_kitale"] .pay-icon { background: #eff6ff; color: #1d4ed8; }
       .delivery-zone-wrap { display: none; margin-top: 14px; padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid var(--border); }
       .delivery-zone-wrap.visible { display: block; }
+      .delivery-area-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; }
+      .btn-calc-delivery { padding: 12px 16px; background: var(--dark); color: white; border: none; border-radius: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+      .btn-calc-delivery:hover { background: #111827; }
+      .btn-calc-delivery:disabled { opacity: 0.6; cursor: not-allowed; }
+      .delivery-estimate-message { margin-top: 10px; font-size: 12px; color: var(--text-light); }
+      .delivery-estimate-message.success { color: #166534; font-weight: 700; }
+      .delivery-estimate-message.error { color: #dc2626; font-weight: 700; }
       .mpesa-pay-hint { display: none; margin-top: 14px; padding: 14px; background: #f0fdf4; border: 1px dashed #86efac; border-radius: 12px; font-size: 13px; color: var(--text); }
       .mpesa-pay-hint.visible { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
       .btn-open-mpesa { padding: 10px 18px; background: #00a651; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 13px; }
@@ -97,8 +105,8 @@
       .mpesa-status.error { display: block; background: #fee2e2; color: #dc2626; }
       @media (max-width: 900px) {
         .checkout-grid { grid-template-columns: 1fr; }
-        .order-summary { position: static; order: -1; }
-        .pay-methods-grid { grid-template-columns: 1fr; }
+        .order-summary { position: static; }
+        .pay-methods-grid, .delivery-methods-grid, .delivery-area-row { grid-template-columns: 1fr; }
       }
       @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .checkout-card { padding: 20px; } }
     </style>
@@ -320,43 +328,71 @@
                 <label>Email Address *</label
                 ><input type="email" id="email" required />
               </div>
-              <div class="form-group">
-                <label>Town / City *</label
-                ><input type="text" id="town" required />
+              <p class="checkout-block-title">Delivery options</p>
+              <div class="delivery-methods-grid" id="deliveryOptions">
+                <button type="button" class="pay-method-card active" data-delivery="kitale_cbd">
+                  <div class="pay-icon"><i class="fas fa-location-dot"></i></div>
+                  <strong>Kitale CBD</strong>
+                  <span>Free delivery within Kitale CBD</span>
+                </button>
+                <button type="button" class="pay-method-card" data-delivery="outside_kitale">
+                  <div class="pay-icon"><i class="fas fa-route"></i></div>
+                  <strong>Outside Kitale</strong>
+                  <span id="outsideDeliveryText">Calculated by area</span>
+                </button>
               </div>
 
-              <p class="checkout-block-title">Payment method</p>
-              <p class="checkout-hint">Tap a option below. M-PESA opens a popup to enter your number and pay.</p>
+              <div class="delivery-zone-wrap" id="deliveryZoneWrap">
+                <div class="delivery-area-row">
+                  <div>
+                    <label for="town">Delivery area *</label>
+                    <input type="text" id="town" placeholder="Example: Kiminini, Eldoret, Bungoma" />
+                  </div>
+                  <button type="button" class="btn-calc-delivery" id="calculateDeliveryBtn">
+                    <i class="fas fa-magnifying-glass-location"></i> Calculate
+                  </button>
+                </div>
+                <div class="delivery-estimate-message" id="deliveryEstimateMessage">Enter the customer's area to calculate the shipping fee.</div>
+              </div>
+            </form>
+          </div>
+
+          <div class="checkout-card order-summary">
+            <h3><i class="fas fa-receipt"></i> Order details</h3>
+            <div class="summary-meta">
+              <span id="summaryItemCount">0 item(s)</span>
+              <a href="cart.html" style="color:var(--primary);font-size:12px;text-decoration:none;">Edit cart</a>
+            </div>
+            <div id="orderItemsList"></div>
+            <div class="summary-row">
+              <span>Subtotal:</span><span id="checkoutSubtotal">KSh 0</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping:</span><span id="checkoutDelivery">KSh 0</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total:</span><span id="checkoutTotal">KSh 0</span>
+            </div>
+          </div>
+
+          <div class="checkout-card checkout-payment-card">
+            <h3><i class="fas fa-credit-card"></i> Payment options</h3>
+              <p class="checkout-hint">Choose how the customer will pay for this order.</p>
               <div class="pay-methods-grid" id="paymentOptions">
                 <button type="button" class="pay-method-card active" data-payment="mpesa">
                   <div class="pay-icon"><i class="fas fa-mobile-alt"></i></div>
-                  <strong>M-PESA</strong>
-                  <span>STK push to your phone</span>
+                  <strong>Pay now with M-PESA</strong>
+                  <span>Creates the order as pending payment</span>
                 </button>
                 <button type="button" class="pay-method-card" data-payment="cod">
                   <div class="pay-icon"><i class="fas fa-money-bill-wave"></i></div>
-                  <strong>Cash on delivery</strong>
-                  <span>Pay when delivered</span>
+                  <strong>Pay on delivery</strong>
+                  <span>Customer pays when delivered</span>
                 </button>
-                <button type="button" class="pay-method-card" data-payment="pickup">
-                  <div class="pay-icon"><i class="fas fa-store"></i></div>
-                  <strong>Shop pickup</strong>
-                  <span>Collect &amp; pay in store</span>
-                </button>
-              </div>
-
-              <div class="delivery-zone-wrap visible" id="deliveryZoneWrap">
-                <label for="deliveryZone">Delivery area *</label>
-                <select id="deliveryZone">
-                  <option value="cbd" data-fee="0">Kitale CBD â€” Free</option>
-                  <option value="kitale" data-fee="150">Around Kitale areas â€” KSh 150</option>
-                  <option value="outside" data-fee="500">Outside Kitale â€” KSh 500</option>
-                </select>
               </div>
 
               <div class="mpesa-pay-hint visible" id="mpesaPayHint">
-                <span><i class="fas fa-info-circle"></i> Pay now via M-PESA before placing your order (optional).</span>
-                <button type="button" class="btn-open-mpesa" id="openMpesaBtn"><i class="fas fa-mobile-alt"></i> Pay with M-PESA</button>
+                <span><i class="fas fa-info-circle"></i> Pay now with M-PESA is selected. The order will be marked as pending payment.</span>
               </div>
 
               <div class="form-group" style="margin-top: 20px">
@@ -367,25 +403,6 @@
                   placeholder="Special delivery instructions, landmark, preferred time..."
                 ></textarea>
               </div>
-            </form>
-          </div>
-
-          <div class="checkout-card order-summary">
-            <h3><i class="fas fa-receipt"></i> Order summary</h3>
-            <div class="summary-meta">
-              <span id="summaryItemCount">0 item(s)</span>
-              <a href="cart.html" style="color:var(--primary);font-size:12px;text-decoration:none;">Edit cart</a>
-            </div>
-            <div id="orderItemsList"></div>
-            <div class="summary-row">
-              <span>Subtotal:</span><span id="checkoutSubtotal">KSh 0</span>
-            </div>
-            <div class="summary-row">
-              <span>Delivery:</span><span id="checkoutDelivery">KSh 0</span>
-            </div>
-            <div class="summary-row total">
-              <span>Total:</span><span id="checkoutTotal">KSh 0</span>
-            </div>
             <div class="form-check" style="margin: 20px 0">
               <input type="checkbox" id="termsCheckbox" required />
               <label

@@ -55,16 +55,23 @@ function renderOrderSuccess() {
   `).join('');
 
   const paymentLabels = {
-    mpesa: 'M-PESA',
-    cod: 'Cash on Delivery',
-    pickup: 'Pay at Shop (Pickup)',
+    mpesa: 'Pay now with M-PESA',
+    cod: 'Pay on delivery',
   };
   const paymentLabel = order.paymentLabel || paymentLabels[order.paymentMethod] || order.paymentMethod || '—';
   const customer = order.customer || {};
+  const statusLabels = {
+    pending_payment: 'Pending M-PESA payment',
+    pending: 'Pending confirmation',
+    confirmed: 'Confirmed',
+    delivered: 'Delivered',
+    cancelled: 'Cancelled',
+  };
+  const statusLabel = statusLabels[order.status] || order.status || 'Pending confirmation';
 
   root.innerHTML = `
     <div class="success-card success-card-wide">
-      <div class="success-badge"><i class="fas fa-check-circle"></i> Payment received</div>
+      <div class="success-badge"><i class="fas fa-check-circle"></i> Order received</div>
       <h1>Thank you, ${customer.firstName || 'Customer'}!</h1>
       <p class="success-lead">Your order has been placed successfully.</p>
       <p class="order-ref">Order number: <strong>${order.orderNumber}</strong></p>
@@ -76,7 +83,7 @@ function renderOrderSuccess() {
           <div class="order-success-totals">
             <div class="row"><span>Subtotal</span><span>KSh ${(order.subtotal || 0).toLocaleString()}</span></div>
             <div class="row"><span>Delivery</span><span>KSh ${(order.deliveryFee || 0).toLocaleString()}</span></div>
-            <div class="row total"><span>Total paid</span><span>KSh ${(order.total || 0).toLocaleString()}</span></div>
+            <div class="row total"><span>Total</span><span>KSh ${(order.total || 0).toLocaleString()}</span></div>
           </div>
         </div>
         <div class="order-success-panel">
@@ -88,14 +95,14 @@ function renderOrderSuccess() {
             <li><strong>Town:</strong> ${customer.town || '—'}</li>
             <li><strong>Delivery:</strong> ${order.deliveryOption || '—'}</li>
             <li><strong>Payment:</strong> ${paymentLabel}</li>
+            <li><strong>Status:</strong> ${statusLabel}</li>
             ${order.mpesaPhone ? `<li><strong>M-PESA number:</strong> ${order.mpesaPhone}</li>` : ''}
-            ${order.fulfillment === 'pickup' ? '<li><strong>Collection:</strong> Shop pickup at Sky Plaza, Kitale</li>' : ''}
           </ul>
           <div class="order-success-next">
             <h4>What happens next?</h4>
             <ol>
               <li>We confirm your order by phone or SMS</li>
-              <li>Your items are prepared for ${order.deliveryOption && order.deliveryOption.includes('Pickup') ? 'pickup' : 'delivery'}</li>
+              <li>Your items are prepared for delivery</li>
               <li>You receive updates on delivery status in My Account</li>
             </ol>
           </div>
