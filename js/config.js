@@ -86,6 +86,14 @@ function normalizeProduct(p) {
 
 window.normalizeProduct = normalizeProduct;
 
+function buildProductCollections() {
+  FEATURED_PRODUCTS = PRODUCTS.filter(p => p.is_hot).slice(0, 10);
+  BEST_SELLING_PHONES = PRODUCTS.filter(p => p.category === 'smartphones').slice(0, 10);
+  TOP_LAPTOPS = PRODUCTS.filter(p => p.category === 'laptops').slice(0, 8);
+  OFFER_PRODUCTS = PRODUCTS.filter(p => p.is_offer).slice(0, 10);
+  LIPA_POLE_POLE_PRODUCTS = PRODUCTS.filter(p => p.is_offer && p.category === 'smartphones').slice(0, 12);
+}
+
 function hydrateProductsFromCache() {
   try {
     const stored = localStorage.getItem('sile_products');
@@ -94,6 +102,7 @@ function hydrateProductsFromCache() {
     if (!Array.isArray(parsed) || !parsed.length) return;
     PRODUCTS = parsed.map(normalizeProduct);
     window.PRODUCTS = PRODUCTS;
+    buildProductCollections();
   } catch (e) {
     /* ignore corrupt cache */
   }
@@ -116,11 +125,7 @@ async function fetchProducts() {
       /* storage full or private mode */
     }
 
-    FEATURED_PRODUCTS         = PRODUCTS.filter(p => p.is_hot).slice(0, 10);
-    BEST_SELLING_PHONES       = PRODUCTS.filter(p => p.category === 'smartphones').slice(0, 10);
-    TOP_LAPTOPS               = PRODUCTS.filter(p => p.category === 'laptops').slice(0, 8);
-    OFFER_PRODUCTS            = PRODUCTS.filter(p => p.is_offer).slice(0, 10);
-    LIPA_POLE_POLE_PRODUCTS   = PRODUCTS.filter(p => p.is_offer && p.category === 'smartphones').slice(0, 12);
+    buildProductCollections();
 
     window.dispatchEvent(new Event('productsLoaded'));
     return products;
