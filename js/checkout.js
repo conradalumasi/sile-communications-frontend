@@ -59,7 +59,7 @@
   }
 
   function getPaymentMethod() {
-    return document.querySelector('.pay-method-card.active[data-payment]')?.dataset.payment || 'mpesa';
+    return document.querySelector('.pay-method-card.active[data-payment]')?.dataset.payment || 'paystack';
   }
 
   function getDeliveryMethod() {
@@ -218,7 +218,7 @@
     document.querySelectorAll('.pay-method-card[data-payment]').forEach((card) => {
       card.classList.toggle('active', card.dataset.payment === payment);
     });
-    document.getElementById('mpesaPayHint')?.classList.toggle('visible', payment === 'mpesa');
+    document.getElementById('paystackPayHint')?.classList.toggle('visible', payment === 'paystack');
   }
 
   function selectPayment(method) {
@@ -257,7 +257,7 @@
   }
 
   function paymentLabel(method) {
-    return method === 'mpesa' ? 'Pay now with M-PESA' : 'Pay on delivery';
+    return method === 'paystack' ? 'Pay online (Paystack)' : 'Pay on delivery';
   }
 
   function buildSessionOrder(data, orderData) {
@@ -273,8 +273,7 @@
       deliveryOption: getDeliveryLabel(),
       paymentMethod: orderData.paymentMethod,
       paymentLabel: paymentLabel(orderData.paymentMethod),
-      mpesaPhone: orderData.paymentMethod === 'mpesa' ? normalizeMpesaPhone(orderData.customer.phone) : null,
-      status: serverOrder.status || (orderData.paymentMethod === 'mpesa' ? 'pending_payment' : 'pending'),
+      status: serverOrder.status || (orderData.paymentMethod === 'paystack' ? 'pending_payment' : 'pending'),
       notes: orderData.notes,
       date: new Date().toISOString(),
     };
@@ -314,10 +313,7 @@
       return;
     }
 
-    if (paymentMethod === 'mpesa' && !validateMpesaPhone(phone)) {
-      setCheckoutMessage('Enter a valid Safaricom number for M-PESA payment.', 'error');
-      return;
-    }
+
 
     if (!termsChecked) {
       setCheckoutMessage('You must agree to the terms and conditions.', 'error');
@@ -363,8 +359,37 @@
       if (response.ok) {
         const sessionOrder = buildSessionOrder(data, orderData);
         sessionStorage.setItem('sileLastOrder', JSON.stringify(sessionOrder));
-        localStorage.removeItem('sileCart');
-        window.location.href = `order-success.html?order=${encodeURIComponent(sessionOrder.orderNumber)}`;
+        
+        if (orderData.paymentMethod === 'paystack') {
+          // Initialize Paystack payment
+          btn.innerHTML = '<span class="spinner"></span> Redirecting to payment...';
+          try {
+            const payRes = await fetch(`${window.API_BASE}/payments/initialize`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ orderNumber: sessionOrder.orderNumber }),
+            });
+            const payData = await payRes.json();
+            if (payRes.ok && payData.authorization_url) {
+              // Save reference for verification on return
+              sessionStorage.setItem('silePaymentRef', payData.reference);
+              window.location.href = payData.authorization_url;
+            } else {
+              setCheckoutMessage(payData.error || 'Could not initialize payment. Please try again.', 'error');
+              btn.disabled = false;
+              btn.innerHTML = originalHtml;
+            }
+          } catch (payErr) {
+            console.error('Payment init error:', payErr);
+            setCheckoutMessage('Payment initialization failed. Your order was created — please contact support.', 'error');
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+          }
+        } else {
+          // Pay on delivery — clear cart immediately and go straight to success
+          localStorage.removeItem('sileCart');
+          window.location.href = `order-success.html?order=${encodeURIComponent(sessionOrder.orderNumber)}`;
+        }
       } else {
         setCheckoutMessage(data.error || 'Order failed. Please try again.', 'error');
         btn.disabled = false;
