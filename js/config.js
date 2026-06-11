@@ -7,6 +7,7 @@ const API_BASE = (() => {
 })();
 
 window.API_BASE = API_BASE;
+window.PAYSTACK_PUBLIC_KEY = 'pk_live_885cffc8db2c2d4336b0c7b5dc4f17261229cc900';
 
 let PRODUCTS = [];
 let FEATURED_PRODUCTS = [];
