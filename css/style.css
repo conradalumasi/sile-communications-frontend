@@ -3792,6 +3792,11 @@ a {
 
 /* Professional Mobile Drawer Navigation overrides */
 @media (max-width: 900px) {
+    /* Hide header and footer to maximize nav space */
+    .drawer-header, .drawer-footer {
+        display: none !important;
+    }
+
     .nav-links {
         display: flex !important;
         position: fixed !important;
@@ -3858,6 +3863,11 @@ a {
         transition: opacity 0.3s ease, transform 0.3s ease;
         padding: 0 !important;
         margin: 0 !important;
+    }
+
+    /* Hide Contact link on mobile to save space */
+    .nav-links li:last-child {
+        display: none !important;
     }
 
     /* Staggered animation when active */
