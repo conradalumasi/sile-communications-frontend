@@ -3294,12 +3294,19 @@ a {
         background: none;
         border: none;
         color: white;
-        font-size: 22px;
+        font-size: 24px;
         cursor: pointer;
-        padding: 10px;
+        padding: 12px;
         z-index: 1002;
         margin-left: auto;
         flex-shrink: 0;
+        min-width: 48px;
+        min-height: 48px;
+        transition: opacity 0.2s ease;
+    }
+
+    .mobile-menu-btn:active {
+        opacity: 0.7;
     }
     /* Orphan duplicate nav blocks (legacy sync leftovers) */
     header ~ nav.main-nav {
@@ -3789,11 +3796,11 @@ a {
         display: flex !important;
         position: fixed !important;
         top: 0 !important;
-        left: -320px !important; right: auto !important; margin: 0 !important;
-        width: 300px !important;
+        left: -280px !important; right: auto !important; margin: 0 !important;
+        width: 280px !important;
         height: 100vh !important;
         /* Glassmorphism background */
-        background: rgba(15, 23, 42, 0.85) !important;
+        background: rgba(15, 23, 42, 0.95) !important;
         backdrop-filter: blur(16px) saturate(180%) !important;
         -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
         flex-direction: column !important;
@@ -3815,10 +3822,10 @@ a {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 24px;
+        padding: 20px 24px;
         background: linear-gradient(to right, rgba(255,255,255,0.05), transparent);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 10px;
+        margin-bottom: 16px;
     }
 
     .drawer-header .drawer-logo {
@@ -3872,13 +3879,14 @@ a {
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        padding: 16px 24px !important;
-        font-size: 15px !important;
+        padding: 14px 24px !important;
+        font-size: 16px !important;
         font-weight: 500 !important;
         color: rgba(255, 255, 255, 0.85) !important;
-        border-bottom: 1px solid transparent !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
         transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease !important;
         position: relative;
+        min-height: 50px !important;
     }
 
     .nav-links li a:hover, .nav-links li a:active {
@@ -3910,36 +3918,39 @@ a {
 
     .dropdown-content {
         position: static !important;
-        background: rgba(0, 0, 0, 0.15) !important;
+        background: rgba(0, 0, 0, 0.25) !important;
         box-shadow: inset 0 3px 10px rgba(0,0,0,0.1) !important;
         margin-left: 0 !important;
         padding: 0 !important;
         display: none !important;
         overflow: hidden;
     }
-    
+
     .dropdown.active .dropdown-content {
         display: block !important;
         animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    
+
     @keyframes slideDown {
         from { opacity: 1 !important; transform: translateY(-10px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
     .dropdown-content a {
-        padding: 14px 24px 14px 45px !important;
-        font-size: 14px !important;
-        color: rgba(255, 255, 255, 0.65) !important;
+        padding: 12px 24px 12px 50px !important;
+        font-size: 15px !important;
+        color: rgba(255, 255, 255, 0.7) !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.02) !important;
         transition: color 0.2s ease, padding-left 0.2s ease !important;
+        display: block !important;
+        min-height: 44px !important;
+        line-height: 1.5;
     }
-    
+
     .dropdown-content a:hover {
         color: #fff !important;
-        padding-left: 50px !important;
-        background: transparent !important;
+        padding-left: 54px !important;
+        background: rgba(255, 255, 255, 0.08) !important;
     }
     
     /* Close Button Inside Drawer */
@@ -3947,16 +3958,19 @@ a {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 36px;
-        height: 36px;
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.1);
         color: white;
-        font-size: 18px;
+        font-size: 20px;
         cursor: pointer;
         z-index: 10002;
         transition: background 0.2s, transform 0.2s;
+        min-width: 44px;
+        min-height: 44px;
+        flex-shrink: 0;
     }
     
     .mobile-menu-close:hover, .mobile-menu-close:active {
@@ -3967,13 +3981,13 @@ a {
     /* Mobile Drawer Footer */
     .drawer-footer {
         margin-top: auto;
-        padding: 24px;
+        padding: 20px 24px;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
     }
-    
+
     .drawer-footer .drawer-contact {
         display: flex;
         align-items: center;
@@ -3981,8 +3995,14 @@ a {
         color: rgba(255, 255, 255, 0.8);
         font-size: 14px;
         text-decoration: none;
+        padding: 8px 0;
+        transition: color 0.2s ease;
     }
-    
+
+    .drawer-footer .drawer-contact:active {
+        color: rgba(255, 255, 255, 0.95);
+    }
+
     .drawer-footer .drawer-contact i {
         color: var(--primary);
         font-size: 18px;
