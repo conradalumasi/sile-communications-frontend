@@ -125,7 +125,6 @@ function initMobileMenu() {
     const overlay = document.createElement('div');
     overlay.id = 'nav-overlay';
     overlay.className = 'nav-overlay';
-    overlay.addEventListener('click', closeMobileMenu);
     document.body.appendChild(overlay);
   }
 
@@ -214,6 +213,15 @@ function initMobileMenu() {
         parent.classList.toggle('active');
       }
     });
+  });
+
+  // Close menu when clicking outside the nav on mobile
+  document.addEventListener('click', function (e) {
+    const navLinks = document.getElementById('nav-links');
+    const hamburger = document.querySelector('.mobile-menu-btn');
+    if (!navLinks || !navLinks.classList.contains('active')) return;
+    if (navLinks.contains(e.target) || hamburger.contains(e.target)) return;
+    closeMobileMenu();
   });
 }
 
