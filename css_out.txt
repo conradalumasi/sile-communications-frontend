@@ -1,0 +1,43 @@
+.main-nav {
+
+.nav-links {
+
+.nav-links li {
+
+.nav-links li a {
+
+.nav-links li a:hover {
+
+.nav-links li a i {
+
+.mobile-menu-btn {
+
+@media (max-width: 768px) {
+
+@media (max-width: 900px) {
+
+@media (max-width: 1200px) {
+
+@media (max-width: 1024px) {
+
+@media (max-width: 900px) {
+
+    .main-nav {
+
+    .mobile-menu-btn {
+
+    header ~ nav.main-nav {
+
+    .nav-links {
+
+    .nav-links.active {
+
+    .nav-links li {
+
+    .nav-links li a {
+
+@media (max-width: 768px) {
+
+@media (max-width: 480px) {
+
+@media (max-width: 768px) {

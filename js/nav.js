@@ -100,25 +100,89 @@ function getMobileMenuButtons() {
 }
 
 function setMobileMenuIcon(open) {
+  // Just toggle ARIA states since hamburger handles clicks
   getMobileMenuButtons().forEach((btn) => {
-    btn.innerHTML = open ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 }
 
 function closeMobileMenu() {
   const navLinks = document.getElementById('nav-links');
-  if (navLinks) navLinks.classList.remove('active');
+  if (navLinks) {
+      navLinks.classList.remove('active');
+      // Collapse all dropdowns on close for neatness
+      navLinks.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+  }
+  const overlay = document.getElementById('nav-overlay');
+  if (overlay) overlay.classList.remove('active');
   setMobileMenuIcon(false);
+  document.body.style.overflow = ''; // Restore scroll
 }
 
 function initMobileMenu() {
+  // Inject overlay if it doesn't exist
+  if (!document.getElementById('nav-overlay')) {
+    const overlay = document.createElement('div');
+    overlay.id = 'nav-overlay';
+    overlay.className = 'nav-overlay';
+    overlay.addEventListener('click', closeMobileMenu);
+    document.body.appendChild(overlay);
+  }
+
+  const navLinks = document.getElementById('nav-links');
+  if (navLinks) {
+    // Inject Drawer Header
+    if (!navLinks.querySelector('.drawer-header')) {
+      const header = document.createElement('div');
+      header.className = 'drawer-header';
+      header.innerHTML = `
+        <div class="drawer-logo">
+            <img src="images/logo.png" alt="Sile" onerror="this.style.display='none'">
+            <div class="drawer-title">Sile <br><span>Communications</span></div>
+        </div>
+        <button class="mobile-menu-close" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+        </button>
+      `;
+      header.querySelector('.mobile-menu-close').addEventListener('click', closeMobileMenu);
+      navLinks.prepend(header);
+    }
+    
+    // Inject Drawer Footer
+    if (!navLinks.querySelector('.drawer-footer')) {
+      const footer = document.createElement('div');
+      footer.className = 'drawer-footer';
+      footer.innerHTML = `
+        <a href="tel:0710102424" class="drawer-contact"><i class="fas fa-phone"></i> 0710 102424</a>
+        <a href="mailto:silecommunications.ltd@gmail.com" class="drawer-contact"><i class="fas fa-envelope"></i> silecommunications.ltd@gmail.com</a>
+        <div class="social-links" style="margin-top: 10px;">
+           <a href="https://wa.me/254710102424" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+           <a href="https://www.facebook.com/Silecommunications.ltd" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+           <a href="https://www.instagram.com/silecommunicationsltd/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      `;
+      navLinks.appendChild(footer);
+    }
+  }
+
   window.toggleMobileMenu = function (e) {
     if (e && e.stopPropagation) e.stopPropagation();
     const navLinks = document.getElementById('nav-links');
     if (!navLinks) return;
-    const isOpen = navLinks.classList.toggle('active');
-    setMobileMenuIcon(isOpen);
+    
+    const isOpen = !navLinks.classList.contains('active');
+    
+    if (isOpen) {
+        navLinks.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    } else {
+        closeMobileMenu();
+        return;
+    }
+    
+    const overlay = document.getElementById('nav-overlay');
+    if (overlay) overlay.classList.add('active');
+    setMobileMenuIcon(true);
   };
 
   getMobileMenuButtons().forEach((btn) => {
@@ -128,16 +192,8 @@ function initMobileMenu() {
     btn.addEventListener('click', window.toggleMobileMenu);
   });
 
-  // Close when tapping outside nav and any hamburger button
-  document.addEventListener('click', function (e) {
-    const nav = document.getElementById('nav-links');
-    if (!nav || !nav.classList.contains('active')) return;
-    const clickedMenuBtn = Array.from(getMobileMenuButtons()).some((btn) => btn.contains(e.target));
-    if (!nav.contains(e.target) && !clickedMenuBtn) closeMobileMenu();
-  });
-
-  // Auto-close mobile menu when any nav link is clicked
-  document.querySelectorAll('#nav-links a').forEach((link) => {
+  // Auto-close mobile menu when any non-dropdown nav link is clicked
+  document.querySelectorAll('#nav-links a:not(.dropdown > a)').forEach((link) => {
     link.addEventListener('click', () => {
       if (document.getElementById('nav-links')?.classList.contains('active')) {
         closeMobileMenu();

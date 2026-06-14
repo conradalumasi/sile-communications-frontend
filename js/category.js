@@ -30,6 +30,7 @@ function loadCategoryFilters() {
 function loadCategoryProducts() {
     const urlParams = new URLSearchParams(window.location.search);
     const categorySlug = urlParams.get('cat');
+    const brandQuery = urlParams.get('brand');
     const searchQuery = urlParams.get('search');
     
     let filteredProducts = [...PRODUCTS];
@@ -37,8 +38,12 @@ function loadCategoryProducts() {
     if (categorySlug) {
         const category = CATEGORIES.find(c => c.slug === categorySlug);
         if (category) {
-            filteredProducts = PRODUCTS.filter(p => p.categoryId === category.id);
+            filteredProducts = filteredProducts.filter(p => p.category === category.slug);
         }
+    }
+
+    if (brandQuery) {
+        filteredProducts = filteredProducts.filter(p => p.brand && p.brand.toLowerCase() === brandQuery.toLowerCase());
     }
     
     if (searchQuery) {
@@ -70,14 +75,19 @@ function filterByPrice() {
     
     const urlParams = new URLSearchParams(window.location.search);
     const categorySlug = urlParams.get('cat');
+    const brandQuery = urlParams.get('brand');
     
     let filtered = [...PRODUCTS];
     
     if (categorySlug) {
         const category = CATEGORIES.find(c => c.slug === categorySlug);
         if (category) {
-            filtered = PRODUCTS.filter(p => p.categoryId === category.id);
+            filtered = filtered.filter(p => p.category === category.slug);
         }
+    }
+
+    if (brandQuery) {
+        filtered = filtered.filter(p => p.brand && p.brand.toLowerCase() === brandQuery.toLowerCase());
     }
     
     filtered = filtered.filter(p => p.price >= min && p.price <= max);
