@@ -1,9 +1,3 @@
-/**
- * account.js — Sile Communications
- * Handles all account page functionality: tab navigation, profile editing, 
- * password changes, notifications, and profile picture persistence.
- */
-
 // API_BASE is already available globally from config.js
 let authToken = localStorage.getItem("authToken");
 let currentUser = null;
@@ -37,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
   loadUser();
 });
 
-/* ── UI Helpers ─────────────────────────────────────────── */
 
 function showMessage(containerId, text, isError = false) {
   const msgDiv = document.getElementById(containerId);
@@ -77,7 +70,6 @@ function handleNotLoggedIn() {
   document.getElementById("dashboardSection").classList.add("active");
 }
 
-/* ── Navigation ─────────────────────────────────────────── */
 
 function switchAccountSection(targetId) {
   if (targetId === "close") {
@@ -176,7 +168,6 @@ window.logout = function() {
   window.location.href = "index.html";
 };
 
-/* ── Profile Picture ─────────────────────────────────────── */
 
 function initProfilePictureUpload() {
   const uploadContainer = document.getElementById("avatarUploader");
@@ -241,7 +232,6 @@ function loadProfilePicture() {
   }
 }
 
-/* ── Data Loading ───────────────────────────────────────── */
 
 function populateProfileUI(user) {
   if (!user) return;
@@ -367,7 +357,6 @@ function renderOrders(statusFilter) {
   `).join("");
 }
 
-/* ── Forms ──────────────────────────────────────────────── */
 
 function initForms() {
   const profileForm = document.getElementById("profileForm");

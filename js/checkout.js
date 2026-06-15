@@ -1,6 +1,3 @@
-/**
- * checkout.js - Sile Communications checkout page
- */
 (function () {
   const authToken = localStorage.getItem('authToken') || localStorage.getItem('token');
   let cartItems = [];

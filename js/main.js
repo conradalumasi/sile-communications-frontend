@@ -53,7 +53,6 @@ function loadSafaricomServices() {
   `).join('');
 }
 
-/* ── Product Card ──────────────────────────────────────────── */
 function createProductCard(product, options = {}) {
   const { showWishlist = false, removeFromWishlist = false } = options;
   let badges = '';

@@ -1,11 +1,3 @@
-/**
- * wishlist.js — Sile Communications
- * Guests: wishlist in localStorage.
- * Logged-in: synced with backend (GET /wishlist, POST, DELETE, POST /wishlist/sync).
- *
- * Backend table: wishlist(user_id, product_id) — unique pair per user.
- */
-
 const WISHLIST_KEY = 'sileWishlist';
 
 function _getToken() {
@@ -166,7 +158,6 @@ function showWishlistNotification(message, type) {
   }, 3000);
 }
 
-/** Merge local guest wishlist with server (login / page load). */
 async function syncWishlistFromBackend() {
   const token = _getToken();
   if (!token) return;

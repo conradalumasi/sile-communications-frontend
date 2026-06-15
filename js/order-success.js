@@ -1,7 +1,3 @@
-/**
- * order-success.js — displays last order from sessionStorage
- * and verifies Paystack payment if reference is present
- */
 document.addEventListener('DOMContentLoaded', () => {
   handlePaymentVerification().then(() => {
     renderOrderSuccess();

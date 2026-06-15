@@ -16,7 +16,6 @@ let TOP_LAPTOPS = [];
 let OFFER_PRODUCTS = [];
 let LIPA_POLE_POLE_PRODUCTS = [];
 
-/* ── Skeleton cards shown while backend wakes up ─────────── */
 function showSkeletons(containerId, count = 5) {
   const el = document.getElementById(containerId);
   if (!el) return;
@@ -41,7 +40,6 @@ function showAllSkeletons() {
   showSkeletons('related-products', 4);
 }
 
-/* ── Error banner ─────────────────────────────────────────── */
 function showProductError(containerId) {
   const el = document.getElementById(containerId);
   if (!el) return;
@@ -65,7 +63,6 @@ function showAllErrors() {
   });
 }
 
-/** Normalize API product fields for storefront + admin compatibility */
 function normalizeProduct(p) {
   if (!p) return p;
   return {
@@ -109,7 +106,6 @@ function hydrateProductsFromCache() {
   }
 }
 
-/* ── Fetch products ───────────────────────────────────────── */
 async function fetchProducts() {
   // Show skeletons immediately
   showAllSkeletons();
@@ -137,7 +133,6 @@ async function fetchProducts() {
   }
 }
 
-/* ── Safaricom services (static) ──────────────────────────── */
 const SAFARICOM_SERVICES = [
   { id: 1, name: 'M-PESA Registration',       description: 'New M-PESA account setup with full KYC verification', price: 0,    image: 'images/service-mpesa.jpg' },
   { id: 2, name: 'M-PESA Agent Registration', description: 'Become an authorized M-PESA agent — complete training included', price: 0, image: 'images/service-agent.jpg' },

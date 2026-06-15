@@ -1,13 +1,3 @@
-/**
- * nav.js — Sile Communications
- * Shared behaviours injected on every page:
- *   - Auth state → update account button
- *   - Wishlist badge injection into header
- *   - Mobile menu toggle + dropdown
- *   - Cart modal overlay (click-outside-to-close)
- *   - Back-to-top button
- */
-
 // Fallback for inline onclick before DOM ready
 window.toggleMobileMenu = function() {
   const navLinks = document.getElementById('nav-links');
@@ -33,7 +23,6 @@ function safeRun(fn, name) {
   }
 }
 
-/* ── Auth: update account button on every page ───────────── */
 function initAuthButton() {
   const token = localStorage.getItem('authToken');
   let user = null;
@@ -63,7 +52,6 @@ function initAuthButton() {
   }
 }
 
-/* ── Wishlist: add heart icon to header actions ──────────── */
 function injectWishlistIcon() {
   const headerActions = document.querySelector('.header-actions');
   if (!headerActions) return;
@@ -94,7 +82,6 @@ function injectWishlistIcon() {
   if (typeof updateWishlistBadge === 'function') updateWishlistBadge();
 }
 
-/* ── Mobile menu (hamburger) ─────────────────────────────── */
 function getMobileMenuButtons() {
   return document.querySelectorAll('.header-bottom .mobile-menu-btn, .main-nav .mobile-menu-btn');
 }
@@ -225,7 +212,6 @@ function initMobileMenu() {
   });
 }
 
-/* ── Cart overlay (click-outside-to-close) ───────────────── */
 function initCartOverlay() {
   if (!document.getElementById('cart-overlay')) {
     const overlay = document.createElement('div');
@@ -261,7 +247,6 @@ function initCartOverlay() {
   });
 }
 
-/* ── Chat widget ─────────────────────────────────────────── */
 function initChatWidget() {
   window.toggleChat = function () {
     const widget = document.getElementById('chat-widget');
@@ -269,7 +254,6 @@ function initChatWidget() {
   };
 }
 
-/* ── Back to top ─────────────────────────────────────────── */
 function initBackToTop() {
   if (document.getElementById('back-to-top')) return;
   const btn = document.createElement('button');
