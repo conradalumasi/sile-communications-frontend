@@ -4251,7 +4251,7 @@ a {
     .nav-links {
         position: fixed !important;
         inset: 0 auto 0 0 !important;
-        z-index: 1200 !important;
+        z-index: 10001 !important;
         display: flex !important;
         flex-direction: column !important;
         width: min(86vw, 360px) !important;
@@ -4276,6 +4276,7 @@ a {
 
     .nav-overlay {
         display: block !important;
+        z-index: 950 !important;
     }
 
     .nav-overlay.active {
