@@ -87,9 +87,10 @@ function getMobileMenuButtons() {
 }
 
 function setMobileMenuIcon(open) {
-  // Just toggle ARIA states since hamburger handles clicks
   getMobileMenuButtons().forEach((btn) => {
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    const icon = btn.querySelector('i');
+    if (icon) icon.className = open ? 'fas fa-times' : 'fas fa-bars';
   });
 }
 
@@ -190,7 +191,7 @@ function initMobileMenu() {
   // Mobile dropdown: tap to toggle (prevent default for parent link)
   document.querySelectorAll('.dropdown > a').forEach(link => {
     link.addEventListener('click', function (e) {
-      if (window.innerWidth <= 900) {
+      if (window.innerWidth <= 1100) {
         e.preventDefault();
         const parent = this.parentElement;
         // Close siblings
@@ -207,7 +208,7 @@ function initMobileMenu() {
     const navLinks = document.getElementById('nav-links');
     const hamburger = document.querySelector('.mobile-menu-btn');
     if (!navLinks || !navLinks.classList.contains('active')) return;
-    if (navLinks.contains(e.target) || hamburger.contains(e.target)) return;
+    if (navLinks.contains(e.target) || (hamburger && hamburger.contains(e.target))) return;
     closeMobileMenu();
   });
 }
