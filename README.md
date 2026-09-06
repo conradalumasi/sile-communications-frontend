@@ -175,7 +175,3 @@ Events:
 - The site UI contains contact info for Sile Communications (phone and email). For repository-specific questions, open an issue in this repo.
 
 ---
-
-If you want, I can:
-- Commit this README.md to the repository for you, or
-- Generate a shorter "Quickstart" or a "Contributing" template to include with the README.
